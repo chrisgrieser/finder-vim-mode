@@ -1,13 +1,11 @@
-
 # Vim Mode for macOS Finder
 Keyboard-only control of macOS' Finder, inspired by vim/ranger. 
 
 ## Usage
-![finder-vim-cheatsheet](./finder-vim-cheatsheet.png).
+![finder-vim-cheatsheet](./finder-vim-cheatsheet.png)
 
 > __Note__  
 > Press `?` in Finder to show the following cheatsheet.
-
 
 ## Installations
 - Requirements: [Karabiner Elements](https://karabiner-elements.pqrs.org/)
@@ -18,10 +16,12 @@ curl -sL "https://raw.githubusercontent.com/chrisgrieser/.config/main/visualized
 ```
 
 ## Caveats
+Since Karabiner "plugins" are nothing more than (big) JSON files, the capabilities of this plugin are quite limited.
+- It is impossible to have use a vimrc or to let the user configure the keybindings themselves in any way. If you want to rebind keys, you have to change the respective key manually in the JSON file.
 - To be used in `List View` only. 
-- if you have a complex modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
+- If you have a complex modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
-### Alfred
+## Alfred
 Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
 
 1. Temporarily pause Finder-Vim-Mode via `⌫ backspace`, and use Alfred. As soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode is active again.
