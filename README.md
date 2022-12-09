@@ -6,6 +6,7 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 <!--toc:start-->
 - [Usage](#usage)
 - [Installations](#installations)
+- [Updates](#updates)
 - [Caveats](#caveats)
 - [For Alfred users](#for-alfred-users)
 <!--toc:end-->
@@ -22,6 +23,9 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 open "karabiner://karabiner/assets/complex_modifications/import?url=https://github.com/chrisgrieser/finder-vim-mode/releases/latest/download/finder-vim.json"
 curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/macos-finder-vim-mode.png"
 ```
+
+## Updates
+Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can watch the releases of this repo to be notified when there are updates.
 
 ## Caveats
 Since Karabiner "plugins" are nothing more than (big) JSON files, the capabilities of this plugin are quite limited.
