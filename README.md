@@ -3,7 +3,7 @@
 Keyboard-only control of macOS' Finder, inspired by vim/ranger. 
 
 ## Usage
-![finder-vim-cheatsheet](/macos-finder-vim-mode.png).
+![finder-vim-cheatsheet](./finder-vim-cheatsheet.png).
 
 > __Note__  
 > Press `?` in Finder to show the following cheatsheet.
@@ -19,13 +19,11 @@ curl -sL "https://raw.githubusercontent.com/chrisgrieser/.config/main/visualized
 
 ## Caveats
 - To be used in `List View` only. 
-- if you have a complex modification affecting the capslock key, it has to come __after__ Finder Vim Controls in Karabiner's priority list.
+- if you have a complex modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ### Alfred
+Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
 
-
-
-Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred (for example for the clipboard or the Universal action), you have to use one of the following methods:
-
-1. (Easier) Temporarily pause Finder-Vim-Mode via `⌫ backspace`, use Alfred, and as soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode will be active again.
-2. Permanently disable Finder-Vim-Mode for the respective Alfred Commands by downloading the [Finder-Vim-Mode-Addon](karabiner/assets/finder-vim-addons.json) and customizing it keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`), the first example uses modifier keys, the second only a single keystroke.
+1. Temporarily pause Finder-Vim-Mode via `⌫ backspace`, and use Alfred. As soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode is active again.
+2. (Recommended) Permanently disable Finder-Vim-Mode for the respective Alfred Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`), the first example uses modifier keys, the second only a single keystroke.
+3. Enable "Compatibility Mode" in the Alfred Appearance options. Note that this might break certain Alfred workflow, which rely on this option being off.
