@@ -22,5 +22,5 @@ body:
       options:
         - label: The feature would be useful to more users than just me.
           required: true
-        - label: I have read the [Caveats in the README](../../README.md#caveats).
+        - label: I have read about the limitations of Karabiner plugins in the [caveats section of the README](../../README.md#caveats).
           required: true

@@ -32,3 +32,5 @@ body:
       options:
         - label: I updated to the latest version.
           required: true
+        - label: I have read about the limitations of Karabiner plugins in the [caveats section of the README](../../README.md#caveats).
+          required: true
