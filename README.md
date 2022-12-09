@@ -29,8 +29,9 @@ Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to
 
 ## Caveats
 Since Karabiner "plugins" are nothing more than (big) JSON files, the capabilities of this plugin are quite limited.
+- Navigating the Desktop is not supported.
 - It is impossible to have use a vimrc or to let the user configure the keybindings themselves in any way. If you want to rebind keys, you have to change the respective key manually in the JSON file.
-- If you have a complex modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
+- If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Build
 Convert the YAML-File via [yq](https://github.com/mikefarah/yq):
