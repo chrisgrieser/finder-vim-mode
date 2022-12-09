@@ -1,6 +1,6 @@
 [
   {
-    "name": "macOS Finder Vim Mode",
+    "name": "Finder Vim Cheatsheet",
     "author": "pseudometa",
     "notes": "# vim/ranger-like bindings in Finder\n\n*to be used with Finder's \"List View\"*\n\n1. Switcher, Rename, and Spotlight/Alfred (⌘+space) active Insert Mode for Normal Typing\n2. \"f\" activates a one-letter-search mode, similar to vim: The next typed letter will select a file starting with that letter\n3. Escape/Hyper leave Normal Mode. If you have a Hyper=Caps Binding, make sure Finder Vim Mode has a higher priority to avoid conflicts.\n4. \"m\" marks a file as \"to be moved\". The next paste (via \"p\" or \"cmd-v\") will cause the marked file to be moved to the respective location."
   },

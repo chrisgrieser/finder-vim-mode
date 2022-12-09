@@ -15,10 +15,11 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 - Press `?` in Finder to show the cheatsheet above.
 
 ## Installations
-- Requirements: [Karabiner Elements](https://karabiner-elements.pqrs.org/)
+- Install [Karabiner Elements](https://karabiner-elements.pqrs.org/).
+- Run this in your terminal:
 
 ```bash
-open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/.config/main/karabiner/assets/finder-vim.json"
+open "karabiner://karabiner/assets/complex_modifications/import?url=https://github.com/chrisgrieser/finder-vim-mode/releases/latest/download/finder-vim.json"
 curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/macos-finder-vim-mode.png"
 ```
 
