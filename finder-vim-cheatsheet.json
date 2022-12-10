@@ -1,8 +1,7 @@
 [
   {
     "name": "Finder Vim Cheatsheet",
-    "author": "pseudometa",
-    "notes": "# vim/ranger-like bindings in Finder\n\n*to be used with Finder's \"List View\"*\n\n1. Switcher, Rename, and Spotlight/Alfred (⌘+space) active Insert Mode for Normal Typing\n2. \"f\" activates a one-letter-search mode, similar to vim: The next typed letter will select a file starting with that letter\n3. Escape/Hyper leave Normal Mode. If you have a Hyper=Caps Binding, make sure Finder Vim Mode has a higher priority to avoid conflicts.\n4. \"m\" marks a file as \"to be moved\". The next paste (via \"p\" or \"cmd-v\") will cause the marked file to be moved to the respective location."
+    "author": "pseudometa"
   },
   [
     {
@@ -105,21 +104,18 @@
     },
     "↹",
     {
-      "c": "#cccccc"
-    },
-    "q",
-    {
       "c": "#c7a6ff"
     },
+    "q\ncontext menu",
     "w\n:close",
     "e\neject (if volume)",
-    "r\nduplicate file",
+    "r\nduplicate",
     "t\n:tabnext",
-    "z\nzip file(s)",
+    "z\nzip",
     "u (U)\nundo (redo)",
     "i\ninfo",
     "o\nopen fold",
-    "p\npaste file(s)\n\n\n⌃p path",
+    "p\npaste\n\n\n⌃p path",
     {
       "c": "#CCCCCC"
     },
@@ -151,10 +147,10 @@
       "w": 1.75
     },
     "⇪\nnormal mode",
-    "a\nselect all files",
     {
       "f": 1
     },
+    "a (A)\n(de)select all files",
     "s (S)\nfollow (create) symlink",
     {
       "f": 2
@@ -169,22 +165,18 @@
     },
     "gg (G)\n(bottom)\n\n\n\n\nto top",
     {
-      "sm": "cherry",
-      "f": 2
+      "sm": "cherry"
     },
-    "h\nparent dir\n\n\n⌃h back",
+    "h (h)\nparent (prev) dir\n\n\n⌃h back",
     {
-      "f": 1,
       "n": true
     },
     "j (J)\n(6 down)\n\n\n\n\ndown",
     "k (K)\n(6 up)\n\n\n\n\nup",
+    "l (L)\nopen file / dir (& close win)\n\n\n⌃l forw",
     {
+      "c": "#CCCCCC",
       "f": 2
-    },
-    "l\nopen file / dir\n\n\n⌃l forw",
-    {
-      "c": "#CCCCCC"
     },
     "ö",
     "ä",
@@ -212,11 +204,11 @@
     {
       "c": "#c7a6ff"
     },
-    "y\nyank file(s)",
+    "y\nyank (copy)",
     {
       "f": 1
     },
-    "x\ncross-move (if 2 wins)",
+    "x\ncross-move (if two wins)",
     {
       "f": 2
     },
@@ -227,7 +219,7 @@
     {
       "f": 1
     },
-    "m (M)\n(new dir from sel)\n\n\n\n\nmove file",
+    "m (M)\nmove file (new dir from sel)",
     {
       "c": "#CCCCCC",
       "f": 2
