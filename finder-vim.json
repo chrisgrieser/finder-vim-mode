@@ -5,7 +5,7 @@
     "pseudometa (chrisgrieser)"
   ],
   "version": [
-    "0.9.3"
+    1
   ],
   "anchors": [
     {
@@ -80,6 +80,16 @@
         {
           "type": "variable_unless",
           "name": "FINDER_MOVE_ACTIVE",
+          "value": true
+        },
+        {
+          "type": "variable_if",
+          "name": "FINDER_CONTEXT_MENU_ACTIVE",
+          "value": true
+        },
+        {
+          "type": "variable_unless",
+          "name": "FINDER_CONTEXT_MENU_ACTIVE",
           "value": true
         }
       ]
@@ -187,6 +197,18 @@
             "name": "FINDER_MOVE_ACTIVE",
             "value": false
           }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_CONTEXT_MENU_ACTIVE",
+            "value": true
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_CONTEXT_MENU_ACTIVE",
+            "value": false
+          }
         }
       ]
     }
@@ -282,6 +304,11 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
             }
           ]
         },
@@ -313,6 +340,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -534,7 +566,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/visualized-keyboard-layout/macos-finder-vim-mode.png\" || qlmanage -p \"$HOME/.config/karabiner/assets/macos-finder-vim-mode.png\""
+              "shell_command": "qlmanage -p \"$HOME/.config/visualized-keyboard-layout/macos-finder-vim-mode.png\" || qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-cheatsheet.png\""
             }
           ],
           "conditions": [
@@ -576,7 +608,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/visualized-keyboard-layout/macos-finder-vim-mode.png\" || open \"$HOME/.config/karabiner/assets/macos-finder-vim-mode.png\""
+              "shell_command": "qlmanage -p \"$HOME/.config/visualized-keyboard-layout/macos-finder-vim-mode.png\" || open \"$HOME/.config/karabiner/assets/finder-vim-cheatsheet.png\""
             }
           ],
           "conditions": [
@@ -643,6 +675,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -728,6 +765,11 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
             }
           ]
         },
@@ -779,6 +821,11 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
             }
           ]
         },
@@ -828,6 +875,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -883,6 +935,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -960,6 +1017,12 @@
             {
               "set_variable": {
                 "name": "FINDER_ALFRED_ACTIVE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2019,6 +2082,12 @@
                 "name": "FINDER_ALFRED_ACTIVE",
                 "value": false
               }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "value": false
+              }
             }
           ],
           "to": [
@@ -2077,6 +2146,12 @@
                 "name": "FINDER_ALFRED_ACTIVE",
                 "value": false
               }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "value": false
+              }
             }
           ],
           "conditions": [
@@ -2125,6 +2200,12 @@
             {
               "set_variable": {
                 "name": "FINDER_SEARCH_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2180,6 +2261,12 @@
             {
               "set_variable": {
                 "name": "FINDER_SEARCH_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2409,6 +2496,120 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "q"
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if the selection is {} then return\n    activate\n  end tell\n  delay 0.1\n  tell application \"System Events\" to tell process \"Finder\"\n    tell value of attribute \"AXFocusedUIElement\" to perform action \"AXShowMenu\"\n  end tell'\n"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "value": true
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "d"
           },
           "to_if_alone": [
@@ -2521,35 +2722,6 @@
                   "language": "^de$"
                 }
               ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "q"
-          },
-          "to": [
-            {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if the selection is {} then return\n    activate\n  end tell\n  delay 0.1\n  tell application \"System Events\" to tell process \"Finder\"\n    tell value of attribute \"AXFocusedUIElement\" to perform action \"AXShowMenu\"\n  end tell'\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
             }
           ]
         },
