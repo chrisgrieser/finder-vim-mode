@@ -1,6 +1,7 @@
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/dotfiles/karabiner
-author: [pseudometa]
+maintainers: [pseudometa (chrisgrieser)]
+version: [0.9.3]
 anchors:
   - conditions:
       - &finder-app
@@ -614,7 +615,7 @@ rules:
       - type: basic
         from: {key_code: s}
         to:
-          - shell-command: |
+          - shell-command: | 
               sel=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
               readlink "$sel" | xargs open -R
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]

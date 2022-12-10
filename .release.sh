@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # CONFIG
-ORIGIN="$HOME/.config/karabiner/assets/complex_modifications/finder-vim.yaml" 
+ORIGIN="$HOME/.config/karabiner/assets/complex_modifications/finder-vim.yaml"
 
 #───────────────────────────────────────────────────────────────────────────────
 
@@ -14,14 +14,14 @@ if [[ ! -f "$ORIGIN" ]]; then
 	echo "$(basename "$ORIGIN") does not exist."
 	exit 1
 fi
-if ! command -v yq &>/dev/null ; then 
+if ! command -v yq &>/dev/null; then
 	echo "yq not installed."
 	exit 1
 fi
 
 # Prompt for version number
 nextVersion="$*"
-currentVersion=$(grep -o -e "[0-9.]*" "$ORIGIN")
+currentVersion=$(grep -o -e "version: \[[0-9.]*\]" "$ORIGIN" | grep -o -e "[0-9.]*")
 echo "current version: $currentVersion"
 echo -n "   next version: "
 if [[ -z "$nextVersion" ]]; then
@@ -38,7 +38,7 @@ sed -E -i '' "s/version: .*/version: [$nextVersion]/" "$ORIGIN"
 cp -vf "$ORIGIN" .
 
 # Build
-yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
+yq -o=json 'explode(.)' finder-vim.yaml >finder-vim.json
 
 # update changelog
 echo "- $(date +"%Y-%m-%d")	release $nextVersion" >./Changelog.md
