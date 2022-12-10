@@ -1,7 +1,7 @@
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/dotfiles/karabiner
 maintainers: [pseudometa (chrisgrieser)]
-version: [1.0]
+version: [1.0.1]
 anchors:
   - conditions:
       - &finder-app
@@ -297,7 +297,6 @@ rules:
           - *remove-insert-notice
           - *leave-insert-mode
           - *end-alfred
-          - *end-context-menu
         conditions: [*finder-app, *is-insert-mode, *not-search-mode]
       # Confirm Search Mode
       - type: basic
@@ -393,7 +392,7 @@ rules:
         to:
           - key_code: right_shift
             modifiers: [command, control, option] # keep hyper binding
-        conditions: [*finder-app, *is-insert-mode]
+        conditions: [*finder-app]
       - type: basic
         from: {key_code: escape}
         to:
@@ -403,7 +402,7 @@ rules:
           - *leave-search-mode
           - *end-alfred
           - *end-context-menu
-        conditions: [*finder-app, *is-insert-mode]
+        conditions: [*finder-app]
         # Closing window or quitting Finder should also disable Insert mode
       - type: basic
         from: {key_code: w, modifiers: {mandatory: [command]}}
@@ -413,7 +412,7 @@ rules:
           - *leave-insert-mode
           - *leave-search-mode
           - *end-context-menu
-        conditions: [*finder-app, *is-insert-mode, *alfred-inactive]
+        conditions: [*finder-app, *alfred-inactive]
       - type: basic
         from: {key_code: q, modifiers: {mandatory: [command]}}
         to:
@@ -422,7 +421,7 @@ rules:
           - *leave-insert-mode
           - *leave-search-mode
           - *end-context-menu
-        conditions: [*finder-app, *is-insert-mode, *alfred-inactive]
+        conditions: [*finder-app, *alfred-inactive]
       #─────────────────────────────────────────────────────────────────────────
       # Window & Tabs
       # w = close window/tab (:[tab]close)
@@ -481,8 +480,8 @@ rules:
                 tell application "System Events" to tell process "Finder"
                   tell value of attribute "AXFocusedUIElement" to perform action "AXShowMenu"
                 end tell'
-          - *start-context-menu 
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
+          - *start-context-menu
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # changed navigation in context menu
       - type: basic
         from: {key_code: l}
@@ -496,6 +495,15 @@ rules:
           - key_code: left_arrow
             modifiers: [command]
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *context-menu-open]
+      # Confirm Context Menu Selection
+      - type: basic
+        from: {key_code: return_or_enter}
+        to:
+          - key_code: return_or_enter
+          - *end-context-menu
+        conditions: [*finder-app, *context-menu-open]
+      # INFO: context menu cancellation configured with the insert mode
+      # cancellations
       #─────────────────────────────────────────────────────────────────────────
       # Basic File Operations
       # d = delete
@@ -645,16 +653,14 @@ rules:
       - type: basic
         from: {key_code: s}
         to:
-          - shell-command: |
+          - shell_command: |
               sel=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
-              readlink "$sel" | xargs open -R
+              open -R "$(readlink -f "$sel")"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # S = Create Symlink
       - type: basic
-        from:
-          key_code: s
-          modifiers: {mandatory: [shift]}
-        to:
+        from: {key_code: s, modifiers: {mandatory: [shift]}}
+        to: # TODO: does not work yet on files without extension
           - shell_command: |
               sel=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
               fileNoExt=${sel%.*}

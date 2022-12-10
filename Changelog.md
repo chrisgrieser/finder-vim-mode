@@ -1,3 +1,4 @@
+- 2022-12-10	release 1.0.1
 - 2022-12-10	release 1.0
 - 2022-12-10	context menu navigation via hjkl
 - 2022-12-10	release 0.9.3

@@ -5,7 +5,7 @@
     "pseudometa (chrisgrieser)"
   ],
   "version": [
-    1
+    "1.0.1"
   ],
   "anchors": [
     {
@@ -1017,12 +1017,6 @@
             {
               "set_variable": {
                 "name": "FINDER_ALFRED_ACTIVE",
-                "value": false
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2106,11 +2100,6 @@
               "bundle_identifiers": [
                 "^com\\.apple\\.finder$"
               ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
             }
           ]
         },
@@ -2160,11 +2149,6 @@
               "bundle_identifiers": [
                 "^com\\.apple\\.finder$"
               ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
             }
           ]
         },
@@ -2216,11 +2200,6 @@
               "bundle_identifiers": [
                 "^com\\.apple\\.finder$"
               ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
             },
             {
               "type": "variable_unless",
@@ -2277,11 +2256,6 @@
               "bundle_identifiers": [
                 "^com\\.apple\\.finder$"
               ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
             },
             {
               "type": "variable_unless",
@@ -2525,11 +2499,6 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
-              "value": true
             }
           ]
         },
@@ -2599,6 +2568,36 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "return_or_enter"
+          },
+          "to": [
+            {
+              "key_code": "return_or_enter"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
             },
             {
               "type": "variable_if",
@@ -3227,7 +3226,7 @@
           },
           "to": [
             {
-              "shell-command": "sel=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as alias)')\nreadlink \"$sel\" | xargs open -R\n"
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as alias)')\nopen -R \"$(readlink -f \"$sel\")\"\n"
             }
           ],
           "conditions": [
