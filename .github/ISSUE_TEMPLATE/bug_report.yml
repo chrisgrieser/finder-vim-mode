@@ -25,6 +25,14 @@ body:
         1. Go to '...'
         2. Click on '...'
         3. Scroll down to '...'
+  - type: input
+    id: keyboard-layout
+    attributes:
+      label: Keyboard Layout
+      description: You can find your active layout at `System Settings → Keyboard → Text Input → Input Sources`
+      placeholder: "e.g.: ABC – QWERTZ"
+    validations:
+      required: true
   - type: checkboxes
     id: checklist
     attributes:
