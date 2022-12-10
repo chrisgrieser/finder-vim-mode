@@ -1,3 +1,5 @@
+- 2022-12-10	release 1.0.2
+- 2022-12-10	cheatsheet update & H map for prev dir
 - 2022-12-10	release 1.0.1
 - 2022-12-10	release 1.0
 - 2022-12-10	context menu navigation via hjkl
