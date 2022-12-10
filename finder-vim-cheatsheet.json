@@ -155,7 +155,7 @@
     {
       "f": 1
     },
-    "s (S)\nSwitcher (Symlink)",
+    "s (S)\nfollow (create) symlink",
     {
       "f": 2
     },

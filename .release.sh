@@ -1,12 +1,28 @@
-#!/bin/zsh
-# ensure relevant files exist
+#!/usr/bin/env zsh
+
+# CONFIG
+ORIGIN="$HOME/.config/karabiner/assets/complex_modifications/finder-vim.yaml" 
+
+#───────────────────────────────────────────────────────────────────────────────
+
+# ensure relevant files/clis exist
 if [[ ! -f "./.github/workflows/release.yml" ]]; then
 	echo "/.github/workflows/release.yml does not exist yet"
+	exit 1
+fi
+if [[ ! -f "$ORIGIN" ]]; then
+	echo "$(basename "$ORIGIN") does not exist."
+	exit 1
+fi
+if ! command -v yq &>/dev/null ; then 
+	echo "yq not installed."
 	exit 1
 fi
 
 # Prompt for version number
 nextVersion="$*"
+currentVersion=$(grep -o -e "[0-9.]*" "$ORIGIN")
+echo "current version: $currentVersion"
 echo -n "   next version: "
 if [[ -z "$nextVersion" ]]; then
 	read -r nextVersion
@@ -14,6 +30,15 @@ else
 	echo "$nextVersion"
 fi
 echo ""
+
+# Bump version number in original finder-vim.yaml
+sed -E -i '' "s/version: .*/version: [$nextVersion]/" "$ORIGIN"
+
+# Copy file from personal repo
+cp -vf "$ORIGIN" .
+
+# Build
+yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 
 # update changelog
 echo "- $(date +"%Y-%m-%d")	release $nextVersion" >./Changelog.md
