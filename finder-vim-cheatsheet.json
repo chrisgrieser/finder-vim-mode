@@ -107,7 +107,7 @@
       "c": "#c7a6ff"
     },
     "q\ncontext menu",
-    "w\n:close",
+    "w (W)\n:close (:quit)",
     "e\neject (if volume)",
     "r\nduplicate",
     "t\n:tabnext",
@@ -214,7 +214,13 @@
     },
     "c\nclose fold",
     "v\nview settings",
-    "b\n:bnext (window)",
+    {
+      "f": 1
+    },
+    "b (B)\n:bnext (arrange all wins)",
+    {
+      "f": 2
+    },
     "n N\nnew file (folder)\n\n\n⌃n name",
     {
       "f": 1

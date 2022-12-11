@@ -15,13 +15,14 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 ## Usage
 - Only works in Finder's `List View`.
 - Press `?` in Finder to show the cheatsheet above.
-- The context menu can be opened with `q` and navigated via `hjkl`.
+- The context-menu can be opened with `q` and navigated via `hjkl`.
 
 ## Installations
 - Install [Karabiner Elements](https://karabiner-elements.pqrs.org/).
 - Run this in your terminal:
 
 ```bash
+# if not already installed
 brew install karabiner-elements
 
 open "karabiner://karabiner/assets/complex_modifications/import?url=https://github.com/chrisgrieser/finder-vim-mode/releases/latest/download/finder-vim.json"
@@ -40,11 +41,13 @@ Since Karabiner "plugins" are nothing more than JSON files, this plugin are quit
 - If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Build
-Convert the YAML-File via [yq](https://github.com/mikefarah/yq):
+Convert the YAML-File to JSON via [yq](https://github.com/mikefarah/yq):
 
 ```bash
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
+
+The result JSON-File then works like a regular [complex modification for Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/).
 
 ## For Alfred users
 Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
