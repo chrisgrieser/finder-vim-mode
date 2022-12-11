@@ -35,15 +35,18 @@ echo ""
 sed -E -i '' "s/version: .*/version: [$nextVersion]/" "$ORIGIN"
 
 # Copy file from personal repo
+echo "Copying yaml from dotfiles…"
 cp -vf "$ORIGIN" .
 
 # Build
+echo "Converting YAML to JSON"
 yq -o=json 'explode(.)' finder-vim.yaml >finder-vim.json
 
 # update changelog
 echo "- $(date +"%Y-%m-%d")	release $nextVersion" >./Changelog.md
 git log --pretty=format:"- %ad%x09%s" --date=short | grep -Ev "minor$" | grep -Ev "patch$" | grep -Ev "typos?$" | grep -v "refactoring" | grep -v "Add files via upload" | grep -Ev "\tDelete" | grep -Ev "\tUpdate.*\.md" | sed -E "s/\t\+ /\t/g" >>./Changelog.md
 
+echo
 # push the manifest and versions JSONs
 git add -A
 git commit -m "release $nextVersion"
