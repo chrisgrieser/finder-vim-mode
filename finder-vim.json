@@ -5,7 +5,7 @@
     "pseudometa (chrisgrieser)"
   ],
   "version": [
-    "1.0.2"
+    "1.1.0"
   ],
   "anchors": [
     {
@@ -600,7 +600,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/visualized-keyboard-layout/macos-finder-vim-mode.png\" || qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-cheatsheet.png\""
+              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png\""
             }
           ],
           "conditions": [
@@ -642,7 +642,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/visualized-keyboard-layout/macos-finder-vim-mode.png\" || open \"$HOME/.config/karabiner/assets/finder-vim-cheatsheet.png\""
+              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png\""
             }
           ],
           "conditions": [
@@ -2327,6 +2327,54 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": [
+                "command",
+                "option"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
             }
           ]
         },
@@ -2359,6 +2407,50 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Arrange in Front\" of menu \"Window\" of menu bar 1\n  end tell'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
             }
           ]
         },
@@ -2390,6 +2482,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
             }
           ]
