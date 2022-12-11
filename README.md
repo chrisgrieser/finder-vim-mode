@@ -15,6 +15,9 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 ## Usage
 - Only works in Finder's `List View`.
 - Press `?` in Finder to show the cheatsheet above.
+- Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
+- `m` for moving marks the selection as "to be moved." The next paste-operation `p` moves the file.
+- If you have exactly two Finder windows open, `x` moves the selection to the other window.
 - The context-menu can be opened with `q` and navigated via `hjkl`.
 
 ## Installations
