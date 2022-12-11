@@ -107,7 +107,7 @@
       "c": "#c7a6ff"
     },
     "q\ncontext menu",
-    "w (W)\n:close (:quit)",
+    "w (W)\n:close (:only)",
     "e\neject (if volume)",
     "r\nduplicate",
     "t\n:tabnext",
