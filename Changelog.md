@@ -1,3 +1,5 @@
+- 2022-12-11	release 1.1.1
+- 2022-12-11	'W' acts as :only rather than :quit
 - 2022-12-11	release 1.1.0
 - 2022-12-11	fix '?', add 'B' and 'W'
 - 2022-12-10	release 1.0.2

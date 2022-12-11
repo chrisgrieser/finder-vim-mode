@@ -1,7 +1,7 @@
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/dotfiles/karabiner
 maintainers: [pseudometa (chrisgrieser)]
-version: [1.1.0]
+version: [1.1.1]
 anchors:
   - conditions:
       - &finder-app
@@ -439,11 +439,17 @@ rules:
         to:
           - {key_code: w, modifiers: [command]}
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
-      # w = close all windows
+      # w = close other windows (:only)
       - type: basic
         from: {key_code: w, modifiers: {mandatory: [shift]}}
         to:
-          - {key_code: w, modifiers: [command, option]}
+          - shell_command: |
+              osascript -e '
+                tell application "Finder"
+                  repeat while window 2 exists
+                    close window 2
+                  end repeat
+                end tell'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
       # b = cycle windows (:bnext)
       - type: basic

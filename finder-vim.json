@@ -5,7 +5,7 @@
     "pseudometa (chrisgrieser)"
   ],
   "version": [
-    "1.1.0"
+    "1.1.1"
   ],
   "anchors": [
     {
@@ -2347,11 +2347,7 @@
           },
           "to": [
             {
-              "key_code": "w",
-              "modifiers": [
-                "command",
-                "option"
-              ]
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while window 2 exists\n      close window 2\n    end repeat\n  end tell'\n"
             }
           ],
           "conditions": [
