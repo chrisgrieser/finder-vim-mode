@@ -36,7 +36,7 @@ curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/fi
 Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can watch the releases of this repo to be notified when there are updates.
 
 ## Caveats
-Since Karabiner "plugins" are nothing more than JSON files, this plugin are quite limited has quite a few limitations.
+Since Karabiner "plugins" are nothing more than JSON files, this plugin has quite a few limitations.
 - Only List view is supported. The desktop is not supported.
 - This has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
 - If you use the mouse to click buttons or confirm things, you might end up in the wrong mode. In that case, Press `esc` to get back to Normal Mode. You can also temporarily disable Finder Vim Mode via `backspace`.
