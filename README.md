@@ -40,7 +40,7 @@ Since Karabiner "plugins" are nothing more than JSON files, this plugin are quit
 - Only List view is supported. The desktop is not supported.
 - This has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
 - If you use the mouse to click buttons or confirm things, you might end up in the wrong mode. In that case, Press `esc` to get back to Normal Mode. You can also temporarily disable Finder Vim Mode via `backspace`.
-- It is impossible to have use a vimrc or to let the user configure the keybindings themselves in any way. If you want to rebind keys, you unfortunately have to change the respective key manually in the JSON file.
+- Unfortunately, it is not possible to have a vimrc or to let the user configure the keybindings themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you will have to change the respective key manually in the JSON file.
 - If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Build
