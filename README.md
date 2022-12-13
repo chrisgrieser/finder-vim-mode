@@ -57,7 +57,7 @@ Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. Ho
 
 1. Temporarily pause Finder-Vim-Mode via `⌫ backspace`, and use Alfred. As soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode is active again.
 2. (Recommended) Permanently disable Finder-Vim-Mode for the respective Alfred Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`), the first example uses modifier keys, the second only a single keystroke.
-3. Enable "Compatibility Mode" in the Alfred Appearance options. Note that this might break certain Alfred workflow, which rely on this option being off.
+3. Enable `Compatibility Mode` in the Alfred Appearance options. Note that this might break certain Alfred workflow, which rely on this option being off.
 
 <!-- vale Google.FirstPerson = NO -->
 ## Credits
