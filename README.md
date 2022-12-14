@@ -8,6 +8,8 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 - [Installations](#installations)
 - [Updates](#updates)
 - [Caveats](#caveats)
+- [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
+- [Build](#build)
 - [For Alfred users](#for-alfred-users)
 - [Credits](#credits)
 <!--toc:end-->
