@@ -39,7 +39,7 @@ echo "Copying yaml from dotfiles…"
 cp -vf "$ORIGIN" .
 
 # Build
-echo -n "Converting YAML to JSON…"
+echo -n "Converting YAML to JSON… "
 yq -o=json 'explode(.)' finder-vim.yaml >finder-vim.json
 echo "✅"
 
