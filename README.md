@@ -17,11 +17,11 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 ## Usage
 - Only works in Finder's `List View`.
 - Press `?` in Finder to show the cheatsheet above.
-- Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
 - `m` for moving marks the selection as "to be moved." The next paste-operation `p` moves the file.
-- If you have exactly two Finder windows open, `x` moves the selection to the other window.
-- The context-menu can be opened with `q` and navigated via `hjkl`.
+- If you have *exactly* two Finder windows open, `x` moves the selection to the other window.
+- The context-menu can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
 - The find mode triggered via `f` works similarly to `f` in vim, expecting another letter (or digit) afterwards. `fh`, for example, would jump to the next file with starts with the letter `h`, and `f6` jumps to the next file which starts with `6`.
+- Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
 
 ## Installations
 - Install [Karabiner Elements](https://karabiner-elements.pqrs.org/).
@@ -49,7 +49,7 @@ Since Karabiner "plugins" are nothing more than JSON files, this plugin has quit
 - If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Why not use a Terminal file manager?
-Other than a nicer appearance, a GUI does have a few advantages like better OS-integration. [I listed a few advantages of a GUI file manager over a TUI file manager here.](https://www.reddit.com/r/vim/comments/zkwk5x/comment/j07b7ak/?utm_source=share&utm_medium=web2x&context=3)
+Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration. [I listed a few advantages of a GUI file manager over a TUI file manager here.](https://www.reddit.com/r/vim/comments/zkwk5x/comment/j07b7ak/?utm_source=share&utm_medium=web2x&context=3)
 
 ## Build
 Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases greatly reduces the lines of code to only ~800 lines.
