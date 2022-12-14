@@ -1,3 +1,7 @@
+- 2022-12-14	release 1.0.3
+- 2022-12-14	higher res cheatsheet (#1)
+- 2022-12-11	added some info to the readme
+- 2022-12-11	update build script
 - 2022-12-11	release 1.1.1
 - 2022-12-11	'W' acts as :only rather than :quit
 - 2022-12-11	release 1.1.0
