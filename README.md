@@ -19,15 +19,17 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 - `m` for moving marks the selection as "to be moved." The next paste-operation `p` moves the file.
 - If you have exactly two Finder windows open, `x` moves the selection to the other window.
 - The context-menu can be opened with `q` and navigated via `hjkl`.
+- The find mode triggered via `f` works similarly to `f` in vim, expecting another letter (or digit) afterwards. `fh`, for example, would jump to the next file with starts with the letter `h`, and `f6` jumps to the next file which starts with `6`.
 
 ## Installations
 - Install [Karabiner Elements](https://karabiner-elements.pqrs.org/).
 - Run this in your terminal:
 
 ```bash
-# if not already installed
+# Install Karabiner (if not already installed)
 brew install karabiner-elements
 
+# Install Finder-Vim-Mode plugin for Karabiner
 open "karabiner://karabiner/assets/complex_modifications/import?url=https://github.com/chrisgrieser/finder-vim-mode/releases/latest/download/finder-vim.json"
 curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
 ```
@@ -38,19 +40,23 @@ Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefo
 ## Caveats
 Since Karabiner "plugins" are nothing more than JSON files, this plugin has quite a few limitations.
 - Only List view is supported. The desktop is not supported.
+- File selection dialogues from other apps (e.g., to upload a file in the browser) are not supported.
 - This has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
 - If you use the mouse to click buttons or confirm things, you might end up in the wrong mode. In that case, Press `esc` to get back to Normal Mode. You can also temporarily disable Finder Vim Mode via `backspace`.
 - Unfortunately, it is not possible to have a vimrc or to let the user configure the keybindings themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you will have to change the respective key manually in the JSON file.
 - If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
+## Why not use a Terminal file manager?
+Other than a nicer appearance, a GUI does have a few advantages like better OS-integration. [I listed a few advantages of a GUI file manager over a TUI file manager here.](https://www.reddit.com/r/vim/comments/zkwk5x/comment/j07b7ak/?utm_source=share&utm_medium=web2x&context=3)
+
 ## Build
-Convert the YAML-File to JSON via [yq](https://github.com/mikefarah/yq):
+Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases greatly reduces the lines of code to only ~800 lines.
+
+If you want to modify or fork this plugin, I recommend working with the YAML file and "compile" it to [the JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so via [yq](https://github.com/mikefarah/yq):
 
 ```bash
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
-
-The result JSON-File then works like a regular [complex modification for Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/).
 
 ## For Alfred users
 Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
