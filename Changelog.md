@@ -1,3 +1,5 @@
+- 2022-12-14	release 1.0.4
+- 2022-12-14	context-menu can also be closed with q
 - 2022-12-14	release 1.0.3
 - 2022-12-14	higher res cheatsheet (#1)
 - 2022-12-11	added some info to the readme

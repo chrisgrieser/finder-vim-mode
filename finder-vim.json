@@ -5,7 +5,7 @@
     "pseudometa (chrisgrieser)"
   ],
   "version": [
-    "1.0.3"
+    "1.0.4"
   ],
   "anchors": [
     {
@@ -2625,6 +2625,51 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
             }
           ]
