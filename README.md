@@ -40,7 +40,7 @@ curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/fi
 Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can watch the releases of this repo to be notified when there are updates.
 
 ## Caveats
-Since Karabiner "plugins" are nothing more than JSON files, this plugin has quite a few limitations.
+Since Karabiner plugins are nothing more than JSON files, this plugin has some limitations:
 - Only List view is supported. The desktop is not supported.
 - File selection dialogues from other apps (e.g., to upload a file in the browser) are not supported.
 - This has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
@@ -49,7 +49,7 @@ Since Karabiner "plugins" are nothing more than JSON files, this plugin has quit
 - If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Why not use a Terminal file manager?
-Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration. [I listed a few advantages of a GUI file manager over a TUI file manager here.](https://www.reddit.com/r/vim/comments/zkwk5x/comment/j07b7ak/?utm_source=share&utm_medium=web2x&context=3)
+Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration. [I listed a few advantages of a GUI file manager over a TUI file manager at the reddit thread.](https://www.reddit.com/r/vim/comments/zkwk5x/comment/j07b7ak/?utm_source=share&utm_medium=web2x&context=3)
 
 ## Build
 Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases greatly reduces the lines of code to only ~800 lines.
