@@ -36,6 +36,8 @@ open "karabiner://karabiner/assets/complex_modifications/import?url=https://gith
 curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
 ```
 
+> __Note__  
+
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can watch the releases of this repo to be notified when there are updates.
 
