@@ -21,6 +21,7 @@ Keyboard-only control of the Finder.app, inspired by vim/ranger.
 - If you have *exactly* two Finder windows open, `x` moves the selection to the other window.
 - The context-menu can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
 - The find mode triggered via `f` works similarly to `f` in vim, expecting another letter (or digit) afterwards. `fh`, for example, would jump to the next file which starts with the letter `h`, and `f6` jumps to the next file that starts with `6`.
+- Tip: You can also "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `b` never focuses the desktop.
 - Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
 
 ## Installations
@@ -35,8 +36,6 @@ brew install karabiner-elements
 open "karabiner://karabiner/assets/complex_modifications/import?url=https://github.com/chrisgrieser/finder-vim-mode/releases/latest/download/finder-vim.json"
 curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
 ```
-
-> __Note__  
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can watch the releases of this repo to be notified when there are updates.
