@@ -40,5 +40,5 @@ body:
       options:
         - label: I updated to the latest version.
           required: true
-        - label: I have read about the limitations of Karabiner plugins in the [caveats section of the README](../../README.md#caveats).
+        - label: I have read about the limitations of Karabiner plugins in the [caveats section of the README](https://github.com/chrisgrieser/finder-vim-mode#caveats).
           required: true
