@@ -1,5 +1,5 @@
 # Vim Mode for macOS Finder
-Keyboard-only control of the Finder.app, inspired by vim/ranger. 
+Keyboard-only control for the Finder.app, inspired by vim/ranger. 
 
 ![finder-vim-cheatsheet](./finder-vim-cheatsheet.png)
 
@@ -56,7 +56,7 @@ Other than a nicer appearance, a GUI does have a few advantages like better oper
 ## Build
 Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases greatly reduces the lines of code to only ~800 lines.
 
-If you want to modify or fork this plugin, I recommend working with the YAML file and "compile" it to [the JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so via [yq](https://github.com/mikefarah/yq):
+If you want to modify or fork this plugin, I recommend working with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so via [yq](https://github.com/mikefarah/yq):
 
 ```bash
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
