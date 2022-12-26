@@ -1,5 +1,5 @@
 # Vim Mode for macOS Finder
-Keyboard-only control for the Finder.app, inspired by vim/ranger. 
+Keyboard-only control for Finder, inspired by vim/ranger. 
 
 ![finder-vim-cheatsheet](./finder-vim-cheatsheet.png)
 
