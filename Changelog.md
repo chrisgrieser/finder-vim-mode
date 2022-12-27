@@ -1,3 +1,6 @@
+- 2022-12-27	release 1.1.0
+- 2022-12-27	feat: ctrl-g opens file at github
+- 2022-12-19	added tip on deactivating the desktop
 - 2022-12-14	release 1.0.4
 - 2022-12-14	context-menu can also be closed with q
 - 2022-12-14	release 1.0.3
