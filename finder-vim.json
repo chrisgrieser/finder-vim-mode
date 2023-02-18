@@ -54,16 +54,6 @@
         },
         {
           "type": "variable_if",
-          "name": "FINDER_SEARCH_MODE",
-          "value": true
-        },
-        {
-          "type": "variable_unless",
-          "name": "FINDER_SEARCH_MODE",
-          "value": true
-        },
-        {
-          "type": "variable_if",
           "name": "FINDER_ALFRED_ACTIVE",
           "value": true
         },
@@ -90,6 +80,16 @@
         {
           "type": "variable_unless",
           "name": "FINDER_CONTEXT_MENU_ACTIVE",
+          "value": true
+        },
+        {
+          "type": "variable_if",
+          "name": "FINDER_QUICKLOOK_ACTIVE",
+          "value": true
+        },
+        {
+          "type": "variable_unless",
+          "name": "FINDER_QUICKLOOK_ACTIVE",
           "value": true
         }
       ]
@@ -124,18 +124,6 @@
           "set_notification_message": {
             "id": "insert-notice",
             "text": ""
-          }
-        },
-        {
-          "set_variable": {
-            "name": "FINDER_SEARCH_MODE",
-            "value": true
-          }
-        },
-        {
-          "set_variable": {
-            "name": "FINDER_SEARCH_MODE",
-            "value": false
           }
         },
         {
@@ -209,13 +197,25 @@
             "name": "FINDER_CONTEXT_MENU_ACTIVE",
             "value": false
           }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_QUICKLOOK_ACTIVE",
+            "value": true
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_QUICKLOOK_ACTIVE",
+            "value": false
+          }
         }
       ]
     }
   ],
   "rules": [
     {
-      "description": "📂 Finder Vim Controls",
+      "description": "Finder Vim Controls",
       "manipulators": [
         {
           "type": "basic",
@@ -242,6 +242,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
               "value": true
             }
           ]
@@ -271,6 +276,11 @@
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
               "value": true
             }
           ]
@@ -886,12 +896,6 @@
                 "name": "FINDER_INSERT_MODE",
                 "value": true
               }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
-                "value": true
-              }
             }
           ],
           "conditions": [
@@ -944,12 +948,6 @@
             {
               "set_variable": {
                 "name": "FINDER_INSERT_MODE",
-                "value": true
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
                 "value": true
               }
             }
@@ -1065,76 +1063,6 @@
             {
               "type": "variable_if",
               "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_SEARCH_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "return_or_enter"
-          },
-          "to": [
-            {
-              "key_code": "return_or_enter"
-            },
-            {
-              "key_code": "tab"
-            },
-            {
-              "key_code": "tab"
-            },
-            {
-              "key_code": "tab"
-            },
-            {
-              "key_code": "tab"
-            },
-            {
-              "set_notification_message": {
-                "id": "insert-notice",
-                "text": ""
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_INSERT_MODE",
-                "value": false
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
-                "value": false
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_ALFRED_ACTIVE",
-                "value": false
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_SEARCH_MODE",
               "value": true
             }
           ]
@@ -2107,13 +2035,13 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
+                "name": "FINDER_ALFRED_ACTIVE",
                 "value": false
               }
             },
             {
               "set_variable": {
-                "name": "FINDER_ALFRED_ACTIVE",
+                "name": "FINDER_QUICKLOOK_ACTIVE",
                 "value": false
               }
             },
@@ -2121,6 +2049,18 @@
               "set_variable": {
                 "name": "FINDER_CONTEXT_MENU_ACTIVE",
                 "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_MOVE_ACTIVE",
+                "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "move-notice",
+                "text": ""
               }
             }
           ],
@@ -2166,13 +2106,13 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
+                "name": "FINDER_ALFRED_ACTIVE",
                 "value": false
               }
             },
             {
               "set_variable": {
-                "name": "FINDER_ALFRED_ACTIVE",
+                "name": "FINDER_QUICKLOOK_ACTIVE",
                 "value": false
               }
             },
@@ -2180,6 +2120,18 @@
               "set_variable": {
                 "name": "FINDER_CONTEXT_MENU_ACTIVE",
                 "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_MOVE_ACTIVE",
+                "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "move-notice",
+                "text": ""
               }
             }
           ],
@@ -2223,7 +2175,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
+                "name": "FINDER_QUICKLOOK_ACTIVE",
                 "value": false
               }
             },
@@ -2279,7 +2231,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_SEARCH_MODE",
+                "name": "FINDER_QUICKLOOK_ACTIVE",
                 "value": false
               }
             },
@@ -2637,6 +2589,11 @@
               "type": "variable_unless",
               "name": "FINDER_CONTEXT_MENU_ACTIVE",
               "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
+              "value": true
             }
           ]
         },
@@ -2780,6 +2737,149 @@
             {
               "type": "variable_if",
               "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_QUICKLOOK_ACTIVE",
+                "value": true
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j"
+          },
+          "to": [
+            {
+              "key_code": "page_down"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k"
+          },
+          "to": [
+            {
+              "key_code": "page_up"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar"
+          },
+          "to": [
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_QUICKLOOK_ACTIVE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_if",
+              "name": "FINDER_QUICKLOOK_ACTIVE",
               "value": true
             }
           ]
@@ -3448,7 +3548,7 @@
           },
           "to": [
             {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as alias)')\nfileNoExt=${sel%.*}\next=${sel##*.}\nsymlinkName=\"${fileNoExt}-symlink.$ext\"\nln -sf \"$sel\" \"$symlinkName\"\nopen -R \"$symlinkName\"\n"
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as alias)')\nif [[ -f \"$sel\" ]] ; then\n    ln -sf \"$sel\" \"${sel}-symlink\"\n    open -R \"${sel}-symlink\"\nelif [[ -d \"$sel\" ]] ; then\n    sel=\"${sel:0:-1}\"\n    ln -sf \"$sel\" \"${sel}-symlink\"\n    open -R \"${sel}-symlink\"\nfi\n"
             }
           ],
           "conditions": [
@@ -5622,72 +5722,6 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "caps_lock"
-          },
-          "to_if_alone": [
-            {
-              "set_variable": {
-                "name": "FINDER_MOVE_ACTIVE",
-                "value": false
-              }
-            },
-            {
-              "set_notification_message": {
-                "id": "move-notice",
-                "text": ""
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_MOVE_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "escape"
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "FINDER_MOVE_ACTIVE",
-                "value": false
-              }
-            },
-            {
-              "set_notification_message": {
-                "id": "move-notice",
-                "text": ""
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_MOVE_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
             "key_code": "3"
           },
           "to": [
@@ -6040,7 +6074,7 @@
           },
           "to": [
             {
-              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (selection as list) as alias)\n  return POSIX path of sel\nend tell')\n[[ -f \"$SEL\" ]] || exit 1\ncd $(dirname \"$SEL\")\n\nBRANCH=$(git branch --show-current)\nROOT_PATH=$(git rev-parse --show-toplevel)\nROOT_LEN=${#ROOT_PATH}\nREMOTE_URL=\"$(git remote -v |  head -n1 | cut -f2 | cut -d' ' -f1 | sed -e's/:/\\//' -e 's/git@/https:\\/\\//' -e 's/\\.git//')\"\nPATH_IN_REPO=${SEL:$ROOT_LEN}\n\nURL=\"$REMOTE_URL/blob/$BRANCH/$PATH_IN_REPO\"\nURL=\"${URL/ /%20}\"  # open pseudo-encoded url (to not require a dependency)\n\necho \"$URL\" | pbcopy\nopen \"$URL\"\n"
+              "shell_command": "GIT_OPTIONAL_LOCKS=0\nSEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (selection as list) as alias)\n  return POSIX path of sel\nend tell')\n[[ -f \"$SEL\" ]] || exit 1\ncd \"$(dirname \"$SEL\")\"\n\nBRANCH=$(git branch --show-current)\nROOT_PATH=$(git rev-parse --show-toplevel)\nROOT_LEN=${#ROOT_PATH}\nREMOTE_URL=\"$(git remote -v |  head -n1 | cut -f2 | cut -d' ' -f1 | sed -e's/:/\\//' -e 's/git@/https:\\/\\//' -e 's/\\.git//')\"\nPATH_IN_REPO=${SEL:$ROOT_LEN}\n\nURL=\"$REMOTE_URL/blob/$BRANCH/$PATH_IN_REPO\"\nURL=\"${URL/ /%20}\"  # open pseudo-encoded url (to not require a dependency)\n\necho \"$URL\" | pbcopy\nopen \"$URL\"\n"
             }
           ],
           "conditions": [
