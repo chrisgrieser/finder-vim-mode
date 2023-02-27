@@ -7,6 +7,11 @@ anchors:
       - &finder-app
         type: frontmost_application_if
         bundle_identifiers: [^com\.apple\.finder$]
+      - &finder-or-alfred-app # for Alfred Compatibility Mode
+        type: frontmost_application_if
+        bundle_identifiers: 
+          - ^com\.runningwithcrayons\.Alfred$
+          - ^com\.apple\.finder$
       - &is-German-keyboard
         type: input_source_if
         input_sources:
@@ -30,14 +35,6 @@ anchors:
       - &not-find-mode
         type: variable_unless
         name: FINDER_FIND_MODE
-        value: true
-      - &is-search-mode
-        type: variable_if
-        name: FINDER_SEARCH_MODE
-        value: true
-      - &not-search-mode
-        type: variable_unless
-        name: FINDER_SEARCH_MODE
         value: true
       - &alfred-active
         type: variable_if
@@ -63,6 +60,14 @@ anchors:
         type: variable_unless
         name: FINDER_CONTEXT_MENU_ACTIVE
         value: true
+      - &quicklook-open
+        type: variable_if
+        name: FINDER_QUICKLOOK_ACTIVE
+        value: true
+      - &no-quicklook
+        type: variable_unless
+        name: FINDER_QUICKLOOK_ACTIVE
+        value: true
   #─────────────────────────────────────────────────────────────────────────────
   - to:
       - &enter-insert-mode
@@ -85,14 +90,6 @@ anchors:
         set_notification_message:
           id: insert-notice
           text: ""
-      - &enter-search-mode
-        set_variable: # Search Mode
-          name: FINDER_SEARCH_MODE
-          value: true
-      - &leave-search-mode
-        set_variable:
-          name: FINDER_SEARCH_MODE
-          value: false
       - &enter-find-mode
         set_variable: # Find Mode
           name: FINDER_FIND_MODE
@@ -141,23 +138,31 @@ anchors:
         set_variable:
           name: FINDER_CONTEXT_MENU_ACTIVE
           value: false
+      - &start-quicklook
+        set_variable:
+          name: FINDER_QUICKLOOK_ACTIVE
+          value: true
+      - &end-quicklook
+        set_variable:
+          name: FINDER_QUICKLOOK_ACTIVE
+          value: false
 #───────────────────────────────────────────────────────────────────────────────
 #───────────────────────────────────────────────────────────────────────────────
 #───────────────────────────────────────────────────────────────────────────────
 rules:
-  - description: "\U0001F4C2 Finder Vim Controls"
+  - description: "Finder Vim Controls"
     manipulators:
       # hjkl, LH
       - type: basic
         from: {key_code: j}
         to: # no to_if_alone since it blocks repeat
           - key_code: down_arrow
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-quicklook]
       - type: basic
         from: {key_code: k}
         to: # no to_if_alone since it blocks repeat
           - key_code: up_arrow
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-quicklook]
       - type: basic
         from: {key_code: h}
         to_if_alone:
@@ -236,7 +241,7 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       #─────────────────────────────────────────────────────────────────────────
       # INSERT MODE
-      # enter
+      # ENTER
       # Rename
       - type: basic
         from: {key_code: return_or_enter}
@@ -245,13 +250,6 @@ rules:
           - *insert-notice
           - *enter-insert-mode
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
-      # Temporarily deactivate finder-vim-mode
-      - type: basic
-        from: {key_code: delete_or_backspace}
-        to:
-          - *vim-mode-paused-notice
-          - *enter-insert-mode
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # Batch Rename
       - type: basic
         from: {key_code: return_or_enter, modifiers: {mandatory: [shift]}}
@@ -279,7 +277,6 @@ rules:
           - {key_code: f, modifiers: [command]}
           - *insert-notice
           - *enter-insert-mode
-          - *enter-search-mode
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
       - type: basic
         from: {key_code: f, modifiers: {mandatory: [command]}}
@@ -287,7 +284,6 @@ rules:
           - {key_code: f, modifiers: [command]}
           - *insert-notice
           - *enter-insert-mode
-          - *enter-search-mode
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
       # Alfred: so you can insert text in Alfred/Spotlight while Finder is frontmost
       - type: basic
@@ -306,90 +302,76 @@ rules:
           - *remove-insert-notice
           - *leave-insert-mode
           - *end-alfred
-        conditions: [*finder-app, *is-insert-mode, *not-search-mode]
-      # Confirm Search Mode
-      - type: basic
-        from: {key_code: return_or_enter}
-        to:
-          - key_code: return_or_enter
-          - key_code: tab
-          - key_code: tab
-          - key_code: tab # extra tabs to switch to files directly
-          - key_code: tab
-          - *remove-insert-notice
-          - *leave-insert-mode
-          - *leave-search-mode
-          - *end-alfred
-        conditions: [*finder-app, *is-insert-mode, *is-search-mode]
+        conditions: [*finder-or-alfred-app, *is-insert-mode]
       # Confirm Alfred Mode with various modifiers
       - type: basic
         from: {key_code: return_or_enter, modifiers: {mandatory: [control]}}
         to: [{key_code: return_or_enter, modifiers: [control]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: return_or_enter, modifiers: {mandatory: [command]}}
         to: [{key_code: return_or_enter, modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: return_or_enter, modifiers: {mandatory: [shift]}}
         to: [{key_code: return_or_enter, modifiers: [shift]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: return_or_enter, modifiers: {mandatory: [option]}}
         to: [{key_code: return_or_enter, modifiers: [option]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: return_or_enter, modifiers: {mandatory: [fn]}}
         to: [{key_code: return_or_enter, modifiers: [fn]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic # Hyper+return
         from: {key_code: return_or_enter, modifiers: {mandatory: [command, control, option, shift]}}
         to: [{key_code: return_or_enter, modifiers: [command, control, option, shift]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic # Meh+return
         from: {key_code: return_or_enter, modifiers: {mandatory: [shift, control, option]}}
         to: [{key_code: return_or_enter, modifiers: [shift, control, option]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "2", modifiers: {mandatory: [command]}}
         to: [{key_code: "2", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "3", modifiers: {mandatory: [command]}}
         to: [{key_code: "3", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "4", modifiers: {mandatory: [command]}}
         to: [{key_code: "4", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "5", modifiers: {mandatory: [command]}}
         to: [{key_code: "5", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "6", modifiers: {mandatory: [command]}}
         to: [{key_code: "6", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "7", modifiers: {mandatory: [command]}}
         to: [{key_code: "7", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "8", modifiers: {mandatory: [command]}}
         to: [{key_code: "8", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: "9", modifiers: {mandatory: [command]}}
         to: [{key_code: "9", modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: c, modifiers: {mandatory: [command]}}
         to: [{key_code: c, modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       - type: basic
         from: {key_code: l, modifiers: {mandatory: [command]}}
         to: [{key_code: l, modifiers: [command]}, *remove-insert-notice, *leave-insert-mode, *end-alfred]
-        conditions: [*finder-app, *is-insert-mode, *alfred-active]
+        conditions: [*finder-or-alfred-app, *is-insert-mode, *alfred-active]
       # Abort
       - type: basic
         from: {key_code: caps_lock}
@@ -397,23 +379,27 @@ rules:
           - key_code: escape
           - *remove-insert-notice
           - *leave-insert-mode
-          - *leave-search-mode
           - *end-alfred
+          - *end-quicklook
           - *end-context-menu
+          - *end-move
+          - *remove-move-notice
         to:
           - key_code: right_shift
             modifiers: [command, control, option] # keep hyper binding
-        conditions: [*finder-app]
+        conditions: [*finder-or-alfred-app]
       - type: basic
         from: {key_code: escape}
         to:
           - key_code: escape
           - *remove-insert-notice
           - *leave-insert-mode
-          - *leave-search-mode
           - *end-alfred
+          - *end-quicklook
           - *end-context-menu
-        conditions: [*finder-app]
+          - *end-move
+          - *remove-move-notice
+        conditions: [*finder-or-alfred-app]
         # Closing window or quitting Finder should also disable Insert mode
       - type: basic
         from: {key_code: w, modifiers: {mandatory: [command]}}
@@ -421,7 +407,7 @@ rules:
           - {key_code: w, modifiers: [command]}
           - *remove-insert-notice
           - *leave-insert-mode
-          - *leave-search-mode
+          - *end-quicklook
           - *end-context-menu
         conditions: [*finder-app, *alfred-inactive]
       - type: basic
@@ -430,7 +416,7 @@ rules:
           - {key_code: q, modifiers: [command]}
           - *remove-insert-notice
           - *leave-insert-mode
-          - *leave-search-mode
+          - *end-quicklook
           - *end-context-menu
         conditions: [*finder-app, *alfred-inactive]
       #─────────────────────────────────────────────────────────────────────────
@@ -453,23 +439,13 @@ rules:
                   end repeat
                 end tell'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
-      # b = cycle windows (:bnext)
+      # <BS> = cycle windows (:bnext)
       - type: basic
-        from: {key_code: b}
+        from: {key_code: delete_or_backspace}
         to_if_alone:
           - {key_code: grave_accent_and_tilde, modifiers: [command]}
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
-      # B = Arrange all windows
-      - type: basic
-        from: {key_code: b, modifiers: {mandatory: [shift]}}
-        to_if_alone:
-          - shell_command: |
-              osascript -e '
-                tell application "System Events" to tell process "Finder"
-                  click menu item "Arrange in Front" of menu "Window" of menu bar 1
-                end tell'
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
-        # t = cycle tabs (:tabnext)
+      # t = cycle tabs (:tabnext)
       - type: basic
         from: {key_code: t}
         to_if_alone:
@@ -514,7 +490,7 @@ rules:
                   tell value of attribute "AXFocusedUIElement" to perform action "AXShowMenu"
                 end tell'
           - *start-context-menu
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu]
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu, *no-quicklook]
       # close context menu with another q
       - type: basic
         from: {key_code: q}
@@ -543,6 +519,34 @@ rules:
           - *end-context-menu
         conditions: [*finder-app, *context-menu-open]
       # INFO: context menu cancellation configured with the insert mode cancellations
+      #─────────────────────────────────────────────────────────────────────────
+      # Quicklook Mode
+      # start quicklook 
+      - type: basic
+        from: {key_code: spacebar}
+        to_if_alone:
+          - key_code: spacebar
+          - *start-quicklook
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-context-menu, *no-quicklook]
+      # changed navigation in quicklook
+      - type: basic
+        from: {key_code: j}
+        to:
+          - key_code: page_down
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *quicklook-open]
+      - type: basic
+        from: {key_code: k}
+        to:
+          - key_code: page_up
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *quicklook-open]
+      # end quicklook
+      - type: basic
+        from: {key_code: spacebar}
+        to:
+          - key_code: spacebar
+          - *end-quicklook
+        conditions: [*finder-app, *quicklook-open]
+      # INFO: other quicklook cancellation keys configured with the insert mode cancellations
       #─────────────────────────────────────────────────────────────────────────
       # Basic File Operations
       # d = delete
@@ -680,34 +684,55 @@ rules:
         from: {key_code: n}
         to_if_alone:
           - shell_command: |
-              folder=$(osascript -e 'tell application "Finder" to return POSIX path of (target of Finder window 1 as alias)')
+              folder=$(osascript -e 'tell application "Finder" to return POSIX path of (insertion location as alias)')
               newFile="$folder/new-file"
               while [[ -e "$newFile" ]] ; do
                 newFile="$newFile-1"
               done
               touch "$newFile"
               open -R "$newFile"
+              osascript -e 'tell application "Finder" to tell front window to update every item'
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      # b = Toggle `.bkp` (Backup)
+      - type: basic
+        from: {key_code: b}
+        to:
+          - shell_command: |
+              selection=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
+              lastFourChars=$(echo "$selection" | rev | cut -c-4 | rev) # bash expansion does not work in karabiner
+              if [[ "$lastFourChars" == "-bkp" ]]; then
+                newName=$(echo "$selection" | rev | cut -c5- | rev)
+                mv "$selection" "$newName"
+              else
+                mv "$selection" "$selection-bkp"
+              fi
+              osascript -e 'tell application "Finder" to tell front window to update every item'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # s = follow symlink
       - type: basic
         from: {key_code: s}
         to:
           - shell_command: |
-              sel=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
-              open -R "$(readlink -f "$sel")"
+              selection=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
+              open -R "$(readlink -f "$selection")"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # S = Create Symlink
       - type: basic
         from: {key_code: s, modifiers: {mandatory: [shift]}}
-        to: # TODO: does not work yet on files without extension
+        to: 
+          - shell_command: osascript -e 'display notification "..." with title "beep"'
           - shell_command: |
               sel=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as alias)')
-              fileNoExt=${sel%.*}
-              ext=${sel##*.}
-              symlinkName="${fileNoExt}-symlink.$ext"
-              ln -sf "$sel" "$symlinkName"
-              open -R "$symlinkName"
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
+              if [[ -f "$sel" ]] ; then
+                  ln -sf "$sel" "${sel}-symlink"
+                  open -R "${sel}-symlink"
+              elif [[ -d "$sel" ]] ; then
+                  # cannot use bash expansion here, therefore rev & cut
+                  sel="$(echo "$sel" | rev | cut -c2- | rev)"
+                  ln -sf "$sel" "${sel}-symlink"
+                  open -R "${sel}-symlink"
+              fi
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # z = zip files
       - type: basic
         from: {key_code: "y"} # y and z switched on German keyboard
@@ -753,18 +778,24 @@ rules:
           key_code: h
           modifiers: {mandatory: [control]}
         to_if_alone:
-          - key_code: semicolon # German ö
-            modifiers: [command]
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
+          - shell_command: |
+              osascript -e '
+                tell application "System Events" to tell process "Finder"
+                  click menu item "Back" of menu "Go" of menu bar 1
+                end tell'
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # <C-l> = History Forward
       - type: basic
         from:
           key_code: l
           modifiers: {mandatory: [control]}
         to:
-          - key_code: quote # German ä
-            modifiers: [command]
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
+          - shell_command: |
+              osascript -e '
+                tell application "System Events" to tell process "Finder"
+                  click menu item "Forward" of menu "Go" of menu bar 1
+                end tell'
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       # FIND MODE
       # Enter/Exit
@@ -993,19 +1024,6 @@ rules:
           - *end-move
           - *remove-move-notice
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *move-active]
-      # Esc = Abort move
-      - type: basic
-        from: {key_code: caps_lock}
-        to_if_alone:
-          - *end-move
-          - *remove-move-notice
-        conditions: [*finder-app, *move-active]
-      - type: basic
-        from: {key_code: escape}
-        to:
-          - *end-move
-          - *remove-move-notice
-        conditions: [*finder-app, *move-active]
       #─────────────────────────────────────────────────────────────────────────
       #─────────────────────────────────────────────────────────────────────────
       # SORT
@@ -1075,22 +1093,22 @@ rules:
         from: {key_code: g, modifiers: {mandatory: [control]}}
         to:
           - shell_command: |
+              GIT_OPTIONAL_LOCKS=0
               SEL=$(osascript -e 'tell application "Finder"
                 set sel to (item 1 of (selection as list) as alias)
                 return POSIX path of sel
               end tell')
               [[ -f "$SEL" ]] || exit 1
-              cd $(dirname "$SEL")
+              cd "$(dirname "$SEL")"
 
               BRANCH=$(git branch --show-current)
               ROOT_PATH=$(git rev-parse --show-toplevel)
               ROOT_LEN=${#ROOT_PATH}
-              REMOTE_URL="$(git remote -v |  head -n1 | cut -f2 | cut -d' ' -f1 | sed -e's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git//')"
+              REMOTE_URL="$(git remote -v | head -n1 | cut -f2 | cut -d' ' -f1 | sed -e's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git//')"
               PATH_IN_REPO=${SEL:$ROOT_LEN}
+              PATH_IN_REPO=$(osascript -l JavaScript -e "encodeURIComponent('$PATH_IN_REPO')")
 
               URL="$REMOTE_URL/blob/$BRANCH/$PATH_IN_REPO"
-              URL="${URL/ /%20}"  # open pseudo-encoded url (to not require a dependency)
-
               echo "$URL" | pbcopy
               open "$URL"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
