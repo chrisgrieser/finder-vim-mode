@@ -84,10 +84,10 @@
     "`",
     {
       "c": "#c7a6ff",
-      "f": 1,
+      "f": 2,
       "w": 2
     },
-    "⌫\ntemporarily disable Finder Vim Mode until next ⎋, ↵, or ⇪",
+    "⌫\n:bnext",
     {
       "c": "#999999",
       "a": 7,
@@ -163,7 +163,7 @@
     {
       "f": 1
     },
-    "gg (G)\n(bottom)\n\n\n\n\nto top",
+    "gg (G)\n(bottom)\n\n\n^g gith.\n\nto top",
     {
       "sm": "cherry"
     },
@@ -214,13 +214,7 @@
     },
     "c\nclose fold",
     "v\nview settings",
-    {
-      "f": 1
-    },
-    "b (B)\n:bnext (arrange all wins)",
-    {
-      "f": 2
-    },
+    "b\nToggle  bkp",
     "n N\nnew file (folder)\n\n\n⌃n name",
     {
       "f": 1
