@@ -21,8 +21,9 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - *cross-move*: If you have *exactly* two Finder windows open, `x` moves the selection to the other window.
 - *context-menu*: can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
 - *Find mode* triggered via `f`, works similarly to `f` in vim, expecting another character afterwards. For example, `fh` jumps to the next file which starts with the letter `h`.
+- *`-bkp` Toggle*: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging, too.
 - *GitHub*: `ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
-- Tip: You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `b` (going to the next finder window) never focuses the desktop.
+- Tip: You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `<BS>` (going to the next finder window) never focuses the desktop.
 - Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
 
 ## Installations
