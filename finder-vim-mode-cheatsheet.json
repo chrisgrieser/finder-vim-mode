@@ -76,7 +76,7 @@
     {
       "f": 1
     },
-    "?\n:help (this image)",
+    "?\n:help",
     {
       "c": "#CCCCCC",
       "f": 4
@@ -131,7 +131,7 @@
       "h2": 1,
       "x2": -0.25
     },
-    "↵: rename\ninsert mode: confirm & normal mode\n\n\n\n\n⇧↵: batch rename",
+    "↵: rename\ninsert: confirm & normal\n\n\n\n\n⇧↵: batch rename",
     {
       "c": "#999999",
       "a": 7,
@@ -150,7 +150,7 @@
     {
       "f": 1
     },
-    "a (A)\n(de)select all files",
+    "a (A)\n(de)sel all files",
     "s (S)\nfollow (create) symlink",
     {
       "f": 2
@@ -167,13 +167,13 @@
     {
       "sm": "cherry"
     },
-    "h (h)\nparent (prev) dir\n\n\n⌃h back",
+    "h\nparent dir\n\n\n⌃h back",
     {
       "n": true
     },
     "j (J)\n(6 down)\n\n\n\n\ndown",
     "k (K)\n(6 up)\n\n\n\n\nup",
-    "l (L)\nopen file / dir (& close win)\n\n\n⌃l forw",
+    "l\nopen file / dir\n\n\n⌃l forw",
     {
       "c": "#CCCCCC",
       "f": 2
@@ -204,11 +204,11 @@
     {
       "c": "#c7a6ff"
     },
-    "y\nyank (copy)",
+    "y\nyank / copy",
     {
       "f": 1
     },
-    "x\ncross-move (if two wins)",
+    "x (X)\ncross-move (-copy)",
     {
       "f": 2
     },
@@ -219,7 +219,7 @@
     {
       "f": 1
     },
-    "m (M)\nmove file (new dir from sel)",
+    "m (M)\nmove (to new dir)",
     {
       "c": "#CCCCCC",
       "f": 2
