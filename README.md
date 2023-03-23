@@ -1,7 +1,7 @@
 # Vim Mode for macOS Finder
 Keyboard-only control for Finder, inspired by vim/ranger. 
 
-![finder-vim-cheatsheet](./finder-vim-cheatsheet.png)
+![finder-vim-cheatsheet](./finder-vim-mode-cheatsheet.png)
 
 <!--toc:start-->
 - [Usage](#usage)
@@ -18,10 +18,10 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - Only works in Finder's `List View`.
 - Press `?` in Finder to show the cheatsheet above.
 - *move*: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files.
-- *cross-move*: If you have *exactly* two Finder windows open, `x` moves the selection to the other window.
-- *context-menu*: can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
+- *cross-move*: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
+- *context-menu*: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
 - *Find mode* triggered via `f`, works similarly to `f` in vim, expecting another character afterwards. For example, `fh` jumps to the next file which starts with the letter `h`.
-- *`-bkp` Toggle*: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging, too.
+- *`-bkp` Toggle*: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Also useful for debugging.
 - *GitHub*: `ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 - Tip: You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `<BS>` (going to the next finder window) never focuses the desktop.
 - Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
