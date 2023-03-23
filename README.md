@@ -40,7 +40,7 @@ curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/fi
 ```
 
 ## Updates
-Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can watch the releases of this repo to be notified when there are updates.
+Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. 
 
 ## Caveats
 Since Karabiner plugins are only hotkey-remappings without proper scripting mechanism, this plugin has some limitations:
