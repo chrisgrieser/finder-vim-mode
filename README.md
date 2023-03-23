@@ -49,16 +49,24 @@ Since Karabiner plugins are only hotkey-remappings without proper scripting mech
 - This has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
 - If you use the mouse to click buttons, you might end up in the wrong mode. In that case, Press `esc` to get back to Normal Mode. You can also temporarily disable Finder Vim Mode via `backspace`.
 - Karabiner cannot detect whether you are focusing a regular finder window or a confirmation window (for example to replace a file). If you encounter one of these, you can end up in the wrong mode afterwards. If this is the case, just press `esc` to get back to Normal Mode.
-- Unfortunately, it is not possible to have a vimrc or to let the user configure the keybindings themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you will have to change the respective key manually in the JSON file.
-- If you have a other karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
+- Unfortunately, it is not possible to have a vimrc or to let the user configure the keybindings themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
+- If you have a other Karabiner modification affecting the capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Why not use a Terminal file manager?
-Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration. [I listed a few advantages of a GUI file manager over a TUI file manager at the reddit thread.](https://www.reddit.com/r/vim/comments/zkwk5x/comment/j07b7ak/?utm_source=share&utm_medium=web2x&context=3)
+Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration:
+- Many apps have some way sort of "reveal current file in Finder" feature, which is quite handy but does not work with a TUI file manager.
+- With a GUI, you get a separate app in various places like the dock, the built-in app switcher (cmd+tab) or other app switchers (e.g., rcmd). With a TUI, you'd have to switch to your Terminal, and then switch to your file manager via tmux etc, requiring basically an extra step
+- image previews and file content previews in an icon are not available with a TUI-file manager
+- for some cases, drag-n-drop is still useful, which to my knowledge also does not work with a TUI
+- Finder actually has some nice features like tags, which you can only get with some extra plugin for a TUI-file manager as far as I know
+- a GUI allows me to have multiple windows open and work with them (e.g., the x command in my plugin), while you cannot move files between two terminal windows which ranger open?
+- a bunch of automation apps for mac work with "if app x is frontmost" conditionals. with a TUI, those apps only see that your terminal is frontmost, but are mostly not able to tell what TUI is running inside the terminal.
+- cloud services (iCloud, Google Drive, Dropbox, etc.) indicate the file sync status of a file in Finder. As far as I know, no TUI is able to display such kind of information.
 
 ## Build
-Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases greatly reduces the lines of code to only ~800 lines.
+Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases reduces the lines of code to only ~1000 lines.
 
-If you want to modify or fork this plugin, I recommend working with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so via [yq](https://github.com/mikefarah/yq):
+If you want to fork this plugin, I recommend working with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so via [yq](https://github.com/mikefarah/yq):
 
 ```bash
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
