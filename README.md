@@ -10,7 +10,7 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - [Caveats](#caveats)
 - [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
 - [Build](#build)
-- [For Alfred users](#for-alfred-users)
+- [For Alfred/Raycast users](#for-alfredraycast-users)
 - [Credits](#credits)
 <!--toc:end-->
 
@@ -23,8 +23,10 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - *Find mode* triggered via `f`, works similarly to `f` in vim, expecting another character afterwards. For example, `fh` jumps to the next file which starts with the letter `h`.
 - *`-bkp` Toggle*: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Also useful for debugging.
 - *GitHub*: `ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
-- Tip: You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `<BS>` (going to the next finder window) never focuses the desktop.
-- Consult the [vim help](https://vimhelp.org/) for the Ex commands you are not familiar with.
+- ➡️ Consult the [vim help](https://vimhelp.org/) for the remaining ex-commands you are not familiar with.
+
+> __Note__  
+- You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `<BS>` (going to the next finder window) never focuses the desktop.
 
 ## Installations
 - Install [Karabiner Elements](https://karabiner-elements.pqrs.org/).
@@ -72,7 +74,7 @@ If you want to fork this plugin, I recommend working with the YAML file and "com
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
-## For Alfred users
+## For Alfred/Raycast users
 Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
 
 1. Temporarily pause Finder-Vim-Mode via `⌫ backspace`, and use Alfred. As soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode is active again.

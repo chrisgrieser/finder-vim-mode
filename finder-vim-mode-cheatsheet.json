@@ -73,9 +73,6 @@
     },
     "(⌘)9\ntoggle pathbar",
     "(⌘)0\ntoggle preview",
-    {
-      "f": 1
-    },
     "?\n:help",
     {
       "c": "#CCCCCC",
@@ -114,7 +111,13 @@
     "z\nzip",
     "u (U)\nundo (redo)",
     "i\ninfo",
-    "o\nopen fold",
+    {
+      "f": 1
+    },
+    "o (O)\nopen (all) folds",
+    {
+      "f": 2
+    },
     "p\npaste\n\n\n⌃p path",
     {
       "c": "#CCCCCC"
@@ -209,10 +212,10 @@
       "f": 1
     },
     "x (X)\ncross-move (-copy)",
+    "c (C)\nclose (all) folds",
     {
       "f": 2
     },
-    "c\nclose fold",
     "v\nview settings",
     "b\nToggle  bkp",
     "n N\nnew file (folder)\n\n\n⌃n name",
