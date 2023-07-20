@@ -73,23 +73,22 @@ Other than a nicer appearance, a GUI does have a few advantages like better oper
 - Cloud services (iCloud, Google Drive, Dropbox, etc.) indicate the file sync status of a file in Finder.
 
 ## Build
-Karabiner plugins are essentially hotkey configurations in a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases reduces the lines of code to only ~1000 lines.
+Karabiner plugins are essentially hotkey configurations in form of a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases reduces the lines of code to only ~1000 lines.
 
-If you want to fork this plugin, it is recommended working with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so via [yq](https://github.com/mikefarah/yq):
+If you want to fork this plugin, it is recommended to work with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so with [yq](https://github.com/mikefarah/yq). (Note that the `explode()` is required to resolve the anchors and aliases.)
 
 ```bash
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
 ## Alfred and Raycast users
-Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
+Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard history or the Universal Action, you have to use one of the following methods:
 
-1. Temporarily pause Finder-Vim-Mode via `⌫ backspace`, and use Alfred. As soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode is active again.
-2. (Recommended) Permanently disable Finder-Vim-Mode for the respective Alfred Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
-3. Enable `Compatibility Mode` in the Alfred Appearance options. Note that this might break some Alfred workflows, which rely on this option being off.
+1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
+2. (Recommended) In [Alfred's Appearance Options](https://www.alfredapp.com/help/appearance/#options), set the `Focusing` behavior to `Compatibility Mode` . Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
 
 ## Credits
-Cheatsheet created with <http://www.keyboard-layout-editor.com/>
+The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
 
 <!-- vale Google.FirstPerson = NO -->
 __About Me__
@@ -104,6 +103,6 @@ __Profiles__
 - [Mastodon](https://pkm.social/@pseudometa)
 - [LinkedIn](https://www.linkedin.com/in/christopher-grieser-ba693b17a/)
 
-__Donate__  
+__Buy me a Coffee__  
 <br>
 <a href='https://ko-fi.com/Y8Y86SQ91' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
