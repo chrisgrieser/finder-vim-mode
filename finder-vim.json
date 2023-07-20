@@ -4,9 +4,6 @@
   "maintainers": [
     "pseudometa (chrisgrieser)"
   ],
-  "version": [
-    "1.3.0"
-  ],
   "anchors": [
     {
       "conditions": [
@@ -5798,6 +5795,35 @@
               "modifiers": [
                 "control"
               ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma"
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e 'display notification \"☁️ 🔁 Restarting iCloud…\" with title \"Finder Vim Mode\"'\nkillall bird\n"
             }
           ],
           "conditions": [

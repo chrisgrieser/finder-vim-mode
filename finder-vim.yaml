@@ -1,7 +1,6 @@
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/dotfiles/karabiner
 maintainers: [pseudometa (chrisgrieser)]
-version: [1.3.0]
 anchors:
   - conditions:
       - &finder-app
@@ -1040,6 +1039,16 @@ rules:
           - { key_code: "0", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
+      #─────────────────────────────────────────────────────────────────────────
+      # MISCELLANEOUS
+      # , (comma)
+      - type: basic
+        from: { key_code: comma }
+        to:
+          - shell_command: |
+              osascript -e 'display notification "☁️ 🔁 Restarting iCloud…" with title "Finder Vim Mode"'
+              killall bird
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # ctrl-p: copy path
       - type: basic
         from: { key_code: p, modifiers: { mandatory: [control] } }
