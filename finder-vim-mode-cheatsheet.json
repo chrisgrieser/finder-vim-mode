@@ -1,11 +1,11 @@
 [
   {
-    "name": "Finder Vim Cheatsheet",
+    "name": "Finder Vim Mode Cheatsheet",
     "author": "pseudometa"
   },
   [
     {
-      "c": "#c7a6ff",
+      "c": "#fff4a6",
       "a": 5,
       "f": 2
     },
@@ -48,31 +48,22 @@
     },
     "^",
     {
-      "c": "#c7a6ff",
+      "c": "#a6d1ff",
       "f": 2
     },
-    "(⌘)1\ntoggle sidebar",
-    {
-      "c": "#CCCCCC"
-    },
-    "2",
-    {
-      "c": "#c7a6ff"
-    },
-    "3\nsort by name",
-    "4\nsort by modified",
-    "5\nsort by size",
-    "6\nsort by kind",
-    {
-      "c": "#CCCCCC"
-    },
-    "7",
-    "8",
+    "1\ntoggle tag #1",
+    "2\ntoggle tag #2",
+    "3\ntoggle tag #3",
+    "4\ntoggle tag #4",
+    "5\ntoggle tag #5",
+    "6\ntoggle tag #6",
+    "7\ntoggle tag #7",
+    "8\ntoggle tag #8",
+    "9\ntoggle tag #9",
+    "0\nremove all tags",
     {
       "c": "#c7a6ff"
     },
-    "(⌘)9\ntoggle pathbar",
-    "(⌘)0\ntoggle preview",
     "?\n:help",
     {
       "c": "#CCCCCC",
@@ -80,7 +71,7 @@
     },
     "`",
     {
-      "c": "#c7a6ff",
+      "c": "#fff4a6",
       "f": 2,
       "w": 2
     },
@@ -126,7 +117,7 @@
     "+",
     {
       "x": 0.25,
-      "c": "#c7a6ff",
+      "c": "#fff4a6",
       "f": 1,
       "w": 1.25,
       "h": 2,
@@ -144,13 +135,14 @@
   ],
   [
     {
-      "c": "#c7a6ff",
+      "c": "#fff4a6",
       "a": 5,
       "f": 2,
       "w": 1.75
     },
     "⇪\nnormal mode",
     {
+      "c": "#c7a6ff",
       "f": 1
     },
     "a (A)\n(de)sel all files",
@@ -217,23 +209,21 @@
       "f": 2
     },
     "v\nview settings",
-    "b\nToggle  bkp",
+    "b\ntoggle  bkp",
     "n N\nnew file (folder)\n\n\n⌃n name",
     {
       "f": 1
     },
     "m (M)\nmove (to new dir)",
     {
-      "c": "#CCCCCC",
-      "f": 2
+      "c": "#fff4a6"
     },
-    ",",
+    ",\nRestart iCloud process",
     {
-      "c": "#c7a6ff",
-      "f": 1
+      "c": "#c7a6ff"
     },
     ".\ntoggle hidden files",
-    "- /\nSearch (insert mode)",
+    "de: - us: /\nSearch (insert m.)",
     {
       "c": "#999999",
       "a": 7,
@@ -265,7 +255,7 @@
     },
     "⌘",
     {
-      "c": "#c7a6ff",
+      "c": "#fff4a6",
       "a": 5,
       "f": 2,
       "w": 6.25

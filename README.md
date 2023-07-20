@@ -1,6 +1,8 @@
 # Vim Mode for macOS Finder
 Keyboard-only control for Finder, inspired by vim/ranger. 
 
+![](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
+
 ![Finder Vim cheatsheet](./finder-vim-mode-cheatsheet.png)
 
 <!--toc:start-->
@@ -10,19 +12,20 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - [Caveats](#caveats)
 - [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
 - [Build](#build)
-- [For Alfred and Raycast users](#for-alfred-and-raycast-users)
+- [Alfred and Raycast users](#alfred-and-raycast-users)
 - [Credits](#credits)
 <!--toc:end-->
 
 ## Usage
 - Only works in Finder's `List View`.
-- Press `?` in Finder to show the cheatsheet above.
-- *Move*: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files.
-- *Cross-move*: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
-- *Context-menu*: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
-- *Find mode* triggered via `f`, works similarly to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file, which starts with the letter `h`.
-- *`-bkp` Toggle*: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
-- *GitHub*: `ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
+- Press `?` in Finder to show the cheatsheet above, which shows all keys
+supported by this plugin.
+- __Move__: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files.
+- __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
+- __Context-menu__: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
+- __Find mode__ triggered via `f`, works similarly to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file, which starts with the letter `h`.
+- __`-bkp` Toggle__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
+- __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 - ➡️ Consult the [vim help](https://vimhelp.org/) for the remaining ex-commands you are not familiar with.
 
 > __Note__  
@@ -39,17 +42,24 @@ curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/fi
 ```
 
 ## Updates
-Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. 
+Unfortunately, Karabiner has no mechanism for auto-updating its plugins. Therefore, you have to install updates manually by re-running the code above. You can check for the last commit date see whether there has been an update:
+
+![](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
 
 ## Caveats
 Since Karabiner plugins are only hotkey re-mappings without proper scripting mechanism, this plugin has some limitations:
-- Only List view is supported. The desktop is not supported.
+
+### Major Caveats
+- Only __List view__ is supported. The desktop is not supported.
+- If you __use the mouse to click buttons__, you might end up in the wrong mode. In that case, Press `esc` to get back to Normal Mode. 
+- If you __press `return` in a confirmation window__, for example when replacing a
+file, you wrongly end up in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a confirmation window). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the confirmation window.
+
+### Minor Caveats
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
-- This has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
-- If you use the mouse to click buttons, you might end up in the wrong mode. In that case, Press `esc` to get back to Normal Mode. You can also temporarily disable Finder Vim Mode via `backspace`.
-- Karabiner cannot detect whether you are focusing a regular finder window or a confirmation window (for example to replace a file). If you encounter one of these, you can end up in the wrong mode afterward. If this is the case, just press `esc` to get back to Normal Mode.
-- Unfortunately, it is impossible to have a `vimrc` or to let the user configure the keybindings themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
-- If you have another Karabiner modification affecting the Capslock key, it should come __after__ Finder Vim Controls in Karabiner's priority list to avoid conflicts.
+- This plugin has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are probably some bugs with other layouts, if you stumble upon one, please open a bug report.
+- Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
+- If you have another Karabiner modification affecting the __Capslock__ key, it should come *after* Finder Vim Controls in Karabiner's priority list to avoid conflicts.
 
 ## Why not use a Terminal file manager?
 Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration:
@@ -71,7 +81,7 @@ If you want to fork this plugin, it is recommended working with the YAML file an
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
-## For Alfred and Raycast users
+## Alfred and Raycast users
 Finder-Vim-Mode factors in the usage of Spotlight or Alfred with `cmd+space`. However, if you use another key combination with Alfred, for example for the clipboard or the Universal action, you have to use one of the following methods:
 
 1. Temporarily pause Finder-Vim-Mode via `⌫ backspace`, and use Alfred. As soon as you press either `capslock`, `escape`, or `return`, Finder-Vim-Mode is active again.
