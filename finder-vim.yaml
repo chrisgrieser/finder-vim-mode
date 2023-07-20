@@ -1,7 +1,7 @@
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/dotfiles/karabiner
 maintainers: [pseudometa (chrisgrieser)]
-version: [1.3.1]
+version: [1.3.0]
 anchors:
   - conditions:
       - &finder-app
@@ -503,32 +503,32 @@ rules:
       - type: basic
         from: { key_code: d }
         to_if_alone:
-          - {key_code: delete_or_backspace, modifiers: [command]}
+          - { key_code: delete_or_backspace, modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # y = yank
       - type: basic
         from: { key_code: z } # y = z in German Keyboard
         to_if_alone:
-          - {key_code: c, modifiers: [command]}
+          - { key_code: c, modifiers: [command] }
           - shell_command: osascript -e 'display notification "✅ File(s) copied" with title "Finder Vim Mode"'
         conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *is-German-keyboard]
       - type: basic
         from: { key_code: "y" }
         to:
-          - {key_code: c, modifiers: [command]}
+          - { key_code: c, modifiers: [command] }
           - shell_command: osascript -e 'display notification "✅ File(s) copied" with title "Finder Vim Mode"'
         conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *not-German-keyboard]
       # p = paste
       - type: basic
         from: { key_code: p }
         to_if_alone:
-          - {key_code: v, modifiers: [command]}
+          - { key_code: v, modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode]
       # r = replicate (duplicate)
       - type: basic
         from: { key_code: r }
         to_if_alone:
-          - {key_code: d, modifiers: [command]}
+          - { key_code: d, modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # x = cross-move items to other Finder window (if exactly 2 Finder windows)
       - type: basic
@@ -553,7 +553,7 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # X = cross-copy (duplicate)
       - type: basic
-        from: {key_code: x, modifiers: {mandatory: [shift]}}
+        from: { key_code: x, modifiers: { mandatory: [shift] } }
         to_if_alone:
           - shell_command: |
               osascript -e'
@@ -573,62 +573,60 @@ rules:
                 end tell'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # i = info window
+      # INFO uses floating inspector window which follows the current selection.
+      # Pressing the hotkey again toggles it
       - type: basic
         from: { key_code: i }
         to:
-          - key_code: i
-            modifiers: [command]
+          - { key_code: i, modifiers: [command, option] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # v = view window
       - type: basic
         from: { key_code: v }
         to_if_alone:
-          - key_code: j
-            modifiers: [command]
+          - { key_code: j, modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # u = undo
       - type: basic
         from: { key_code: u }
         to_if_alone:
-          - key_code: z
-            modifiers: [command]
+          - { key_code: z, modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       - type: basic
         from: { key_code: u }
-        to:
-          - key_code: "y" # y = z in German keyboard
-            modifiers: [command]
+        to: # y = z in German keyboard
+          - { key_code: "y", modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
       # U = redo
       - type: basic
-        from: {key_code: u, modifiers: {mandatory: [shift]}}
+        from: { key_code: u, modifiers: { mandatory: [shift] } }
         to:
-          - {key_code: z, modifiers: [shift, command]}
+          - { key_code: z, modifiers: [shift, command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       - type: basic
-        from: {key_code: u, modifiers: {mandatory: [shift]}}
+        from: { key_code: u, modifiers: { mandatory: [shift] } }
         to:
-          - {key_code: "y", modifiers: [shift, command]} # y = z in German keyboard
+          - { key_code: "y", modifiers: [shift, command] } # y = z in German keyboard
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
       # e = eject (if volume or disk image)
       - type: basic
         from: { key_code: e }
         to_if_alone:
-          - {key_code: e, modifiers: [command]}
+          - { key_code: e, modifiers: [command] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # N = New Folder
       - type: basic
-        from: {key_code: n, modifiers: {mandatory: [shift]}}
+        from: { key_code: n, modifiers: { mandatory: [shift] } }
         to:
-          - {key_code: n, modifiers: [shift, command]}
+          - { key_code: n, modifiers: [shift, command] }
           - *enter-insert-mode # enters insert mode since folder renaming is also triggered
           - *insert-notice
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # M = Move selection to new folder
       - type: basic
-        from: {key_code: m, modifiers: {mandatory: [shift]}}
+        from: { key_code: m, modifiers: { mandatory: [shift] } }
         to:
-          - {key_code: n, modifiers: [control, command]}
+          - { key_code: n, modifiers: [control, command] }
           - *enter-insert-mode # enters insert mode since folder renaming is also triggered
           - *insert-notice
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
@@ -644,8 +642,7 @@ rules:
                   select newFile
                 end tell'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # b = Toggle `.bkp` (Backup). CAVEAT when used on a symlink, renames the
-      # target instead of the symlink. 🙈
+      # b = Toggle `.bkp` (Backup).
       - type: basic
         from: { key_code: b }
         to:
@@ -653,26 +650,19 @@ rules:
           # path of the target, while "selection as text" returns the path of
           # the symlink (which is desired here)
           - shell_command: |
-              selection=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as text)')
+              selection=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as text)' | sed 's|/$||' )
               lastFourChars=$(echo "$selection" | rev | cut -c-4 | rev) # bash expansion does not work in karabiner
               if [[ "$lastFourChars" == "-bkp" ]]; then
                 newName=$(echo "$selection" | rev | cut -c5- | rev)
-                mv -n "$selection" "$newName"
               else
-                mv -n "$selection" "$selection-bkp"
+                newName="${selection}-bkp"
               fi
+              mv -n "$selection" "$newName"
+              open -R "$newName" # forces refresh of Finder
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # s = follow symlink
+      # s = Create Symlink
       - type: basic
         from: { key_code: s }
-        to:
-          - shell_command: |
-              selection=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as text)')
-              open -R "$(readlink -f "$selection")"
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # S = Create Symlink
-      - type: basic
-        from: { key_code: s, modifiers: { mandatory: [shift] } }
         to:
           - shell_command: |
               sel=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as text)')
@@ -685,6 +675,14 @@ rules:
                   ln -sf "$sel" "${sel}-symlink"
                   open -R "${sel}-symlink"
               fi
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      # S = follow symlink
+      - type: basic
+        from: { key_code: s, modifiers: { mandatory: [shift] } }
+        to:
+          - shell_command: |
+              selection=$(osascript -e 'tell application "Finder" to return POSIX path of (selection as text)')
+              open -R "$(readlink -f "$selection")"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # z = zip files
       - type: basic
@@ -713,35 +711,44 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       # Navigation
-      # o = open fold
+      # o = open/expand fold (O: do it recursively)
       - type: basic
         from: { key_code: o }
         to_if_alone:
           - key_code: right_arrow
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # c = close fold
+      - type: basic
+        from: { key_code: o, modifiers: { mandatory: [shift] } }
+        to_if_alone:
+          - { key_code: right_arrow, modifiers: [option] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      # c = close/collapse fold (C: do it recursively)
       - type: basic
         from: { key_code: c }
         to_if_alone:
           - key_code: left_arrow
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      - type: basic
+        from: { key_code: c, modifiers: { mandatory: [shift] } }
+        to_if_alone:
+          - { key_code: left_arrow, modifiers: [option] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # <C-h> = History Back
       - type: basic
-        from:
-          key_code: h
-          modifiers: { mandatory: [control] }
+        from: { key_code: h, modifiers: { mandatory: [control] } }
         to_if_alone:
           - shell_command: |
               osascript -e '
                 tell application "System Events" to tell process "Finder"
                   click menu item "Back" of menu "Go" of menu bar 1
                 end tell'
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+          # going back aborts searching / renames
+          - key_code: escape
+          - *leave-insert-mode
+        conditions: [*finder-app, *not-find-mode]
       # <C-l> = History Forward
       - type: basic
-        from:
-          key_code: l
-          modifiers: { mandatory: [control] }
+        from: { key_code: l, modifiers: { mandatory: [control] } }
         to:
           - shell_command: |
               osascript -e '
@@ -979,49 +986,58 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *move-active]
       #─────────────────────────────────────────────────────────────────────────
       #─────────────────────────────────────────────────────────────────────────
-      # SORT
-      - type: basic # by name
+      # Number keys: Toggle Tags
+      # https://support.apple.com/guide/mac-help/tag-files-and-folders-mchlp15236/mac
+      - type: basic
+        from: { key_code: "1" }
+        to:
+          - { key_code: "1", modifiers: [control] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      - type: basic
+        from: { key_code: "2" }
+        to:
+          - { key_code: "2", modifiers: [control] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      - type: basic
         from: { key_code: "3" }
         to:
-          - { key_code: "1", modifiers: [control, option, command] }
+          - { key_code: "3", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      - type: basic # by modification date
+      - type: basic
         from: { key_code: "4" }
         to:
-          - { key_code: "5", modifiers: [control, option, command] }
+          - { key_code: "4", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      - type: basic # by size
+      - type: basic
         from: { key_code: "5" }
         to:
-          - { key_code: "6", modifiers: [control, option, command] }
+          - { key_code: "5", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      - type: basic # by kind
+      - type: basic
         from: { key_code: "6" }
         to:
-          - { key_code: "2", modifiers: [control, option, command] }
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      #─────────────────────────────────────────────────────────────────────────
-      # Sidebar/Preview/Pathbar Toggle
-      - type: basic
-        from:
-          key_code: "1"
-          modifiers: { optional: [command] }
-        to:
-          - { key_code: "s", modifiers: [option, command] }
+          - { key_code: "6", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
-        from:
-          key_code: "0"
-          modifiers: { optional: [command] }
+        from: { key_code: "7" }
         to:
-          - { key_code: "p", modifiers: [shift, command] }
+          - { key_code: "7", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
-        from:
-          key_code: "9"
-          modifiers: { optional: [command] }
+        from: { key_code: "8" }
         to:
-          - { key_code: "p", modifiers: [option, command] }
+          - { key_code: "8", modifiers: [control] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      - type: basic
+        from: { key_code: "9" }
+        to:
+          - { key_code: "9", modifiers: [control] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      # remove all tags
+      - type: basic
+        from: { key_code: "0" }
+        to:
+          - { key_code: "0", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       # ctrl-p: copy path
@@ -1051,12 +1067,12 @@ rules:
                 set sel to (item 1 of (get selection) as text)
                 return POSIX path of sel
               end tell')
-              if [[ ! -f "$SEL" ]] ; then 
+              if [[ ! -f "$SEL" ]] ; then
                 osascript -e 'display notification "⚠️ Selection not a file." with title "Finder Vim Mode"'
                 exit 1
               fi
               cd "$(dirname "$SEL")" || exit 1
-              if ! git rev-parse --is-inside-work-tree &>/dev/null ; then 
+              if ! git rev-parse --is-inside-work-tree &>/dev/null ; then
                 osascript -e 'display notification "⚠️ File not in a git repo." with title "Finder Vim Mode"'
                 exit 1
               fi
