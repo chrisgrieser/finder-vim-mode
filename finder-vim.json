@@ -5499,6 +5499,142 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "down_arrow"
+          },
+          "to": [
+            {
+              "key_code": "1",
+              "modifiers": [
+                "control",
+                "option",
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_arrow"
+          },
+          "to": [
+            {
+              "key_code": "5",
+              "modifiers": [
+                "control",
+                "option",
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "up_arrow"
+          },
+          "to": [
+            {
+              "key_code": "6",
+              "modifiers": [
+                "control",
+                "option",
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_arrow"
+          },
+          "to": [
+            {
+              "key_code": "2",
+              "modifiers": [
+                "control",
+                "option",
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "1"
           },
           "to": [
@@ -5507,6 +5643,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5539,6 +5678,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5571,6 +5713,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5603,6 +5748,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5635,6 +5783,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5667,6 +5818,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5699,6 +5853,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5731,6 +5888,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5763,6 +5923,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
@@ -5795,6 +5958,9 @@
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Sounds/Tink.aiff' &"
             }
           ],
           "conditions": [
