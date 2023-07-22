@@ -89,7 +89,7 @@ yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination, for example for Alfred's clipboard history or Universal Action, you have to use one of the following methods:
 
 1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
-2. (Recommended) In [Alfred's Appearance Options](alfredpreferences://navigateto/appearance>[options]), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
+2. (Recommended) In [Alfred's Appearance Options](https://www.alfredapp.com/help/appearance/#options), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
 
 ## Credits
 The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
