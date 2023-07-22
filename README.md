@@ -27,7 +27,7 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 ## Usage
 - Only works in Finder's `List View`.
 - __`:help`__ Press `?` in Finder to display the cheatsheet above.
-- __Move__: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files.
+- __Move__: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files. A move can be aborted via `esc`.
 - __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
 - __Context-menu__: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
 - __Find mode__ triggered via `f`, works similar to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file, which starts with the letter `h`.
