@@ -2302,11 +2302,7 @@
           },
           "to_if_alone": [
             {
-              "key_code": "a",
-              "modifiers": [
-                "command",
-                "option"
-              ]
+              "shell_command": "osascript -e \"\n  script o\n    property sel : {}\n  end script\n  tell application \\\"Finder\\\"\n    set thisFolder to the target of the front window\n    set selection to (entire contents of thisFolder)\n    set o's sel to selection as alias list\n    set tc to count o's sel\n    repeat with i from 1 to tc\n      if class of item (item i of o's sel) is folder then set item i of o's sel to missing value\n    end repeat\n    set selection to aliases of o's sel\n  end tell\n  return \\\"\\\" # required so there is no return value\n\"\n"
             }
           ],
           "conditions": [
