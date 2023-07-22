@@ -2157,7 +2157,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while window 2 exists\n      close window 2\n    end repeat\n  end tell'\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      close Finder window 2\n    end repeat\n  end tell'\n"
             }
           ],
           "conditions": [
@@ -2302,7 +2302,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e \"\n  script o\n    property sel : {}\n  end script\n  tell application \\\"Finder\\\"\n    set thisFolder to the target of the front window\n    set selection to (entire contents of thisFolder)\n    set o's sel to selection as alias list\n    set tc to count o's sel\n    repeat with i from 1 to tc\n      if class of item (item i of o's sel) is folder then set item i of o's sel to missing value\n    end repeat\n    set selection to aliases of o's sel\n  end tell\n  return \\\"\\\" # required so there is no return value\n\"\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set the selection to files of Finder window 1\n  end tell'\n"
             }
           ],
           "conditions": [
@@ -2404,7 +2404,57 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "q"
+            "key_code": "q",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Share…\" of menu \"File\" of menu bar 1\n  end tell'\n"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "value": true
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "optional": [
+                "shift"
+              ]
+            }
           },
           "to_if_alone": [
             {
@@ -2749,7 +2799,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e'\n  tell application \"Finder\"\n    if (number of windows is not 2) then\n      display notification \"\" with title \"⚠️ Not exactly two windows\" subtitle \"Finder Vim Mode\"\n      beep\n    else if (the selection is {}) then\n      display notification \"\" with title \"⚠️ No selection\" subtitle \"Finder Vim Mode\"\n      beep\n    else\n      set otherWin to (target of window 2 as alias)\n      repeat with f in (selection as list)\n        move f to otherWin\n      end repeat\n    end if\n  end tell'\n"
+              "shell_command": "osascript -e'\n  tell application \"Finder\"\n    if (number of Finder windows is not 2) then\n      display notification \"\" with title \"⚠️ Not exactly two windows\" subtitle \"Finder Vim Mode\"\n      beep\n    else if (the selection is {}) then\n      display notification \"\" with title \"⚠️ No selection\" subtitle \"Finder Vim Mode\"\n      beep\n    else\n      set otherWin to (target of Finder window 2 as alias)\n      repeat with f in (selection as list)\n        move f to otherWin\n      end repeat\n    end if\n  end tell'\n"
             }
           ],
           "conditions": [
@@ -2783,7 +2833,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e'\n  tell application \"Finder\"\n    if (number of windows is not 2) then\n      display notification \"\" with title \"Finder Vim Mode\" subtitle \"⚠️ Not exactly two windows\"\n      beep\n    else if (the selection is {}) then\n      display notification \"\" with title \"Finder Vim Mode\" subtitle \"⚠️ No selection\"\n      beep\n    else\n      set otherWin to (target of window 2 as alias)\n      repeat with f in (selection as list)\n        duplicate f to otherWin\n      end repeat\n    end if\n  end tell'\n"
+              "shell_command": "osascript -e'\n  tell application \"Finder\"\n    if (number of Finder windows is not 2) then\n      display notification \"\" with title \"Finder Vim Mode\" subtitle \"⚠️ Not exactly two windows\"\n      beep\n    else if (the selection is {}) then\n      display notification \"\" with title \"Finder Vim Mode\" subtitle \"⚠️ No selection\"\n      beep\n    else\n      set otherWin to (target of Finder window 2 as alias)\n      repeat with f in (selection as list)\n        duplicate f to otherWin\n      end repeat\n    end if\n  end tell'\n"
             }
           ],
           "conditions": [
@@ -3222,7 +3272,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the front window as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\nafplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf' &\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\nafplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf' &\n"
             }
           ],
           "conditions": [
@@ -5602,6 +5652,12 @@
               ]
             },
             {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
+              ]
+            },
+            {
               "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &"
             }
           ],
@@ -5636,6 +5692,12 @@
                 "control",
                 "option",
                 "command"
+              ]
+            },
+            {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
               ]
             },
             {
@@ -5676,6 +5738,12 @@
               ]
             },
             {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
+              ]
+            },
+            {
               "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &"
             }
           ],
@@ -5710,6 +5778,12 @@
                 "control",
                 "option",
                 "command"
+              ]
+            },
+            {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
               ]
             },
             {
