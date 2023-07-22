@@ -95,7 +95,7 @@ Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+s
 The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
 
 <!-- vale Google.FirstPerson = NO -->
-__About Me__
+__About Me__  
 In my day job, I am a sociologist studying the social mechanisms underlying the digital economy. For my PhD project, I investigate the governance of the app economy and how software ecosystems manage the tension between innovation and compatibility. If you are interested in this subject, feel free to get in touch.
 
 __Profiles__  
