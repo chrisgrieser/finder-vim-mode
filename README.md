@@ -1,5 +1,5 @@
-# Vim Mode for macOS Finder
-Keyboard-only control for Finder, inspired by vim/ranger. 
+# Vim Mode for Finder
+Feature-rich mouseless control of macOS Finder, inspired by vim/ranger. 
 
 ![](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
 
@@ -9,7 +9,7 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - `rl`: Duplicate selected file and open the copy.
 - `axw`: Select all files, move them to the other window, close current window.
 - `.f.d.`: Show hidden files, select first dotfile, delete it, hide hidden files.
-- `AM`: Select files (but not folders), create a new directory, move selected files into that directory, and rename the directory.
+- `AM`: Select files (but not folders), create a new directory, move selected files into that directory, and start renaming the directory (enters insert mode).
 - `azmhp`:  Select all files and folders, zip them, (wait for zipping to finish,) and move the archive one directory up
 
 ## Table of Contents
