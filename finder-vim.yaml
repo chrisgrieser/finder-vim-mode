@@ -571,11 +571,17 @@ rules:
                   end if
                 end tell'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # i = info window
+      # i = Preview (information window)
+      - type: basic
+        from: { key_code: i }
+        to:
+          - { key_code: p, modifiers: [shift, command] }
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+      # I = info window
       # INFO uses floating inspector window which follows the current selection.
       # Pressing the hotkey again toggles it
       - type: basic
-        from: { key_code: i }
+        from: { key_code: i, modifiers: { mandatory: [shift] } }
         to:
           - { key_code: i, modifiers: [command, option] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
@@ -593,8 +599,8 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       - type: basic
         from: { key_code: u }
-        to: # y = z in German keyboard
-          - { key_code: "y", modifiers: [command] }
+        to:
+          - { key_code: "y", modifiers: [command] } # y = z in German keyboard
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
       # U = redo
       - type: basic
@@ -620,6 +626,7 @@ rules:
           - { key_code: n, modifiers: [shift, command] }
           - *enter-insert-mode # enters insert mode since folder renaming is also triggered
           - *insert-notice
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # M = Move selection to new folder
       - type: basic
@@ -640,6 +647,7 @@ rules:
                   set newFile to (make new file at thisFolder)
                   select newFile
                 end tell'
+              afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # b = Toggle `.bkp` (Backup).
       - type: basic
@@ -684,9 +692,39 @@ rules:
               open -R "$(readlink -f "$selection")"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # z = zip files
+      # (if single directory is selected, zip its file contents instead)
       - type: basic
         from: { key_code: "y" } # y and z switched on German keyboard
         to_if_alone:
+          - shell_command: |
+              SEL=$(osascript -e 'tell application "Finder"
+                set sel to (item 1 of (get selection) as text)
+                return POSIX path of sel
+              end tell')
+
+              if [[ -d "$SEL" ]] ; then
+                cd "$SEL"
+                foldername=$(basename "$SEL")
+                zip -r "../$foldername.zip" .
+                open -R "../$foldername.zip"
+
+                current_vol=$(osascript -e 'output volume of (get volume settings)')
+                vol_percent=$(echo "scale=2 ; $current_vol / 100" | bc) # afplay play with 100% volume by default
+                (afplay --volume "$vol_percent" "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif" &)
+
+              else
+                osascript -e '
+                  tell application "System Events" to tell process "Finder"
+                    click menu item "Compress" of menu "File" of menu bar 1
+                  end tell'
+              fi
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
+      # Z = zip folder
+      - type: basic
+        from: { key_code: "y", modifiers: { mandatory: [shift] } }
+        to_if_alone:
+          - { key_code: down_arrow, modifiers: [command] }
+          - { key_code: a, modifiers: [command] }
           - shell_command: |
               osascript -e '
                 tell application "System Events" to tell process "Finder"
@@ -990,21 +1028,25 @@ rules:
         from: { key_code: "down_arrow" }
         to:
           - { key_code: "1", modifiers: [control, option, command] }
+          - shell_command: afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf" &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic # by modification date
         from: { key_code: "left_arrow" }
         to:
           - { key_code: "5", modifiers: [control, option, command] }
+          - shell_command: afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf" &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic # by size
         from: { key_code: "up_arrow" }
         to:
           - { key_code: "6", modifiers: [control, option, command] }
+          - shell_command: afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf" &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic # by kind
         from: { key_code: "right_arrow" }
         to:
           - { key_code: "2", modifiers: [control, option, command] }
+          - shell_command: afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf" &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       #─────────────────────────────────────────────────────────────────────────
@@ -1014,62 +1056,62 @@ rules:
         from: { key_code: "1" }
         to:
           - { key_code: "1", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "2" }
         to:
           - { key_code: "2", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "3" }
         to:
           - { key_code: "3", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "4" }
         to:
           - { key_code: "4", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "5" }
         to:
           - { key_code: "5", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "6" }
         to:
           - { key_code: "6", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "7" }
         to:
           - { key_code: "7", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "8" }
         to:
           - { key_code: "8", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       - type: basic
         from: { key_code: "9" }
         to:
           - { key_code: "9", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # remove all tags
       - type: basic
         from: { key_code: "0" }
         to:
           - { key_code: "0", modifiers: [control] }
-          - shell_command: afplay '/System/Library/Sounds/Tink.aiff' &
+          - shell_command: afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       #─────────────────────────────────────────────────────────────────────────
@@ -1094,7 +1136,6 @@ rules:
         from: { key_code: n, modifiers: { mandatory: [control] } }
         to:
           - key_code: return_or_enter
-          - { key_code: "a", modifiers: [command] }
           - { key_code: "c", modifiers: [command] }
           - key_code: return_or_enter
           - shell_command: osascript -e 'display notification "✅ Filename copied" with title "Finder Vim Mode"'
