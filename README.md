@@ -23,7 +23,8 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 - __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
 - __Context-menu__: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
 - __Find mode__ triggered via `f`, works similar to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file, which starts with the letter `h`.
-- __`-bkp` Toggle__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
+- __Toggle `-bkp` suffix__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
+- __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.*
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 - ➡️ Consult the [vim help](https://vimhelp.org/) for the remaining ex-commands you are not familiar with.
 
