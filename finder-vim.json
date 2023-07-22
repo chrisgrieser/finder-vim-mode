@@ -3426,65 +3426,11 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "y",
-            "modifiers": {
-              "mandatory": [
-                "shift"
-              ]
-            }
-          },
-          "to_if_alone": [
-            {
-              "key_code": "down_arrow",
-              "modifiers": [
-                "command"
-              ]
-            },
-            {
-              "key_code": "a",
-              "modifiers": [
-                "command"
-              ]
-            },
-            {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Compress\" of menu \"File\" of menu bar 1\n  end tell'\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            },
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "language": "^de$"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
             "key_code": "z"
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Compress\" of menu \"File\" of menu bar 1\n  end tell'\n"
+              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\n\nif [[ -d \"$SEL\" ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip -r \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\n\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
