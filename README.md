@@ -18,7 +18,7 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 
 ## Usage
 - Only works in Finder's `List View`.
-- __:help__ Press `?` in Finder to display the cheatsheet above.
+- __`:help`__ Press `?` in Finder to display the cheatsheet above.
 - __Move__: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files.
 - __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
 - __Context-menu__: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
@@ -33,13 +33,14 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 ## Installations
 1. Run this in your terminal:
 
-```bash
-brew install karabiner-elements # Install Karabiner (if not already installed)
-open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
-curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
-```
+    ```bash
+    brew install karabiner-elements # Install Karabiner (if not already installed)
+    open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
+    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
+    ```
+
 2. `Import` → `Enable`
-3. If you already use Karabiner and have another modification affecting the __Capslock__ key, that modification must come *after* *Finder Vim Mode* in the list of modifications. 
+3. If you already use Karabiner and have another modification affecting the __Capslock__ key, which must come *after* *Finder Vim Mode* in the list of modifications. 
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, you have to install updates manually by re-running the code above. You can check for the last commit date to see whether there has been an update:
@@ -52,11 +53,11 @@ Since Karabiner plugins are only hotkey re-mappings without proper scripting mec
 ### Major Caveats
 - Only __List view__ is supported. The desktop is not supported.
 - __Pressing `return` in a prompt window__, for example when replacing a
-file, mistakingly puts you in in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the confirmation window.
+file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the confirmation window.
 - Alfred and Raycast [require some additional setup](#alfred-and-raycast-users).
 
 ### Minor Caveats
-- If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just don't use the mouse. You're a vim user, after all.)
+- If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
 - This plugin has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are potentially some minor bugs with other layouts, if you stumble upon one, please open a bug report.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
@@ -86,7 +87,7 @@ yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination, for example for Alfred's clipboard history or Universal Action, you have to use one of the following methods:
 
 1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
-2. (Recommended) In [Alfred's Appearance Options](alfredpreferences://navigateto/appearance>[options]), set the `Focusing` behavior to `Compatibility Mode` . Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
+2. (Recommended) In [Alfred's Appearance Options](alfredpreferences://navigateto/appearance>[options]), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
 
 ## Credits
 The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
