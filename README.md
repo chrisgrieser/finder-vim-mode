@@ -5,6 +5,14 @@ Keyboard-only control for Finder, inspired by vim/ranger.
 
 ![Finder Vim cheatsheet](./finder-vim-mode-cheatsheet.png)
 
+## Usage Examples
+- `rl`: Duplicate selected file and open the copy.
+- `axw`: Select all files, move them to the other window, close current window.
+- `.f.d.`: Show hidden files, select first dotfile, delete it, hide hidden files.
+- `AM`: Select files (but not folders), create a new directory, move selected files into that directory, and rename the directory.
+- `azmhp`:  Select all files and folders, zip them, (wait for zipping to finish,) and move the archive one directory up
+
+## Table of Contents
 <!--toc:start-->
 - [Usage](#usage)
 - [Installations](#installations)
