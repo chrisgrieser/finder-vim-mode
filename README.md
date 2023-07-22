@@ -15,7 +15,7 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 ## Table of Contents
 <!--toc:start-->
 - [Usage](#usage)
-- [Installations](#installations)
+- [Installation](#installation)
 - [Updates](#updates)
 - [Caveats](#caveats)
 - [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
@@ -39,7 +39,7 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 > __Note__  
 > You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `<BS>` (going to the next finder window) never focuses the desktop.
 
-## Installations
+## Installation
 1. Run this in your terminal:
 
     ```bash
@@ -48,8 +48,9 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
     curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
     ```
 
-2. `Import` → `Enable`
-3. If you already use Karabiner and have another modification affecting the __Capslock__ key, which must come *after* *Finder Vim Mode* in the list of modifications. 
+2. Activate the plugin: `Import` → `Enable`
+3. __Karabiner users:__ If you already use Karabiner and have another modification affecting the `Capslock` key, that modification must come *after* the __Finder Vim Mode__ in the list of modifications.
+4. __Alfred and Raycast users:__ [Some additional setup may be needed.](#alfred-and-raycast-users).
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, you have to install updates manually by re-running the code above. You can check for the last commit date to see whether there has been an update:
@@ -58,29 +59,21 @@ Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, 
 
 ## Caveats
 Since Karabiner plugins are only hotkey re-mappings without proper scripting mechanism, this plugin has some limitations:
-
-### Major Caveats
-- Only __List view__ is supported. The desktop is not supported.
+- Only __List view__ is supported. 
 - __Pressing `return` in a prompt window__, for example when replacing a
 file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the confirmation window.
-- Alfred and Raycast [require some additional setup](#alfred-and-raycast-users).
-
-### Minor Caveats
 - If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
-- This plugin has only been tested on the German QWERTZ keyboard layout and the standard US-QWERTY layout. There are potentially some minor bugs with other layouts, if you stumble upon one, please open a bug report.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
 
-
 ## Why not use a Terminal file manager?
-Other than a nicer appearance, a GUI does have a few advantages like better operating-system-integration:
+Other than a nicer appearance, a GUI does have a few advantages:
 - Many apps have some way sort of `Reveal current file in Finder` feature, which is quite handy but does not work with a TUI file manager.
-- With a GUI, you get a separate app in various places like the dock, the built-in app switcher (cmd+tab) or other app switchers (for example, `rcmd`). With a TUI, you'd have to switch to your Terminal, and then switch to your file manager via `tmux` etc., requiring basically an extra step
-- Image previews and file content previews in an icon are not available with a TUI-file manager
-- For some cases, drag-n-drop is still useful.
-- Finder actually has some features like tags.
-- A GUI allows you to have multiple windows open and work with them (for example, the x command in this plugin), while you cannot move files between two terminal windows, which ranger open?
-- A bunch of automation apps for mac work with "if app x is frontmost" conditionals. With a TUI, those apps only see that your terminal is frontmost, but are mostly not able to tell what TUI is running inside the terminal.
+- With a GUI, you get a separate app in various places like the dock, the built-in app switcher `cmd+tab`, or other app switchers (for example, `rcmd`). With a TUI, you'd have to switch to your Terminal, and then switch to your file manager, requiring basically an extra step.
+- Image and file content previews as icons are not available with a TUI-file manager.
+- Finder actually has quite a lot hidden features, which this plugin is utilizing.
+- A GUI allows you to have multiple windows open and work with them (for example, the `x` command in this plugin), while you cannot easily move files between two terminal windows.
+- A bunch of automation apps for mac work with "if app x is frontmost" conditions. With a TUI, those apps only see that your terminal is frontmost, but are mostly not able to tell what TUI is running inside the terminal.
 - Cloud services (iCloud, Google Drive, Dropbox, etc.) indicate the file sync status of a file in Finder.
 
 ## Build
