@@ -2228,10 +2228,31 @@
           },
           "to_if_alone": [
             {
-              "key_code": "tab",
+              "key_code": "f2",
               "modifiers": [
                 "control"
               ]
+            },
+            {
+              "key_code": "g"
+            },
+            {
+              "key_code": "down_arrow",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "key_code": "up_arrow"
+            },
+            {
+              "key_code": "up_arrow"
+            },
+            {
+              "key_code": "up_arrow"
+            },
+            {
+              "key_code": "right_arrow"
             }
           ],
           "conditions": [
