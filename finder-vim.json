@@ -78,12 +78,12 @@
         },
         {
           "type": "variable_if",
-          "name": "FINDER_CONTEXT_MENU_ACTIVE",
+          "name": "FINDER_MENU_ACTIVE",
           "value": true
         },
         {
           "type": "variable_unless",
-          "name": "FINDER_CONTEXT_MENU_ACTIVE",
+          "name": "FINDER_MENU_ACTIVE",
           "value": true
         }
       ]
@@ -176,13 +176,13 @@
         },
         {
           "set_variable": {
-            "name": "FINDER_CONTEXT_MENU_ACTIVE",
+            "name": "FINDER_MENU_ACTIVE",
             "value": true
           }
         },
         {
           "set_variable": {
-            "name": "FINDER_CONTEXT_MENU_ACTIVE",
+            "name": "FINDER_MENU_ACTIVE",
             "value": false
           }
         }
@@ -283,7 +283,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -320,7 +320,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -617,7 +617,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -668,7 +668,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -724,7 +724,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -773,7 +773,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -827,7 +827,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -1915,7 +1915,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             },
@@ -1981,7 +1981,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             },
@@ -2039,7 +2039,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2089,7 +2089,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2140,7 +2140,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2179,7 +2179,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2216,7 +2216,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2253,6 +2253,12 @@
             },
             {
               "key_code": "right_arrow"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_MENU_ACTIVE",
+                "value": true
+              }
             }
           ],
           "conditions": [
@@ -2274,7 +2280,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2393,7 +2399,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": true
               }
             }
@@ -2417,7 +2423,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2438,7 +2444,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": true
               }
             }
@@ -2462,7 +2468,7 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2483,7 +2489,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2507,7 +2513,7 @@
             },
             {
               "type": "variable_if",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2544,7 +2550,7 @@
             },
             {
               "type": "variable_if",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2581,7 +2587,7 @@
             },
             {
               "type": "variable_if",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
@@ -2597,7 +2603,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_CONTEXT_MENU_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             }
@@ -2611,7 +2617,7 @@
             },
             {
               "type": "variable_if",
-              "name": "FINDER_CONTEXT_MENU_ACTIVE",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
             }
           ]
