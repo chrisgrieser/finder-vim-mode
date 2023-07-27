@@ -3499,6 +3499,9 @@
                 "command",
                 "shift"
               ]
+            },
+            {
+              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_leave.caf' &"
             }
           ],
           "conditions": [
@@ -3528,6 +3531,9 @@
           "to_if_alone": [
             {
               "key_code": "right_arrow"
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &"
             }
           ],
           "conditions": [
@@ -3565,6 +3571,9 @@
               "modifiers": [
                 "option"
               ]
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &"
             }
           ],
           "conditions": [
@@ -3594,6 +3603,9 @@
           "to_if_alone": [
             {
               "key_code": "left_arrow"
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &"
             }
           ],
           "conditions": [
@@ -3631,6 +3643,9 @@
               "modifiers": [
                 "option"
               ]
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &"
             }
           ],
           "conditions": [
@@ -6139,7 +6154,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e 'display notification \"☁️ 🔁 Restarting iCloud…\" with title \"Finder Vim Mode\"'\nkillall bird\n"
+              "shell_command": "osascript -e 'display notification \"☁️ 🔁 Restarting iCloud…\" with title \"Finder Vim Mode\"'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.caf\" &\nkillall bird\n"
             }
           ],
           "conditions": [
