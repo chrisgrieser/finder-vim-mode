@@ -64,6 +64,8 @@ file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able 
 - If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
+- The plugin has been tested with the standard US and German keyboard layout. It should mostly also work for other layouts.
+- In some cases, usage of a English as System UI language may solve an issue. (`System Settings → General → Language & Region → Preferred Languages`)
 
 ## Why not use a Terminal file manager?
 Other than a nicer appearance, a GUI does have a few advantages:
