@@ -8,9 +8,9 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 ## Usage Examples
 - `rl`: Duplicate selected file and open the copy.
 - `axw`: Select all files, move them to the other window, close current window.
-- `.f.d.`: Show hidden files, select first dotfile, delete it, hide hidden files.
+- `.f.d.`: Show hidden files, select first hidden file, delete it, hide the files again.
 - `AM`: Select files (but not folders), create a new directory, move selected files into that directory, and start renaming the directory (enters insert mode).
-- `azmhp`:  Select all files and folders, zip them, (wait for zipping to finish,) and move the archive one directory up
+- `azmhp`:  Select all files and folders, zip them, (wait for zipping to finish), and move the archive one directory up
 
 ## Table of Contents
 <!--toc:start-->
@@ -35,9 +35,6 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 
-> __Note__  
-> You can "deactivate" the macOS Desktop via `defaults write com.apple.finder CreateDesktop false`. This way, `<BS>` (going to the next finder window) never focuses the desktop.
-
 ## Installation
 1. Run this in your terminal:
 
@@ -48,7 +45,7 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
     ```
 
 2. Activate the plugin: `Import` → `Enable`
-3. __Karabiner users:__ If you already use Karabiner and have another modification affecting the `Capslock` key, that modification must come *after* the __Finder Vim Mode__ in the list of modifications.
+3. __Karabiner users:__ If you already use Karabiner and have another modification affecting the `Capslock` key that modification must come *after* the __Finder Vim Mode__ in the list of modifications.
 4. __Alfred and Raycast users:__ [Some additional setup may be needed.](#alfred-and-raycast-users).
 
 ## Updates
@@ -65,20 +62,20 @@ file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able 
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
 - The plugin has been tested with the standard US and German keyboard layout. It should mostly also work for other layouts.
-- In some cases, usage of a English as System UI language may solve an issue. (`System Settings → General → Language & Region → Preferred Languages`)
+- Sometimes, usage of English as System UI language may solve an issue. (`System Settings → General → Language & Region → Preferred Languages`)
 
 ## Why not use a Terminal file manager?
 Other than a nicer appearance, a GUI does have a few advantages:
 - Many apps have some way sort of `Reveal current file in Finder` feature, which is quite handy but does not work with a TUI file manager.
 - With a GUI, you get a separate app in various places like the dock, the built-in app switcher `cmd+tab`, or other app switchers (for example, `rcmd`). With a TUI, you'd have to switch to your Terminal, and then switch to your file manager, requiring basically an extra step.
 - Image and file content previews as icons are not available with a TUI-file manager.
-- Finder actually has quite a lot hidden features, which this plugin is utilizing.
+- Finder actually has many hidden features, which this plugin is utilizing.
 - A GUI allows you to have multiple windows open and work with them (for example, the `x` command in this plugin), while you cannot easily move files between two terminal windows.
-- A bunch of automation apps for mac work with "if app x is frontmost" conditions. With a TUI, those apps only see that your terminal is frontmost, but are mostly not able to tell what TUI is running inside the terminal.
+- A bunch of automation apps for macOS work with "if app x is frontmost" conditions. With a TUI, those apps only see that your terminal is frontmost, but are mostly not able to tell what TUI is running inside the terminal.
 - Cloud services (iCloud, Google Drive, Dropbox, etc.) indicate the file sync status of a file in Finder.
 
 ## Build
-Karabiner plugins are essentially hotkey configurations in form of a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases reduces the lines of code to only ~1000 lines.
+Karabiner plugins are essentially hotkey configurations in form of a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases [anchors and aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/) reduces the lines of code to only ~1000 lines.
 
 If you want to fork this plugin, it is recommended to work with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so with [yq](https://github.com/mikefarah/yq). (Note that the `explode()` is required to resolve the anchors and aliases.)
 

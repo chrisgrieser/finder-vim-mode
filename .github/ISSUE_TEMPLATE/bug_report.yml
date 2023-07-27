@@ -33,12 +33,22 @@ body:
       placeholder: "e.g.: ABC – QWERTZ"
     validations:
       required: true
+  - type: input
+    id: system-language
+    attributes:
+      label: System UI language
+      description: You can find your active layout at `System Settings → General → Language & Region → Preferred Languages`. (The top language in the list, if there are multiple.)
+      placeholder: "e.g.: English (US)"
+    validations:
+      required: true
   - type: checkboxes
     id: checklist
     attributes:
       label: Checklist
       options:
-        - label: I updated to the latest version.
+        - label: I updated to the latest version of this plugin.
           required: true
-        - label: I have read about the limitations of Karabiner plugins in the [caveats section of the README](https://github.com/chrisgrieser/finder-vim-mode#caveats).
+        - label: I updated to the latest version of Karabiner Elements.
+          required: true
+        - label: I have read about the limitations of Karabiner plugins in the [Caveats section of the README](..#caveats).
           required: true
