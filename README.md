@@ -43,8 +43,8 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
     brew install karabiner-elements # Install Karabiner (if not already installed)
 
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
-    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
-    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/batch-rename.js" -o "$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js"
+    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/batch-rename.js" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js"
     ```
 
 2. Activate the plugin: `Import` → `Enable`
