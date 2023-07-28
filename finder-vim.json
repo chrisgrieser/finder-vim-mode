@@ -579,7 +579,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "c"
+            "key_code": "return_or_enter"
           },
           "to": [
             {
@@ -625,7 +625,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "c",
+            "key_code": "return_or_enter",
             "modifiers": {
               "mandatory": [
                 "shift"
@@ -634,7 +634,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -l JavaScript \"$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js\"\n"
+              "shell_command": "osascript -l JavaScript \"$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.\"\n"
             },
             {
               "set_notification_message": {
@@ -3567,7 +3567,82 @@
           },
           "to_if_alone": [
             {
+              "key_code": "right_arrow",
+              "modifiers": [
+                "option"
+              ]
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c"
+          },
+          "to_if_alone": [
+            {
               "key_code": "left_arrow"
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [
+                "option"
+              ]
             },
             {
               "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &"
