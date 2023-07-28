@@ -3,7 +3,7 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 
 ![](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
 
-![Finder Vim cheatsheet](./finder-vim-mode-cheatsheet.png)
+![Finder Vim cheatsheet](./extras/cheatsheet.png)
 
 ## Usage Examples
 - `rl`: Duplicate selected file and open the copy.
