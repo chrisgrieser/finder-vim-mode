@@ -34,14 +34,17 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 - __Toggle `-bkp` suffix__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
+- __Batch Rename__: Expect a return statement valid in JavaScript. This means you can rename your files for example with `.replace()` and Regex.
 
 ## Installation
 1. Run this in your terminal:
 
     ```bash
     brew install karabiner-elements # Install Karabiner (if not already installed)
+
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
-    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim-cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.png"
+    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" -o "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/batch-rename.js" -o "$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js"
     ```
 
 2. Activate the plugin: `Import` → `Enable`
@@ -86,11 +89,12 @@ yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ## Alfred and Raycast users
 Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination, for example for Alfred's clipboard history or Universal Action, you have to use one of the following methods:
 
-1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
+1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./addons/finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
 2. (Recommended) In [Alfred's Appearance Options](https://www.alfredapp.com/help/appearance/#options), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
 
 ## Credits
-The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
+- The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
+- The Batch-renaming function is based [on code from dtinth](https://gist.github.com/dtinth/93e230152a771dcb1ec5).
 
 <!-- vale Google.FirstPerson = NO -->
 __About Me__  
