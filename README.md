@@ -59,8 +59,7 @@ Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, 
 ## Caveats
 Since Karabiner plugins are only hotkey re-mappings without proper scripting mechanism, this plugin has some limitations:
 - Only __List view__ is supported. 
-- __Pressing `return` in a prompt window__, for example when replacing a
-file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the confirmation window.
+- Pressing `return` to rename files, is not supported. (Having `return` work for that would cause various conflicts with confirmation windows, since Karabiner has no way of telling whether you are in a regular window or not.)
 - If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
