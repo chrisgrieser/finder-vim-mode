@@ -634,7 +634,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -l JavaScript \"$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.\"\n"
+              "shell_command": "osascript -l JavaScript \"$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js\"\n"
             },
             {
               "set_notification_message": {
