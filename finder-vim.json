@@ -291,13 +291,62 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "l"
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
           },
           "to_if_alone": [
             {
-              "key_code": "down_arrow",
+              "key_code": "up_arrow",
               "modifiers": [
-                "command"
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "o",
+              "modifiers": [
+                "command",
+                "option"
               ]
             }
           ],
@@ -2988,6 +3037,40 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "v",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Show Preview Option\" of menu \"View\" of menu bar 1\n  end tell'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "u"
           },
           "to_if_alone": [
@@ -5646,7 +5729,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"⬇️ Sort by name\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5689,7 +5772,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"⬅️ Sort by modification date\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5732,7 +5815,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"⬆️ Sort by size\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5775,7 +5858,50 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"➡️ Sort by kind\" with title \"Finder Vim Mode\"'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "end"
+          },
+          "to": [
+            {
+              "key_code": "7",
+              "modifiers": [
+                "control",
+                "option",
+                "command"
+              ]
+            },
+            {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
+              ]
+            },
+            {
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"🔚 Sort by tags\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
