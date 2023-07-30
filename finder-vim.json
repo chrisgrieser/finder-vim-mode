@@ -2486,11 +2486,11 @@
           },
           "to": [
             {
-              "shell_command": "osascript -l JavaScript -e '\n  const app = Application.currentApplication();\n  app.includeStandardAdditions = true;\n  const finder = Application(\"Finder\");\n  const win = finder.finderWindows[0].target;\n  const winPath = decodeURIComponent(win.url().slice(7));\n  const taggedFiles = app\n    .doShellScript (`mdfind -onlyin \"${winPath}\" \"kMDItemUserTags == vim-mark\"`)\n    .split(\"\\r\")\n    .map(path => Path(path));\n  finder.select(taggedFiles);\n'\n"
+              "shell_command": "osascript -l JavaScript -e '\n  const app = Application.currentApplication();\n  app.includeStandardAdditions = true;\n  const finder = Application(\"Finder\");\n  finder.activate(); // ensures finder is focussed for `finderWindows[0]`\n  const win = finder.finderWindows[0].target;\n  const winPath = decodeURIComponent(win.url().slice(7));\n  const taggedFiles = app\n    .doShellScript (`mdfind -onlyin \"${winPath}\" \"kMDItemUserTags == vim-mark\"`)\n    .split(\"\\r\")\n    .map(path => Path(path));\n  try {\n    finder.select(taggedFiles);\n  } catch (error) {\n    app.displayNotification(\"\", { withTitle: \"Finder Vim Mode\", subtitle: \"Error: \" + error })\n  }\n'\n"
             },
             {
               "key_code": "vk_none",
-              "hold_down_milliseconds": 200
+              "hold_down_milliseconds": 100
             },
             {
               "key_code": "1",
