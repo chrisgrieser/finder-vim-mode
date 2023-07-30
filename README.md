@@ -10,7 +10,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - `axw`: Select all files, move them to the other window, close current window.
 - `.f.d.`: Show hidden files, select first hidden file, delete it, hide the files again.
 - `AM`: Select files (but not folders), create a new directory, move selected files into that directory, and start renaming the directory (enters insert mode).
-- `azmhp`:  Select all files and folders, zip them, (wait for zipping to finish), and move the archive one directory up
+- `azmhp`: Select all files and folders, zip them, (wait for zipping to finish), and move the archive one directory up
 
 ## Table of Contents
 <!--toc:start-->
@@ -49,7 +49,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
     ```
 
 2. Activate the plugin: `Import` → `Enable`
-3. *Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, that modification must come *below* the __Finder Vim Mode__ in the list of modifications. (Karabiner prioritizes modifications further on top of the list.)
+3. *Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, the other modification must come *below* the __Finder Vim Mode__ in the list of modifications. (Karabiner prioritizes modifications further on top of the list.)
 4. *Alfred and Raycast users:* [Some additional setup may be needed.](#alfred-and-raycast-users)
 5. Open Finder, go the settings, create a tag named `vim-mark`, and move it to the *first* position in the list of tags. (This plugin basically re-purposes Finder's tag system to be used (local) marks.)
 

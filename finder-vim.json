@@ -291,6 +291,43 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "l"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "o",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "h",
             "modifiers": {
               "mandatory": [
@@ -334,43 +371,6 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "l"
-          },
-          "to_if_alone": [
-            {
-              "key_code": "o",
-              "modifiers": [
-                "command"
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_MENU_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
             "key_code": "l",
             "modifiers": {
               "mandatory": [
@@ -380,11 +380,7 @@
           },
           "to_if_alone": [
             {
-              "key_code": "o",
-              "modifiers": [
-                "command",
-                "option"
-              ]
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if (selection is {}) then\n      display notification \"\" with title \"⚠️ No selection\" subtitle \"Finder Vim Mode\"\n      beep\n    else\n      repeat with aFolder in (selection as list)\n        open aFolder\n      end repeat\n    end if\n  end tell'\n"
             }
           ],
           "conditions": [
@@ -407,75 +403,6 @@
             {
               "type": "variable_unless",
               "name": "FINDER_MENU_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "g"
-          },
-          "to": [
-            {
-              "key_code": "up_arrow",
-              "modifiers": [
-                "option"
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "g",
-            "modifiers": {
-              "mandatory": [
-                "shift"
-              ]
-            }
-          },
-          "to_if_alone": [
-            {
-              "key_code": "down_arrow",
-              "modifiers": [
-                "option"
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
               "value": true
             }
           ]
@@ -557,6 +484,75 @@
             },
             {
               "key_code": "up_arrow"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g"
+          },
+          "to": [
+            {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "down_arrow",
+              "modifiers": [
+                "option"
+              ]
             }
           ],
           "conditions": [
@@ -1355,66 +1351,6 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "return_or_enter",
-            "modifiers": {
-              "mandatory": [
-                "shift",
-                "control",
-                "option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "return_or_enter",
-              "modifiers": [
-                "shift",
-                "control",
-                "option"
-              ]
-            },
-            {
-              "set_notification_message": {
-                "id": "insert-notice",
-                "text": ""
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_INSERT_MODE",
-                "value": false
-              }
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_ALFRED_ACTIVE",
-                "value": false
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.runningwithcrayons\\.Alfred$",
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_if",
-              "name": "FINDER_ALFRED_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
             "key_code": "2",
             "modifiers": {
               "mandatory": [
@@ -2097,7 +2033,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "w",
+            "key_code": "q",
             "modifiers": {
               "mandatory": [
                 "command"
@@ -2106,7 +2042,7 @@
           },
           "to": [
             {
-              "key_code": "w",
+              "key_code": "q",
               "modifiers": [
                 "command"
               ]
@@ -2150,13 +2086,70 @@
             "key_code": "q",
             "modifiers": {
               "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "killall Finder"
+            },
+            {
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_MENU_ACTIVE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
                 "command"
               ]
             }
           },
           "to": [
             {
-              "key_code": "q",
+              "key_code": "w",
               "modifiers": [
                 "command"
               ]
@@ -2234,12 +2227,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "w",
-            "modifiers": {
-              "mandatory": [
-                "shift"
-              ]
-            }
+            "key_code": "e"
           },
           "to": [
             {
@@ -2266,6 +2254,43 @@
             {
               "type": "variable_unless",
               "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
               "value": true
             }
           ]
@@ -2561,57 +2586,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "q",
-            "modifiers": {
-              "mandatory": [
-                "shift"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Share…\" of menu \"File\" of menu bar 1\n  end tell'\n"
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_MENU_ACTIVE",
-                "value": true
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_MENU_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "q",
-            "modifiers": {
-              "optional": [
-                "shift"
-              ]
-            }
+            "key_code": "q"
           },
           "to_if_alone": [
             {
@@ -3318,38 +3293,6 @@
                   "language": "^de$"
                 }
               ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "e"
-          },
-          "to_if_alone": [
-            {
-              "key_code": "e",
-              "modifiers": [
-                "command"
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
             }
           ]
         },
