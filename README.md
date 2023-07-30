@@ -53,6 +53,8 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 4. __Alfred and Raycast users:__ [Some additional setup may be needed.](#alfred-and-raycast-users)
 5. Open Finder, go the settings, create a tag named `vim-mark`, and move it to the *first* position in the list of tags. (This plugin basically re-purposes Finder's tag system to be used (local) marks.)
 
+<img src="https://github.com/chrisgrieser/finder-vim-mode/assets/73286100/7992b292-fda8-4359-9c75-a7545d214c7c" alt="macOS finder settings for tags" width=40%>
+
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, you have to install updates manually by re-running the code above. You can check for the last commit date to see whether there has been an update:
 
