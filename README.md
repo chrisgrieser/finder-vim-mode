@@ -18,7 +18,6 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - [Installation](#installation)
 - [Updates](#updates)
 - [Caveats](#caveats)
-- [Alfred and Raycast users](#alfred-and-raycast-users)
 - [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
 - [Build](#build)
 - [Credits](#credits)
@@ -49,9 +48,9 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
     ```
 
 2. Activate the plugin: `Import` → `Enable`
-3. *Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, the other modification must come *below* the __Finder Vim Mode__ in the list of modifications. (Karabiner prioritizes modifications further on top of the list.)
-4. *Alfred and Raycast users:* [Some additional setup may be needed.](#alfred-and-raycast-users)
-5. Open Finder, go the settings, create a tag named `vim-mark`, and move it to the *first* position in the list of tags. (This plugin basically re-purposes Finder's tag system to be used (local) marks.)
+3. *Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, the other modification must come *below* the __Finder Vim Mode__ in the list of modifications. (Karabiner prioritizes modifications further on top of the list.) <!-- LTeX: enabled=false -->
+4. *Alfred users:* <!-- LTeX: enabled=true -->In [the Appearance Options](https://www.alfredapp.com/help/appearance/#options), you need to set the `Focusing` behavior to `Compatibility Mode` for Karabiner to detect Alfred being active.
+5. Open Finder, go the settings, create a tag named `vim-mark`, and move it to the *first* position in the list of tags. (This plugin basically re-purposes Finder's tag system to be used as (local) marks.)
 
 <img src="https://github.com/chrisgrieser/finder-vim-mode/assets/73286100/7992b292-fda8-4359-9c75-a7545d214c7c" alt="macOS finder settings for tags" width=40%>
 
@@ -70,12 +69,6 @@ file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able 
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
 - The plugin has been tested with the standard US and German keyboard layout. It should mostly also work for other layouts.
 - Sometimes, usage of English as System UI language may solve an issue. (`System Settings → General → Language & Region → Preferred Languages`)
-
-## Alfred and Raycast users
-Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination, for example for Alfred's clipboard history or Universal Action, you have to use one of the following methods:
-
-1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./addons/finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
-2. (Recommended) In [Alfred's Appearance Options](https://www.alfredapp.com/help/appearance/#options), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
 
 ## Why not use a Terminal file manager?
 Other than a nicer appearance, a GUI does have a few advantages:
