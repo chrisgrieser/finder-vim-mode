@@ -35,7 +35,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 - __Batch Rename__ *(experimental)*: Rename with JavaScript-flavored Regex.
-- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. With this method you can make non-continious selections without the mouse.
+- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. This way you can make non-continious selections without having to use `cmd+leftclick`.
 
 ## Installation
 1. Run this in your terminal:
@@ -49,8 +49,8 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
     ```
 
 2. Activate the plugin: `Import` → `Enable`
-3. __Karabiner users:__ If you already use Karabiner and have another modification affecting the `Capslock` key that modification must come *after* the __Finder Vim Mode__ in the list of modifications.
-4. __Alfred and Raycast users:__ [Some additional setup may be needed.](#alfred-and-raycast-users)
+3. *Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, that modification must come *below* the __Finder Vim Mode__ in the list of modifications. (Karabiner prioritizes modifications further on top of the list.)
+4. *Alfred and Raycast users:* [Some additional setup may be needed.](#alfred-and-raycast-users)
 5. Open Finder, go the settings, create a tag named `vim-mark`, and move it to the *first* position in the list of tags. (This plugin basically re-purposes Finder's tag system to be used (local) marks.)
 
 <img src="https://github.com/chrisgrieser/finder-vim-mode/assets/73286100/7992b292-fda8-4359-9c75-a7545d214c7c" alt="macOS finder settings for tags" width=40%>
@@ -64,7 +64,7 @@ Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, 
 Since Karabiner plugins are only hotkey re-mappings without proper scripting mechanism, this plugin has some limitations:
 - Only __List view__ is supported. 
 - __Pressing `return` in a prompt window__, for example when replacing a
-file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the confirmation window.
+file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the prompt window.
 - If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
