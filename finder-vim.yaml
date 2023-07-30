@@ -486,6 +486,7 @@ rules:
                   .map(path => Path(path));
                 finder.select(taggedFiles);
               '
+          - { key_code: vk_none, hold_down_milliseconds: 200 }
           - { key_code: "1", modifiers: [control] } # untag the files
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
