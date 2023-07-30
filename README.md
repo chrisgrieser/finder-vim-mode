@@ -34,14 +34,14 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 - __Batch Rename__ *(experimental)*: Rename with JavaScript-flavored Regex.
-- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. This way you can make non-continious selections without having to use `cmd+leftclick`.
+- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. This way you can make non-continious selections without having to use `cmd+leftClick`. Note that this only works for selecting files, you cannot select folders (see #3).
 
 ## Installation
 1. Run this in your terminal:
 
     ```bash
     brew install karabiner-elements # Install Karabiner (if not already installed)
-
+    
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
     curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
     curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/batch-rename.js" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js"
@@ -67,6 +67,7 @@ file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able 
 - If you __use the mouse to click buttons__, you can end up in the wrong mode. In that case, you can press `esc` to get back to Normal Mode. (Or, you know, just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user configure the keybindings__ themselves in any way, at least not with a Karabiner plugin. If you want to rebind keys, you have to change the respective key manually in the JSON file.
+- If you have set custom keybindings for Finder, they are most likely going interfere.
 - The plugin has been tested with the standard US and German keyboard layout. It should mostly also work for other layouts.
 - Sometimes, usage of English as System UI language may solve an issue. (`System Settings → General → Language & Region → Preferred Languages`)
 
@@ -85,7 +86,7 @@ Karabiner plugins are essentially hotkey configurations in form of a JSON file. 
 If you want to fork this plugin, it is recommended to work with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so with [yq](https://github.com/mikefarah/yq). (Note that the `explode()` is required to resolve the anchors and aliases.)
 
 ```bash
-yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
+yq -o=json 'explode(.)' finder-vim.yaml >finder-vim.json
 ```
 
 ## Credits
