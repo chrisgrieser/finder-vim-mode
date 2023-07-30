@@ -1,5 +1,5 @@
 # Vim Mode for Finder
-Feature-rich mouseless control of macOS Finder, inspired by vim/ranger. 
+Feature-rich control of macOS Finder without the mouse, inspired by vim and ranger. 
 
 ![](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
 
@@ -18,9 +18,9 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 - [Installation](#installation)
 - [Updates](#updates)
 - [Caveats](#caveats)
+- [Alfred and Raycast users](#alfred-and-raycast-users)
 - [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
 - [Build](#build)
-- [Alfred and Raycast users](#alfred-and-raycast-users)
 - [Credits](#credits)
 <!--toc:end-->
 
@@ -34,7 +34,8 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 - __Toggle `-bkp` suffix__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
-- __Batch Rename__: (experimental) Rename with JavaScript-flavored Regex support.
+- __Batch Rename__ *(experimental)*: Rename with JavaScript-flavored Regex.
+- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. With this method you can make non-continious selections without the mouse.
 
 ## Installation
 1. Run this in your terminal:
@@ -49,7 +50,8 @@ Feature-rich mouseless control of macOS Finder, inspired by vim/ranger.
 
 2. Activate the plugin: `Import` → `Enable`
 3. __Karabiner users:__ If you already use Karabiner and have another modification affecting the `Capslock` key that modification must come *after* the __Finder Vim Mode__ in the list of modifications.
-4. __Alfred and Raycast users:__ [Some additional setup may be needed.](#alfred-and-raycast-users).
+4. __Alfred and Raycast users:__ [Some additional setup may be needed.](#alfred-and-raycast-users)
+5. Open Finder, go the settings, create a tag named `vim-mark`, and move it to the *first* position in the list of tags. (This plugin basically re-purposes Finder's tag system to be used (local) marks.)
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore, you have to install updates manually by re-running the code above. You can check for the last commit date to see whether there has been an update:
@@ -67,15 +69,20 @@ file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able 
 - The plugin has been tested with the standard US and German keyboard layout. It should mostly also work for other layouts.
 - Sometimes, usage of English as System UI language may solve an issue. (`System Settings → General → Language & Region → Preferred Languages`)
 
+## Alfred and Raycast users
+Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination, for example for Alfred's clipboard history or Universal Action, you have to use one of the following methods:
+
+1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./addons/finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
+2. (Recommended) In [Alfred's Appearance Options](https://www.alfredapp.com/help/appearance/#options), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
+
 ## Why not use a Terminal file manager?
 Other than a nicer appearance, a GUI does have a few advantages:
 - Many apps have some way sort of `Reveal current file in Finder` feature, which is quite handy but does not work with a TUI file manager.
 - With a GUI, you get a separate app in various places like the dock, the built-in app switcher `cmd+tab`, or other app switchers (for example, `rcmd`). With a TUI, you'd have to switch to your Terminal, and then switch to your file manager, requiring basically an extra step.
 - Image and file content previews as icons are not available with a TUI-file manager.
 - Finder actually has many hidden features, which this plugin is utilizing.
-- A GUI allows you to have multiple windows open and work with them (for example, the `x` command in this plugin), while you cannot easily move files between two terminal windows.
 - A bunch of automation apps for macOS work with "if app x is frontmost" conditions. With a TUI, those apps only see that your terminal is frontmost, but are mostly not able to tell what TUI is running inside the terminal.
-- Cloud services (iCloud, Google Drive, Dropbox, etc.) indicate the file sync status of a file in Finder.
+- Cloud services (iCloud, Google Drive, Dropbox, etc.) are well-integrated with Finder.
 
 ## Build
 Karabiner plugins are essentially hotkey configurations in form of a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases [anchors and aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/) reduces the lines of code to only ~1000 lines.
@@ -85,12 +92,6 @@ If you want to fork this plugin, it is recommended to work with the YAML file an
 ```bash
 yq -o=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
-
-## Alfred and Raycast users
-Finder-Vim-Mode factors in the usage of Spotlight, Alfred, or Raycast via `cmd+space`. However, if you use another key combination, for example for Alfred's clipboard history or Universal Action, you have to use one of the following methods:
-
-1. Permanently disable Finder-Vim-Mode for the respective Alfred or Raycast Commands by downloading the [Finder-Vim-Alfred-Addon](./addons/finder-vim-alfred-addon.json) and customizing its keys. The `from` and `to` keys need to be the same (except for the extra intermediary `mandatory`).
-2. (Recommended) In [Alfred's Appearance Options](https://www.alfredapp.com/help/appearance/#options), set the `Focusing` behavior to `Compatibility Mode`. Note that this can affect triggers of the kind "if X is the frontmost app, then…" used by certain macOS automation apps.
 
 ## Credits
 - The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.

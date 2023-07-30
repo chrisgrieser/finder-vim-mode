@@ -17,6 +17,9 @@ build:
 		echo "✅ Compiled Karabiner modification JSON."
 
 # Recreate the cheatsheet
+# INFO the cheatsheet should be downloaded as JSON, but not as PNG, since the
+# PNG is quite low quality. To get higher quality, it is better to make a
+# screenshot instead.
 cheatsheet:
 	open 'http://www.keyboard-layout-editor.com/'
 	open -R "$$HOME/.config/karabiner/assets/finder-vim-mode-cheatsheet.json"
