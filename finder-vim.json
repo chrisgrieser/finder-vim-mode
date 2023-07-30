@@ -334,6 +334,43 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "l"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "o",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "l",
             "modifiers": {
               "mandatory": [
