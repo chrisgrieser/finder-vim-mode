@@ -3083,7 +3083,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Show Preview Option\" of menu \"View\" of menu bar 1\n  end tell'\n"
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Show Preview Options\" of menu \"View\" of menu bar 1\n  end tell'\n"
             }
           ],
           "conditions": [
