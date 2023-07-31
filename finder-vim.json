@@ -1167,7 +1167,7 @@
           },
           "to": [
             {
-              "shell_command": "killall Finder"
+              "shell_command": "killall Finder\nosascript -e 'display notification \"🔁 Restarting Finder…\" with title \"Finder Vim Mode\"'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.caf\" &\n"
             },
             {
               "set_notification_message": {
@@ -2651,7 +2651,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\n\nif [[ -d \"$SEL\" ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip -r \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\n\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$SEL\" && $selection_count -eq 1 ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip -r \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
@@ -2688,7 +2688,7 @@
           },
           "to": [
             {
-              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\n\nif [[ -d \"$SEL\" ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip -r \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\n\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$SEL\" && $selection_count -eq 1 ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip -r \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [

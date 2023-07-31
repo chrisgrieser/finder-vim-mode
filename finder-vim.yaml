@@ -320,7 +320,10 @@ rules:
       - type: basic
         from: { key_code: q, modifiers: { mandatory: [shift] } }
         to:
-          - shell_command: killall Finder
+          - shell_command: |
+              killall Finder
+              osascript -e 'display notification "🔁 Restarting Finder…" with title "Finder Vim Mode"'
+              afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.caf" &
           - *remove-insert-notice
           - *leave-insert-mode
           - *end-menu
@@ -700,13 +703,12 @@ rules:
       - type: basic
         from: { key_code: "y" } # y and z switched on German keyboard
         to_if_alone:
+          # WARN needs to be written twice, once for German, once for English (see below)
           - shell_command: |
-              SEL=$(osascript -e 'tell application "Finder"
-                set sel to (item 1 of (get selection) as text)
-                return POSIX path of sel
-              end tell')
+              SEL=$(osascript -e 'tell application "Finder" to POSIX path of (item 1 of (get selection) as text)')
+              selection_count=$(osascript -e 'tell application "Finder" to count (selection as list)')
 
-              if [[ -d "$SEL" ]] ; then
+              if [[ -d "$SEL" && $selection_count -eq 1 ]] ; then
                 cd "$SEL"
                 foldername=$(basename "$SEL")
                 zip -r "../$foldername.zip" .
@@ -715,7 +717,6 @@ rules:
                 current_vol=$(osascript -e 'output volume of (get volume settings)')
                 vol_percent=$(echo "scale=2 ; $current_vol / 100" | bc) # afplay play with 100% volume by default
                 (afplay --volume "$vol_percent" "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif" &)
-
               else
                 osascript -e '
                   tell application "System Events" to tell process "Finder"
@@ -726,13 +727,12 @@ rules:
       - type: basic
         from: { key_code: z }
         to:
+          # WARN needs to be written twice, once for German, once for English (see above)
           - shell_command: |
-              SEL=$(osascript -e 'tell application "Finder"
-                set sel to (item 1 of (get selection) as text)
-                return POSIX path of sel
-              end tell')
+              SEL=$(osascript -e 'tell application "Finder" to POSIX path of (item 1 of (get selection) as text)')
+              selection_count=$(osascript -e 'tell application "Finder" to count (selection as list)')
 
-              if [[ -d "$SEL" ]] ; then
+              if [[ -d "$SEL" && $selection_count -eq 1 ]] ; then
                 cd "$SEL"
                 foldername=$(basename "$SEL")
                 zip -r "../$foldername.zip" .
@@ -741,7 +741,6 @@ rules:
                 current_vol=$(osascript -e 'output volume of (get volume settings)')
                 vol_percent=$(echo "scale=2 ; $current_vol / 100" | bc) # afplay play with 100% volume by default
                 (afplay --volume "$vol_percent" "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif" &)
-
               else
                 osascript -e '
                   tell application "System Events" to tell process "Finder"
