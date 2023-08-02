@@ -1982,6 +1982,100 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "z",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\ncat \"$selection\" | pbcopy\nosascript -e 'display notification \"✅ File content copied\" with title \"Finder Vim Mode\"'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MOVE_ACTIVE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "^de$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\ncat \"$selection\" | pbcopy\nosascript -e 'display notification \"✅ File content copied\" with title \"Finder Vim Mode\"'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MOVE_ACTIVE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "input_source_unless",
+              "input_sources": [
+                {
+                  "language": "^de$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "p"
           },
           "to_if_alone": [
