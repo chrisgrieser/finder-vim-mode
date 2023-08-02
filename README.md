@@ -34,7 +34,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
 - __Batch Rename__ *(experimental)*: Rename with JavaScript-flavored Regex.
-- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. This way you can make non-continious selections without having to use `cmd+leftClick`. Note that this only works for selecting files, you cannot select folders ([see this issue for details](https://github.com/chrisgrieser/finder-vim-mode/issues/3)).
+- __Marks & Multi-select__ *(experimental)*: Press `1` to (un)mark the current selection. Use `alt+space` to select all marked files in the current window. This way you can make non-continious selections without having to use `cmd+leftClick`. Note that this only works for selecting files, ([see this issue for details](https://github.com/chrisgrieser/finder-vim-mode/issues/3)), and [does not always work in hidden directories](https://discussions.apple.com/thread/2088971).
 
 ## Installation
 1. Run this in your terminal:
