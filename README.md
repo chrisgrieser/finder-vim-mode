@@ -41,6 +41,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 
     ```bash
     brew install karabiner-elements # Install Karabiner (if not already installed)
+    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" && killall Finder # set default view to "List"
     
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
     curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
