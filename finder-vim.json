@@ -1367,43 +1367,6 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "e",
-            "modifiers": {
-              "mandatory": [
-                "shift"
-              ]
-            }
-          },
-          "to_if_alone": [
-            {
-              "key_code": "e",
-              "modifiers": [
-                "command"
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
             "key_code": "delete_or_backspace"
           },
           "to_if_alone": [
@@ -1564,7 +1527,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set the selection to files of Finder window 1\n  end tell'\n"
+              "shell_command": "osascript -e ' tell application \"Finder\" to set the selection to files of Finder window 1'\n"
             }
           ],
           "conditions": [
@@ -1635,17 +1598,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -l JavaScript -e 'function run() {\n  const app = Application.currentApplication();\n  app.includeStandardAdditions = true;\n  const finder = Application(\"Finder\");\n  if (!finder.finderWindows) return;\n  const win = finder.finderWindows[0].target;\n  const winPath = decodeURIComponent(win.url().slice(7));\n  const taggedFiles = app\n    // filter only files with mdfind\n    .doShellScript (`mdfind -onlyin \"${winPath}\" \"kMDItemUserTags == vim-mark && ! kMDItemContentType == public.folder\"`)\n    .split(\"\\r\")\n    .map(path => Path(path));\n  if (taggedFiles.length === 0) return;\n  try {\n    finder.select(taggedFiles);\n  } catch (error) {\n    app.displayNotification(\"\", { withTitle: \"Finder Vim Mode\", subtitle: \"Error: \" + error })\n  }\n}\nrun()'\n"
-            },
-            {
-              "key_code": "vk_none",
-              "hold_down_milliseconds": 200
-            },
-            {
-              "key_code": "1",
-              "modifiers": [
-                "control"
-              ]
+              "shell_command": "osascript -l JavaScript -e 'function run() {\n  const app = Application.currentApplication();\n  app.includeStandardAdditions = true;\n  const finder = Application(\"Finder\");\n  const win = finder.insertionLocation();\n  if (!win) return;\n  const winPath = decodeURIComponent(win.url().slice(7));\n  // filter only files with mdfind\n  const taggedFilesStr = app\n    .doShellScript (`mdfind -onlyin \"${winPath}\" \"kMDItemUserTags == vim-mark && ! kMDItemContentType == public.folder\"`)\n  if (!taggedFilesStr) {\n    app.displayNotification(\"(Only non-folders in non-hidden dirs are supported.)\", { withTitle: \"Finder Vim Mode\", subtitle: \"No file selected.\" })\n    return;\n  }\n  const taggedFiles = taggedFilesStr\n    .split(\"\\r\")\n    .map(path => Path(path));\n  try {\n    finder.select(taggedFiles);\n    // untag the file again\n    delay(0.3)\n    finder.activate();\n    Application(\"System Events\").keystroke(\"1\", { using: \"control down\" });\n  } catch (error) {\n    app.displayNotification(\"\", { withTitle: \"Finder Vim Mode\", subtitle: \"Error: \" + error })\n  }\n}\nrun()'\n"
             }
           ],
           "conditions": [
@@ -2653,7 +2606,7 @@
           },
           "to": [
             {
-              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (item 1 of (get selection) as text)' | sed 's|/$||' )\nlastFourChars=$(echo \"$selection\" | rev | cut -c-4 | rev) # bash expansion does not work in karabiner\nif [[ \"$lastFourChars\" == \"-bkp\" ]]; then\n  newName=$(echo \"$selection\" | rev | cut -c5- | rev)\nelse\n  newName=\"${selection}-bkp\"\nfi\nmv -n \"$selection\" \"$newName\"\nopen -R \"$newName\" # forces refresh of Finder\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (item 1 of (get selection) as text)' | sed 's|/$||' )\nlastFourChars=$(echo \"$selection\" | rev | cut -c-4 | rev) # bash expansion does not work in karabiner\nif [[ \"$lastFourChars\" == \"-bkp\" ]]; then\n  newName=$(echo \"$selection\" | rev | cut -c5- | rev)\nelse\n  newName=\"${selection}-bkp\"\nfi\nmv -n \"$selection\" \"$newName\"\nopen -R \"$newName\"\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
             }
           ],
           "conditions": [

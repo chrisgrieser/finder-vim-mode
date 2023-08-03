@@ -363,12 +363,6 @@ rules:
                   end repeat
                 end tell'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
-      # E = eject (if volume or disk image)
-      - type: basic
-        from: { key_code: e, modifiers: { mandatory: [shift] } }
-        to_if_alone:
-          - { key_code: e, modifiers: [command] }
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # <BS> = cycle windows (:bnext)
       - type: basic
         from: { key_code: delete_or_backspace }
@@ -407,10 +401,7 @@ rules:
           # INFO use "Finder window" instead of "window" to target only regular
           # windows https://www.reddit.com/r/applescript/comments/uz9axo/comment/iayjrn4/?context=3
           - shell_command: |
-              osascript -e '
-                tell application "Finder"
-                  set the selection to files of Finder window 1
-                end tell'
+              osascript -e ' tell application "Finder" to set the selection to files of Finder window 1'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # MULTI-SELECT
       # <S-Space> = add down to selection
@@ -429,26 +420,30 @@ rules:
                 const app = Application.currentApplication();
                 app.includeStandardAdditions = true;
                 const finder = Application("Finder");
-                if (!finder.finderWindows) return;
-                const win = finder.finderWindows[0].target;
+                const win = finder.insertionLocation();
+                if (!win) return;
                 const winPath = decodeURIComponent(win.url().slice(7));
-                const taggedFiles = app
-                  // filter only files with mdfind
+                // filter only files with mdfind
+                const taggedFilesStr = app
                   .doShellScript (`mdfind -onlyin "${winPath}" "kMDItemUserTags == vim-mark && ! kMDItemContentType == public.folder"`)
+                if (!taggedFilesStr) {
+                  app.displayNotification("(Only non-folders in non-hidden dirs are supported.)", { withTitle: "Finder Vim Mode", subtitle: "No file selected." })
+                  return;
+                }
+                const taggedFiles = taggedFilesStr
                   .split("\r")
                   .map(path => Path(path));
-                if (taggedFiles.length === 0) return;
                 try {
                   finder.select(taggedFiles);
+                  // untag the file again
+                  delay(0.3)
+                  finder.activate();
+                  Application("System Events").keystroke("1", { using: "control down" });
                 } catch (error) {
                   app.displayNotification("", { withTitle: "Finder Vim Mode", subtitle: "Error: " + error })
                 }
               }
               run()'
-          # untag files 
-          # (does not work when invoked via keystroking in the script above)
-          - { key_code: vk_none, hold_down_milliseconds: 200 } # wait for selection
-          - { key_code: "1", modifiers: [control] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       # q = right-click / Context Menu
@@ -688,7 +683,7 @@ rules:
                 newName="${selection}-bkp"
               fi
               mv -n "$selection" "$newName"
-              open -R "$newName" # forces refresh of Finder
+              open -R "$newName"
               afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf" &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # s = Create Symlink
