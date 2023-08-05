@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=./schema/karabiner-mod.json
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/dotfiles/karabiner
 maintainers: [pseudometa (chrisgrieser)]
@@ -409,41 +410,6 @@ rules:
         from: { key_code: spacebar, modifiers: { mandatory: [shift] } }
         to:
           - { key_code: down_arrow, modifiers: [shift] }
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # <M-Space> = select all files in window with tag "vim-mark"
-      - type: basic
-        from: { key_code: spacebar, modifiers: { mandatory: [option] } }
-        to:
-          # WARN this script can only select *files* https://github.com/chrisgrieser/finder-vim-mode/issues/3
-          - shell_command: |
-              osascript -l JavaScript -e 'function run() {
-                const app = Application.currentApplication();
-                app.includeStandardAdditions = true;
-                const finder = Application("Finder");
-                const win = finder.insertionLocation();
-                if (!win) return;
-                const winPath = decodeURIComponent(win.url().slice(7));
-                // filter only files with mdfind
-                const taggedFilesStr = app
-                  .doShellScript (`mdfind -onlyin "${winPath}" "kMDItemUserTags == vim-mark && ! kMDItemContentType == public.folder"`)
-                if (!taggedFilesStr) {
-                  app.displayNotification("(Only non-folders in non-hidden dirs are supported.)", { withTitle: "Finder Vim Mode", subtitle: "No file selected." })
-                  return;
-                }
-                const taggedFiles = taggedFilesStr
-                  .split("\r")
-                  .map(path => Path(path));
-                try {
-                  finder.select(taggedFiles);
-                  // untag the file again
-                  delay(0.3)
-                  finder.activate();
-                  Application("System Events").keystroke("1", { using: "control down" });
-                } catch (error) {
-                  app.displayNotification("", { withTitle: "Finder Vim Mode", subtitle: "Error: " + error })
-                }
-              }
-              run()'
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       #─────────────────────────────────────────────────────────────────────────
       # q = right-click / Context Menu

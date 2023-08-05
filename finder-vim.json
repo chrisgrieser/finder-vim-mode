@@ -1589,40 +1589,6 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "spacebar",
-            "modifiers": {
-              "mandatory": [
-                "option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "osascript -l JavaScript -e 'function run() {\n  const app = Application.currentApplication();\n  app.includeStandardAdditions = true;\n  const finder = Application(\"Finder\");\n  const win = finder.insertionLocation();\n  if (!win) return;\n  const winPath = decodeURIComponent(win.url().slice(7));\n  // filter only files with mdfind\n  const taggedFilesStr = app\n    .doShellScript (`mdfind -onlyin \"${winPath}\" \"kMDItemUserTags == vim-mark && ! kMDItemContentType == public.folder\"`)\n  if (!taggedFilesStr) {\n    app.displayNotification(\"(Only non-folders in non-hidden dirs are supported.)\", { withTitle: \"Finder Vim Mode\", subtitle: \"No file selected.\" })\n    return;\n  }\n  const taggedFiles = taggedFilesStr\n    .split(\"\\r\")\n    .map(path => Path(path));\n  try {\n    finder.select(taggedFiles);\n    // untag the file again\n    delay(0.3)\n    finder.activate();\n    Application(\"System Events\").keystroke(\"1\", { using: \"control down\" });\n  } catch (error) {\n    app.displayNotification(\"\", { withTitle: \"Finder Vim Mode\", subtitle: \"Error: \" + error })\n  }\n}\nrun()'\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
             "key_code": "q"
           },
           "to": [
