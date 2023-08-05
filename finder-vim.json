@@ -156,6 +156,18 @@
             "name": "FINDER_MENU_ACTIVE",
             "value": false
           }
+        },
+        {
+          "set_notification_message": {
+            "id": "menu-notice",
+            "text": ""
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "menu-notice",
+            "text": "👉 Menu Mode"
+          }
         }
       ]
     }
@@ -951,6 +963,12 @@
               }
             },
             {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": ""
+              }
+            },
+            {
               "set_variable": {
                 "name": "FINDER_MENU_ACTIVE",
                 "value": false
@@ -988,14 +1006,14 @@
               }
             },
             {
-              "set_variable": {
-                "name": "FINDER_MENU_ACTIVE",
-                "value": false
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
               }
             },
             {
               "set_variable": {
-                "name": "FINDER_MOVE_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             },
@@ -1007,7 +1025,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_FIND_MODE",
+                "name": "FINDER_MOVE_ACTIVE",
                 "value": false
               }
             },
@@ -1015,6 +1033,12 @@
               "set_notification_message": {
                 "id": "find-notice",
                 "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_FIND_MODE",
+                "value": false
               }
             }
           ],
@@ -1059,8 +1083,14 @@
               }
             },
             {
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
+              }
+            },
+            {
               "set_variable": {
-                "name": "FINDER_MOVE_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             },
@@ -1072,7 +1102,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_FIND_MODE",
+                "name": "FINDER_MOVE_ACTIVE",
                 "value": false
               }
             },
@@ -1080,6 +1110,12 @@
               "set_notification_message": {
                 "id": "find-notice",
                 "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_FIND_MODE",
+                "value": false
               }
             }
           ],
@@ -1122,6 +1158,12 @@
               }
             },
             {
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
+              }
+            },
+            {
               "set_variable": {
                 "name": "FINDER_MENU_ACTIVE",
                 "value": false
@@ -1135,7 +1177,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_FIND_MODE",
+                "name": "FINDER_MOVE_ACTIVE",
                 "value": false
               }
             },
@@ -1143,6 +1185,12 @@
               "set_notification_message": {
                 "id": "find-notice",
                 "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_FIND_MODE",
+                "value": false
               }
             }
           ],
@@ -1182,14 +1230,14 @@
               }
             },
             {
-              "set_variable": {
-                "name": "FINDER_MENU_ACTIVE",
-                "value": false
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
               }
             },
             {
               "set_variable": {
-                "name": "FINDER_MOVE_ACTIVE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             },
@@ -1201,7 +1249,7 @@
             },
             {
               "set_variable": {
-                "name": "FINDER_FIND_MODE",
+                "name": "FINDER_MOVE_ACTIVE",
                 "value": false
               }
             },
@@ -1209,6 +1257,12 @@
               "set_notification_message": {
                 "id": "find-notice",
                 "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_FIND_MODE",
+                "value": false
               }
             }
           ],
@@ -1266,14 +1320,14 @@
               }
             },
             {
-              "set_variable": {
-                "name": "FINDER_MENU_ACTIVE",
-                "value": false
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
               }
             },
             {
               "set_variable": {
-                "name": "FINDER_FIND_MODE",
+                "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
             },
@@ -1281,6 +1335,12 @@
               "set_notification_message": {
                 "id": "find-notice",
                 "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_FIND_MODE",
+                "value": false
               }
             }
           ],
@@ -1383,6 +1443,12 @@
               }
             },
             {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": ""
+              }
+            },
+            {
               "set_variable": {
                 "name": "FINDER_FIND_MODE",
                 "value": false
@@ -1456,6 +1522,12 @@
               "set_variable": {
                 "name": "FINDER_MENU_ACTIVE",
                 "value": true
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": "👉 Menu Mode"
               }
             }
           ],
@@ -1600,6 +1672,12 @@
                 "name": "FINDER_MENU_ACTIVE",
                 "value": true
               }
+            },
+            {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": "👉 Menu Mode"
+              }
             }
           ],
           "conditions": [
@@ -1639,6 +1717,12 @@
               "set_variable": {
                 "name": "FINDER_MENU_ACTIVE",
                 "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": ""
               }
             }
           ],
@@ -1753,6 +1837,12 @@
               "set_variable": {
                 "name": "FINDER_MENU_ACTIVE",
                 "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": ""
               }
             }
           ],
