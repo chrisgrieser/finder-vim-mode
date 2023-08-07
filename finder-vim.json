@@ -1007,7 +1007,7 @@
             },
             {
               "set_notification_message": {
-                "id": "insert-notice",
+                "id": "menu-notice",
                 "text": ""
               }
             },
@@ -1084,7 +1084,7 @@
             },
             {
               "set_notification_message": {
-                "id": "insert-notice",
+                "id": "menu-notice",
                 "text": ""
               }
             },
@@ -1159,7 +1159,7 @@
             },
             {
               "set_notification_message": {
-                "id": "insert-notice",
+                "id": "menu-notice",
                 "text": ""
               }
             },
@@ -1231,7 +1231,7 @@
             },
             {
               "set_notification_message": {
-                "id": "insert-notice",
+                "id": "menu-notice",
                 "text": ""
               }
             },
@@ -1321,7 +1321,7 @@
             },
             {
               "set_notification_message": {
-                "id": "insert-notice",
+                "id": "menu-notice",
                 "text": ""
               }
             },
