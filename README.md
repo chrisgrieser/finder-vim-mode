@@ -1,4 +1,4 @@
-# Vim Mode for Finder
+# Vim Mode for Finder.app
 Feature-rich control of macOS Finder without the mouse, inspired by vim and ranger. 
 
 ![](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
@@ -8,7 +8,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 ## Usage Examples
 - `rl`: Duplicate selected file and open the copy.
 - `axw`: Select all files, move them to the other window, close current window.
-- `.f.d.`: Show hidden files, select first hidden file, delete it, hide the files again.
+- `.f.d.`: Show hidden files, select first hidden file, delete it, hide dotfiles again.
 - `AM`: Select files (but not folders), create a new directory, move selected files into that directory, and start renaming the directory (enters insert mode).
 - `azmhp`: Select all files and folders, zip them, (wait for zipping to finish), and move the archive one directory up
 
@@ -29,7 +29,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - __Move__: `m` marks the current selection as "to be moved." The next paste-operation `p` moves the files. A move can be aborted via `esc`.
 - __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the selection to the other window, and `X` copies the selection to the other window.
 - __Context-menu__: Can be opened with `q` and navigated via `hjkl`. Use `esc` or press `q` again to close the context-menu.
-- __Find mode__ is triggered via `f`, works similar to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file, which starts with the letter `h`.
+- __Find mode__ is triggered via `f`, works similar to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file that starts with the letter `h`.
 - __Toggle `-bkp` suffix__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
@@ -48,7 +48,7 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
     ```
 
 2. Activate the plugin: `Import` → `Enable`
-3. *Prior Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, the other modification must come *below* the __Finder Vim Mode__ in the list of modifications. (Karabiner prioritizes modifications further on top of the list.) <!-- LTeX: enabled=false -->
+3. *Karabiner users:* If you already use Karabiner and have another modification affecting the `Capslock` key, the other modification must come __below__ the *Finder Vim Mode* in the list of modifications. (Karabiner prioritizes modifications further on top of the list.) <!-- LTeX: enabled=false -->
 4. *Alfred users:* <!-- LTeX: enabled=true -->In [the Appearance Options](https://www.alfredapp.com/help/appearance/#options), you need to set the `Focusing` behavior to `Compatibility Mode` for Karabiner to detect Alfred being active.
 5. *Spotlight users:* You need to install the Spotlight addon. The addon has to be __above__ the Finder Vim Mode in the list of modifications.
 
@@ -90,12 +90,13 @@ Other than a nicer appearance, a GUI does have a few advantages:
 - Cloud services (iCloud, Google Drive, Dropbox, etc.) are well-integrated with Finder.
 
 ## Build
-Karabiner plugins are essentially hotkey configurations in form of a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file has more than 6000 lines. To make that manageable, this plugin is written in YAML, where features such as anchors and aliases [anchors and aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/) reduces the lines of code to only ~1000 lines.
+Karabiner plugins are essentially hotkey configurations in form of a JSON file. Since the amount of configurations for this plugin is rather large, the resulting JSON file ~6000 lines. To make that manageable, this plugin is written in YAML, where features such as [anchors and aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/) reduce the lines of code to only ~1000 lines.
 
-If you want to fork this plugin, it is recommended to work with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so with [yq](https://github.com/mikefarah/yq). (Note that the `explode()` is required to resolve the anchors and aliases.)
+If you want to fork this plugin, it is recommended to work with the YAML file and "compile" it to the [JSON required by Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/). You can do so with [yq](https://github.com/mikefarah/yq): 
 
 ```bash
-yq -o=json 'explode(.)' finder-vim.yaml >finder-vim.json
+# `explode()` required to resolve the anchors and aliases
+yq --output-format=json 'explode(.)' finder-vim.yaml >finder-vim.json
 ```
 
 ## Credits
