@@ -19,12 +19,10 @@ body:
     id: reproduction-steps
     attributes:
       label: To Reproduce
-      description: Steps to reproduce the problem
+      description: Steps to reproduce the problem. Explicitly name key combinations you used to do things.
       placeholder: |
         For example:
-        1. Go to '...'
-        2. Click on '...'
-        3. Scroll down to '...'
+        I used the key combination … to do…
   - type: input
     id: keyboard-layout
     attributes:
@@ -47,6 +45,8 @@ body:
       label: Checklist
       options:
         - label: I updated to the latest version of this plugin.
+          required: true
+        - label: If I am using Alfred, I have activated its compatibility mode, as explained in the [Installation instructions of the README](..#installation).
           required: true
         - label: I updated to the latest version of Karabiner Elements.
           required: true
