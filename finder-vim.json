@@ -1,6 +1,6 @@
 {
   "title": "Finder Vim Controls",
-  "homepage": "https://github.com/chrisgrieser/dotfiles/karabiner",
+  "homepage": "https://github.com/chrisgrieser/finder-vim-mode",
   "maintainers": [
     "pseudometa (chrisgrieser)"
   ],
@@ -973,14 +973,6 @@
                 "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
             }
           ]
         },

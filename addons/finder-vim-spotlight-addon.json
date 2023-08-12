@@ -1,0 +1,342 @@
+{
+  "title": "Finder Vim Controls – Spotlight Addon",
+  "homepage": "https://github.com/chrisgrieser/finder-vim-mode",
+  "maintainers": [
+    "pseudometa (chrisgrieser)"
+  ],
+  "anchors": [
+    {
+      "conditions": [
+        {
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.apple\\.finder$"
+          ]
+        },
+        {
+          "type": "variable_if",
+          "name": "FINDER_SPOTLIGHT_MODE",
+          "value": true
+        },
+        {
+          "type": "variable_unless",
+          "name": "FINDER_SPOTLIGHT_MODE",
+          "value": true
+        }
+      ]
+    },
+    {
+      "to": [
+        {
+          "set_variable": {
+            "name": "FINDER_INSERT_MODE",
+            "value": true
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_INSERT_MODE",
+            "value": false
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "insert-notice",
+            "text": ""
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_FIND_MODE",
+            "value": false
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "find-notice",
+            "text": ""
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_MENU_ACTIVE",
+            "value": false
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "menu-notice",
+            "text": ""
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_SPOTLIGHT_MODE",
+            "value": true
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_SPOTLIGHT_MODE",
+            "value": false
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "spotlight-notice",
+            "text": ""
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "spotlight-notice",
+            "text": "🔦 Spotlight Mode"
+          }
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_MENU_ACTIVE",
+                "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "spotlight-notice",
+                "text": "🔦 Spotlight Mode"
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_FIND_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "find-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_SPOTLIGHT_MODE",
+                "value": true
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": true
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_SPOTLIGHT_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "set_notification_message": {
+                "id": "spotlight-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_SPOTLIGHT_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "FINDER_SPOTLIGHT_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "escape"
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "set_notification_message": {
+                "id": "spotlight-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_SPOTLIGHT_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "FINDER_SPOTLIGHT_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock"
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "set_notification_message": {
+                "id": "spotlight-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_SPOTLIGHT_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "FINDER_SPOTLIGHT_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "return_or_enter",
+            "modifiers": {
+              "optional": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "return_or_enter"
+            },
+            {
+              "set_notification_message": {
+                "id": "spotlight-notice",
+                "text": ""
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_SPOTLIGHT_MODE",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "FINDER_SPOTLIGHT_MODE",
+              "value": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=../karabiner-mod-schema.json
 title: "Finder Vim Controls"
-homepage: https://github.com/chrisgrieser/dotfiles/karabiner
+homepage: https://github.com/chrisgrieser/finder-vim-mode
 maintainers: [pseudometa (chrisgrieser)]
 anchors:
   - conditions:
@@ -47,7 +47,6 @@ anchors:
         value: true
   #─────────────────────────────────────────────────────────────────────────────
   - to:
-      # Insert Mode
       - &enter-insert-mode
         set_variable:
           name: FINDER_INSERT_MODE
@@ -267,6 +266,7 @@ rules:
           - *remove-insert-notice
           - *leave-insert-mode
         conditions: [*finder-app, *is-insert-mode]
+      # SPOTLIGHT
       # Opening Alfred/Raycast/Spotlight cancels renaming and context menu,
       # so the respective modes have to be aborter here as well
       - type: basic
@@ -277,7 +277,6 @@ rules:
           - *leave-insert-mode
           - *remove-menu-notice
           - *end-menu
-        conditions: [*finder-app]
 
       #─────────────────────────────────────────────────────────────────────────
       #─────────────────────────────────────────────────────────────────────────
