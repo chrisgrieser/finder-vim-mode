@@ -92,7 +92,14 @@
             "id": "spotlight-notice",
             "text": "🔦 Spotlight Mode"
           }
-        },
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "description": "Finder Vim Controls – Spotlight Addon",
+      "manipulators": [
         {
           "type": "basic",
           "from": {
@@ -340,3 +347,4 @@
     }
   ]
 }
+

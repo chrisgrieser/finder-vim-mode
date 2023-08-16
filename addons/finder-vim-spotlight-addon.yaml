@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../karabiner-mod-schema.json
 title: "Finder Vim Controls – Spotlight Addon"
 homepage: https://github.com/chrisgrieser/finder-vim-mode
 maintainers: [pseudometa (chrisgrieser)]
@@ -63,6 +64,9 @@ anchors:
       #─────────────────────────────────────────────────────────────────────────
       # Opening Alfred/Raycast/Spotlight cancels renaming and context menu,
       # so the respective modes have to be aborter here as well
+rules:
+  - description: "Finder Vim Controls – Spotlight Addon"
+    manipulators:
       - type: basic
         from: { key_code: spacebar, modifiers: { mandatory: [command] } }
         to:
