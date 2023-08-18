@@ -32,10 +32,14 @@ Feature-rich control of macOS Finder without the mouse, inspired by vim and rang
 - __Find mode__ is triggered via `f`, works similar to `f` in vim, expecting another character afterward. For example, `fh` jumps to the next file that starts with the letter `h`.
 - __Toggle `-bkp` suffix__: Add suffix `-bkp` to the file. If it already has such a suffix, remove it. Useful for debugging as well.
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is not sorted alphabetically.* (This is actually a built-in feature of Finder, but probably worth pointing out since barely anyone knows about it.)
+- Flatten directories: `F` flattens all selected folders recursively, meaning that all *files* inside these directories (and their subdirectories) are moved up to the current folder. The folders are then deleted. (Note that this cannot be undone.)
+- Paste name: `P` pastes the text in the clipboard content "onto" the currently selected file, that is renaming the file to the text.
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at GitHub and also copies the URL to the clipboard.
-- __Pressing `return` in a prompt window__, for example when replacing a
-file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the prompt window.
 - __Batch Rename__ *(experimental)*: Rename with JavaScript-flavored Regex.
+
+> [!NOTE]
+> __Pressing `return` in a prompt window__, for example when replacing a
+file, mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to detect whether the front window is a regular Finder window or a prompt). The workaround is to either press `esc` to go back to Normal Mode, or to use `tab` and `space` to select the correct action in the prompt window.
 
 ## Installation
 1. Run this in your terminal:

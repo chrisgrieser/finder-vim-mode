@@ -2114,6 +2114,54 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            },
+            {
+              "key_code": "v",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "key_code": "return_or_enter"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MOVE_ACTIVE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "r"
           },
           "to_if_alone": [
@@ -3080,6 +3128,40 @@
           "to": [
             {
               "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Forward\" of menu \"Go\" of menu bar 1\n  end tell'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "selectedFiles=$(osascript -e '\n\ttell application \"Finder\" to set selectedFiles to (every item of (get selection))\n\tset out to \"\"\n\trepeat with theFile in selectedFiles\n\t\tset out to out & (POSIX path of (theFile as text)) & linefeed\n\tend repeat\n\treturn out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\nparent_dir=$(dirname \"$(echo \"$selectedFiles\" | head -n1)\")\n\necho \"$selectedFiles\" | while read -r item; do\n\t[[ ! -d \"$item\" ]] && continue\n\tfind \"$item\" -mindepth 1 -print0 -not -type d | \n\t\txargs -0 -I {} mv \"{}\" \"$parent_dir\"\n\trm -r \"$item\"\ndone\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\n"
             }
           ],
           "conditions": [
