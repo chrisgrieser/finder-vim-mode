@@ -1,4 +1,4 @@
-.PHONY: build, cheatsheet, update, transfer
+.PHONY: build cheatsheet update transfer
 #───────────────────────────────────────────────────────────────────────────────
 
 update: | transfer build
