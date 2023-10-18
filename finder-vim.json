@@ -166,7 +166,7 @@
         {
           "set_notification_message": {
             "id": "menu-notice",
-            "text": "👉 Menu Mode"
+            "text": "➡️ Menu Mode"
           }
         }
       ]
@@ -1207,7 +1207,7 @@
           },
           "to": [
             {
-              "shell_command": "killall Finder\nosascript -e 'display notification \"🔁 Restarting Finder…\" with title \"Finder Vim Mode\"'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.caf\" &\n"
+              "shell_command": "killall Finder\nosascript -e 'display notification \"🔁 Restarting Finder…\" with title \"Finder Vim Mode\"'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.calf\" &\n"
             },
             {
               "set_notification_message": {
@@ -1294,10 +1294,7 @@
           },
           "to": [
             {
-              "key_code": "w",
-              "modifiers": [
-                "command"
-              ]
+              "shell_command": "osascript -e '\n  tell application \"Finder\" \n    if ((count Finder windows) is 0) then return \n    return POSIX path of (insertion location as alias) \n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
             },
             {
               "set_notification_message": {
@@ -1352,10 +1349,46 @@
           },
           "to": [
             {
-              "key_code": "w",
-              "modifiers": [
-                "command"
+              "shell_command": "osascript -e '\n  tell application \"Finder\" \n    if ((count Finder windows) is 0) then return \n    return POSIX path of (insertion location as alias) \n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
               ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open \"$(cat \"/tmp/finder-vim-mode-last-closed-window\")\""
             }
           ],
           "conditions": [
@@ -1389,7 +1422,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      close Finder window 2\n    end repeat\n  end tell'\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias) \n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell' > /tmp/finder-vim-mode-last-closed-window\n"
             }
           ],
           "conditions": [
@@ -1519,7 +1552,7 @@
             {
               "set_notification_message": {
                 "id": "menu-notice",
-                "text": "👉 Menu Mode"
+                "text": "➡️ Menu Mode"
               }
             }
           ],
@@ -1668,7 +1701,7 @@
             {
               "set_notification_message": {
                 "id": "menu-notice",
-                "text": "👉 Menu Mode"
+                "text": "➡️ Menu Mode"
               }
             }
           ],
@@ -1749,10 +1782,7 @@
           },
           "to_if_alone": [
             {
-              "key_code": "right_arrow",
-              "modifiers": [
-                "command"
-              ]
+              "key_code": "right_arrow"
             }
           ],
           "conditions": [
@@ -1761,16 +1791,6 @@
               "bundle_identifiers": [
                 "^com\\.apple\\.finder$"
               ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
             },
             {
               "type": "variable_if",
@@ -1786,10 +1806,7 @@
           },
           "to_if_alone": [
             {
-              "key_code": "left_arrow",
-              "modifiers": [
-                "command"
-              ]
+              "key_code": "left_arrow"
             }
           ],
           "conditions": [
@@ -1800,14 +1817,57 @@
               ]
             },
             {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
+              "type": "variable_if",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "down_arrow"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
             },
             {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
+              "type": "variable_if",
+              "name": "FINDER_MENU_ACTIVE",
               "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "up_arrow"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
             },
             {
               "type": "variable_if",
@@ -2630,7 +2690,7 @@
               }
             },
             {
-              "shell_command": "current_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf\" &\n"
+              "shell_command": "current_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf\" & # codespell-ignore\n"
             }
           ],
           "conditions": [
@@ -2709,7 +2769,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" & # codespell-ignore\n"
             }
           ],
           "conditions": [
@@ -2738,7 +2798,7 @@
           },
           "to": [
             {
-              "shell_command": "selectedFiles=$(osascript -e '\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  set out to \"\"\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\necho \"$selectedFiles\" | sed -e 's|/$||' -e '/^$/d' | while read -r file; do\n  lastFourChars=$(echo \"$file\" | rev | cut -c-4 | rev) # bash expansion does not work in karabiner\n  if [[ \"$lastFourChars\" == \"-bkp\" ]]; then\n    newName=$(echo \"$file\" | rev | cut -c5- | rev)\n  else\n    newName=\"${file}-bkp\"\n  fi\n  mv -n \"$file\" \"$newName\"\ndone\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "selectedFiles=$(osascript -e '\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  set out to \"\"\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\necho \"$selectedFiles\" | sed -e 's|/$||' -e '/^$/d' | while read -r file; do\n  lastFourChars=$(echo \"$file\" | rev | cut -c-4 | rev) # bash expansion does not work in karabiner\n  if [[ \"$lastFourChars\" == \"-bkp\" ]]; then\n    newName=$(echo \"$file\" | rev | cut -c5- | rev)\n  else\n    newName=\"${file}-bkp\"\n  fi\n  mv -n \"$file\" \"$newName\"\ndone\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" & # codespell-ignore\n"
             }
           ],
           "conditions": [
@@ -2801,7 +2861,10 @@
           },
           "to": [
             {
-              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\nopen -R \"$(readlink -f \"$selection\")\"\n"
+              "key_code": "r",
+              "modifiers": [
+                "command"
+              ]
             }
           ],
           "conditions": [
@@ -3161,7 +3224,7 @@
           },
           "to": [
             {
-              "shell_command": "selectedFiles=$(osascript -e '\n\ttell application \"Finder\" to set selectedFiles to (every item of (get selection))\n\tset out to \"\"\n\trepeat with theFile in selectedFiles\n\t\tset out to out & (POSIX path of (theFile as text)) & linefeed\n\tend repeat\n\treturn out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\nparent_dir=$(dirname \"$(echo \"$selectedFiles\" | head -n1)\")\n\necho \"$selectedFiles\" | while read -r item; do\n\t[[ ! -d \"$item\" ]] && continue\n  # `mv -n` ensures no file is overwritten, and `rmdir` ensures\n  # only empty directories are removed\n\tfind \"$item\" -mindepth 1 -print0 -not -type d | \n\t\txargs -0 -I {} mv -n \"{}\" \"$parent_dir\"\n\tfind \"$item\" -print0 -type d | xargs -0 rmdir\ndone\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\n"
+              "shell_command": "selectedFiles=$(osascript -e '\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  set out to \"\"\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\nparent_dir=$(dirname \"$(echo \"$selectedFiles\" | head -n1)\")\n\necho \"$selectedFiles\" | while read -r item; do\n  [[ ! -d \"$item\" ]] && continue\n  # `mv -n` ensures no file is overwritten, and `rmdir` ensures\n  # only empty directories are removed\n  find \"$item\" -mindepth 1 -print0 -not -type d |\n    xargs -0 -I {} mv -n \"{}\" \"$parent_dir\"\n  find \"$item\" -print0 -type d | xargs -0 rmdir\ndone\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\n"
             }
           ],
           "conditions": [
@@ -5024,7 +5087,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"⬇️ Sort by name\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.calf\" &\nosascript -e 'display notification \"⬇️ Sort by name\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5067,7 +5130,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"⬅️ Sort by modification date\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.calf\" &\nosascript -e 'display notification \"⬅️ Sort by modification date\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5110,7 +5173,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"⬆️ Sort by size\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.calf\" &\nosascript -e 'display notification \"⬆️ Sort by size\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5153,7 +5216,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"➡️ Sort by kind\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.calf\" &\nosascript -e 'display notification \"➡️ Sort by kind\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5196,7 +5259,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\nosascript -e 'display notification \"🔚 Sort by tags\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.calf\" &\nosascript -e 'display notification \"🔚 Sort by tags\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -5575,7 +5638,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e 'display notification \"☁️ 🔁 Restarting iCloud…\" with title \"Finder Vim Mode\"'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.caf\" &\nkillall bird\n"
+              "shell_command": "osascript -e 'display notification \"☁️ 🔁 Restarting iCloud…\" with title \"Finder Vim Mode\"'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.calf\" &\nkillall bird\n"
             }
           ],
           "conditions": [
