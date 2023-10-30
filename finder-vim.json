@@ -1947,6 +1947,40 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ],
+          "to": [
+            {
+              "shell_command": "osascript -e'\n  tell application \"Finder\"\n    activate\n    open the trash\n  end tell\n  tell application \"System Events\" to tell process \"Finder\"\n    set frontmost to true\n  end tell\n  '\n"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "z"
           },
           "to_if_alone": [
