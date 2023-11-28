@@ -2086,7 +2086,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\nexport LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when copying\ncat \"$selection\" | pbcopy\nosascript -e 'display notification \"✅ File content copied\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when copying\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\ncat \"$selection\" | pbcopy\nosascript -e 'display notification \"✅ File content copied\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -2133,7 +2133,7 @@
           },
           "to": [
             {
-              "shell_command": "selection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\ncat \"$selection\" | pbcopy\nosascript -e 'display notification \"✅ File content copied\" with title \"Finder Vim Mode\"'\n"
+              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when copying\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\ncat \"$selection\" | pbcopy\nosascript -e 'display notification \"✅ File content copied\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
@@ -2215,18 +2215,9 @@
               ]
             }
           },
-          "to_if_alone": [
+          "to": [
             {
-              "key_code": "return_or_enter"
-            },
-            {
-              "key_code": "v",
-              "modifiers": [
-                "command"
-              ]
-            },
-            {
-              "key_code": "return_or_enter"
+              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when pasting\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\npbpaste >> \"$selection\"\nosascript -e 'display notification \"✅ Text appended to file\" with title \"Finder Vim Mode\"'\n"
             }
           ],
           "conditions": [
