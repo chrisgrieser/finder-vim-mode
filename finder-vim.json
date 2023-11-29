@@ -699,7 +699,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -l JavaScript \"$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js\"\n"
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Rename…\" of menu \"File\" of menu bar 1\n  end tell'\n"
             },
             {
               "set_notification_message": {

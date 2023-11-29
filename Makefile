@@ -9,7 +9,6 @@ transfer:
 	cp -v "$$HOME/.config/karabiner/assets/complex_modifications/$$local_mode_name" ./finder-vim.yaml
 	cp -v "$$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.json" ./extras
 	cp -v "$$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png" ./extras
-	cp -v "$$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js" ./extras
 
 # Build Karabiner modification, requires `yq`
 build:

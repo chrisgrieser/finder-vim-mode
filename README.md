@@ -58,14 +58,13 @@ ranger.
   `P` pastes text from the clipboard into the selected file.
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at
   GitHub and also copies the URL to the clipboard.
-- __Batch Rename__ *(experimental)*: Rename with JavaScript-flavored Regex.
 
 > [!NOTE]
 > __Pressing `return` in a prompt window__, for example when replacing a file,
-> mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to
-> detect whether the front window is a regular Finder window or a prompt). The
+> mistakenly puts you in Insert Mode. Unfortunately, Karabiner is not able to
+> detect whether the front window is a regular Finder window or a prompt. The
 > workaround is to either press `esc` to go back to Normal Mode, or to use `tab`
-> and `space` to select the correct action in the prompt window.
+> and then `space` to select the correct action in the prompt window.
 
 ## Installation
 1. Run this in your terminal:
@@ -76,7 +75,6 @@ ranger.
     
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
     curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
-    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/batch-rename.js" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/batch-rename.js"
     ```
 
 2. Activate the plugin: `Import` → `Enable`
@@ -172,7 +170,6 @@ yq --output-format=json 'explode(.)' finder-vim.yaml > finder-vim.json
 
 ## Credits
 - The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
-- The batch-renaming function is based [on code from dtinth](https://gist.github.com/dtinth/93e230152a771dcb1ec5).
 
 <!-- vale Google.FirstPerson = NO -->
 __About Me__  
