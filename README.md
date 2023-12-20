@@ -112,26 +112,20 @@ for the last commit date to see whether there has been an update:
 Since Karabiner plugins are only hotkey re-mappings without proper scripting
 mechanisms, this plugin has some limitations:
 - Only __List view__ is supported.
-- __Pressing `return` in a prompt window__, for example when replacing a file,
-  mistakenly puts you in Insert Mode. (Unfortunately, Karabiner is not able to
-  detect whether the front window is a regular Finder window or a prompt). The
-  workaround is to either press `esc` to go back to Normal Mode, or to use `tab`
-  and `space` to select the correct action in the prompt window.
 - If you __use the mouse to click buttons__, you can end up in the wrong mode.
   In that case, you can press `esc` to get back to Normal Mode. (Or, you know,
   just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the
   browser) are not supported.
-- Unfortunately, it is __not possible to have a `vimrc` or to let the user
-  configure the keybindings__ themselves in any way, at least not with a
+- Unfortunately, it is **not possible to have a `vimrc` or to let the user
+  configure the keybindings** themselves in any way, at least not with a
   Karabiner plugin. If you want to rebind keys, you have to change the
   respective key manually in the JSON file.
-- If you have set custom keybindings for Finder, they are most likely going to interfere.
-- The plugin has been tested with the standard U.S. and German keyboard layout. It
+- If you have set **custom keybindings for Finder**, they can potentially
+  interfere. It is therefore recommended to unset them.
+- The plugin has been tested with the **U.S. and German keyboard layout**. It
   should mostly also work for other layouts.
-- Using the mouse in between can cause issues. But as a vim user, you should not
-  be using the mouse anyway. :-)
-- In some edge cases, not using of English as System UI language can create an
+- In some edge cases, not using of **English as System UI language** can create an
   issue. (You can fix this by changing to English: `System Settings → General →
   Language & Region → Preferred Languages`)
 
