@@ -1293,7 +1293,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\" \n    if ((count Finder windows) is 0) then return \n    return POSIX path of (insertion location as alias) \n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if ((count Finder windows) is 0) then return\n    return POSIX path of (insertion location as alias)\n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
             },
             {
               "set_notification_message": {
@@ -1348,7 +1348,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\" \n    if ((count Finder windows) is 0) then return \n    return POSIX path of (insertion location as alias) \n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if ((count Finder windows) is 0) then return\n    return POSIX path of (insertion location as alias)\n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
             }
           ],
           "conditions": [
@@ -1421,7 +1421,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias) \n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell' > /tmp/finder-vim-mode-last-closed-window\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias)\n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell' > /tmp/finder-vim-mode-last-closed-window\n"
             }
           ],
           "conditions": [
@@ -1525,9 +1525,15 @@
               "key_code": "g"
             },
             {
+              "key_code": "down_arrow"
+            },
+            {
+              "key_code": "down_arrow"
+            },
+            {
               "key_code": "down_arrow",
               "modifiers": [
-                "command"
+                "option"
               ]
             },
             {
@@ -1537,10 +1543,10 @@
               "key_code": "up_arrow"
             },
             {
-              "key_code": "up_arrow"
-            },
-            {
-              "key_code": "right_arrow"
+              "key_code": "right_arrow",
+              "modifiers": [
+                "option"
+              ]
             },
             {
               "set_variable": {
@@ -2793,7 +2799,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" & # codespell-ignore\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
             }
           ],
           "conditions": [
@@ -3248,7 +3254,7 @@
           },
           "to": [
             {
-              "shell_command": "selectedFiles=$(osascript -e '\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  set out to \"\"\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\nparent_dir=$(dirname \"$(echo \"$selectedFiles\" | head -n1)\")\n\necho \"$selectedFiles\" | while read -r item; do\n  [[ ! -d \"$item\" ]] && continue\n  # `mv -n` ensures no file is overwritten, and `rmdir` ensures\n  # only empty directories are removed\n  find \"$item\" -mindepth 1 -print0 -not -type d |\n    xargs -0 -I {} mv -n \"{}\" \"$parent_dir\"\n  find \"$item\" -print0 -type d | xargs -0 rmdir\ndone\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\n"
+              "shell_command": "selectedFiles=$(osascript -e '\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  set out to \"\"\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n')\n[[ -z \"$selectedFiles\" ]] && return 1\n\nparent_dir=$(dirname \"$(echo \"$selectedFiles\" | head -n1)\")\n\necho \"$selectedFiles\" | while read -r item; do\n  [[ ! -d \"$item\" ]] && continue\n  # `mv -n` ensures no file is overwritten, and `rmdir` ensures\n  # only empty directories are removed\n  find \"$item\" -mindepth 1 -print0 -not -type d |\n    xargs -0 -I {} mv -n \"{}\" \"$parent_dir\"\n  find \"$item\" -print0 -type d | xargs -0 rmdir\ndone\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=30\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\n"
             }
           ],
           "conditions": [
