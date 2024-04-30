@@ -50,12 +50,8 @@ ranger.
 - __`Tab`__ goes to the next file in alphabetical order, *even when the view is
   not sorted alphabetically.* (This is actually a built-in feature of Finder,
   but worth mentioning since barely anyone knows about it.)
-- __Flatten directories:__ `F` flattens all selected folders recursively,
-  meaning that all *files* inside these directories (and their subdirectories)
-  are moved up to the current folder. The folders are then deleted. (Note that
-  this cannot be undone, and there might be edge cases not considered yet.)
 - __Copy/Paste file content:__ `Y` copies the content of the selected file, while
-  `P` pastes text from the clipboard into the selected file.
+  `P` pastes text from the clipboard into the selected file (appending).
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at
   GitHub and also copies the URL to the clipboard.
 
@@ -117,15 +113,15 @@ mechanisms, this plugin has some limitations:
   just do not use the mouse. You're a vim user, after all.)
 - File selection dialogues from other apps (for example, to upload a file in the
   browser) are not supported.
-- Unfortunately, it is **not possible to have a `vimrc` or to let the user
-  configure the keybindings** themselves in any way, at least not with a
+- Unfortunately, it is __not possible to have a `vimrc` or to let the user
+  configure the keybindings__ themselves in any way, at least not with a
   Karabiner plugin. If you want to rebind keys, you have to change the
   respective key manually in the JSON file.
-- If you have set **custom keybindings for Finder**, they can potentially
+- If you have set __custom keybindings for Finder__, they can potentially
   interfere. It is therefore recommended to unset them.
-- The plugin has been tested with the **U.S. and German keyboard layout**. It
+- The plugin has been tested with the __U.S. and German keyboard layout__. It
   should mostly also work for other layouts.
-- In some edge cases, not using of **English as System UI language** can create an
+- In some edge cases, not using of __English as System UI language__ can create an
   issue. (You can fix this by changing to English: `System Settings → General →
   Language & Region → Preferred Languages`)
 
@@ -162,22 +158,18 @@ You can do so with [yq](https://github.com/mikefarah/yq):
 yq --output-format=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
-## Credits
-- The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
-
 <!-- vale Google.FirstPerson = NO -->
+## Credits
+The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
+
 __About Me__  
 In my day job, I am a sociologist studying the social mechanisms underlying the
 digital economy. For my PhD project, I investigate the governance of the app
 economy and how software ecosystems manage the tension between innovation and
 compatibility. If you are interested in this subject, feel free to get in touch.
 
-__Profiles__  
 - [Academic Website](https://chris-grieser.de/)
 - [ResearchGate](https://www.researchgate.net/profile/Christopher-Grieser)
-- [Discord](https://discordapp.com/users/462774483044794368/)
-- [GitHub](https://github.com/chrisgrieser/)
-- [Twitter](https://twitter.com/pseudo_meta)
 - [Mastodon](https://pkm.social/@pseudometa)
 - [LinkedIn](https://www.linkedin.com/in/christopher-grieser-ba693b17a/)
 
