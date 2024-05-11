@@ -25,9 +25,9 @@ ranger.
 - [Installation](#installation)
 - [Updates](#updates)
 - [Caveats](#caveats)
-- [Why not use a Terminal file manager?](#why-not-use-a-terminal-file-manager)
 - [Build](#build)
 - [Credits](#credits)
+- [About the developer](#about-the-developer)
 
 <!-- tocstop -->
 
@@ -66,11 +66,16 @@ ranger.
 1. Run this in your terminal:
 
     ```bash
-    brew install karabiner-elements                                                       # Install Karabiner (if not already installed)
-    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" && killall Finder # set default view to "List"
-    
-    open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/finder-vim.json"
-    curl -sL "https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+    brew install karabiner-elements # Install Karabiner (if not already installed)
+
+    worktree="https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main"
+    open "karabiner://karabiner/assets/complex_modifications/import?url=$worktree/finder-vim.json"
+    curl -sL "$worktree/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+    curl -sL "$worktree/extras/notificator" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/notificator"
+
+    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" # set default view to "List"
+    defaults write com.apple.finder CreateDesktop false # disable desktop icons & make desktop unfocussable
+    killall Finder
     ```
 
 2. Activate the plugin: `Import` → `Enable`
@@ -92,7 +97,7 @@ ranger.
 
 <!-- vale Google.FirstPerson = NO -->
 > [!NOTE]  
-> I do not use __Raycast__, but Raycast should be supported with either the
+> I do not use __Raycast__, but Raycast can be supported with either the
 > Spotlight addon or by enabling some sort of compatibility mode. For proper
 > Raycast support, please open an issue.
 <!-- vale Google.FirstPerson = YES -->
@@ -125,21 +130,6 @@ mechanisms, this plugin has some limitations:
   issue. (You can fix this by changing to English: `System Settings → General →
   Language & Region → Preferred Languages`)
 
-## Why not use a Terminal file manager?
-Other than a nicer appearance, a GUI does have a few advantages:
-- Many apps have some way sort of `Reveal current file in Finder` feature, which
-  is quite handy but does not work with a TUI file manager.
-- With a GUI, you get a separate app in various places like the dock, the
-  built-in app switcher `cmd+tab`, or other app switchers (for example, `rcmd`).
-  With a TUI, you'd have to switch to your Terminal, and then switch to your
-  file manager, requiring basically an extra step.
-- Image and file content previews as icons are not available with a TUI-file manager.
-- Finder actually has many hidden features, which this plugin is utilizing.
-- A bunch of automation apps for macOS work with "if app x is frontmost"
-  conditions. With a TUI, those apps only see that your terminal is frontmost,
-  but are mostly not able to tell what TUI is running inside the terminal.
-- Cloud services (iCloud, Google Drive, Dropbox, etc.) are well-integrated with Finder.
-
 ## Build
 Karabiner plugins are essentially hotkey configurations in form of a JSON file.
 Since the amount of configurations for this plugin is rather large, the
@@ -158,11 +148,13 @@ You can do so with [yq](https://github.com/mikefarah/yq):
 yq --output-format=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
-<!-- vale Google.FirstPerson = NO -->
 ## Credits
-The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
+- The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
+- The notification script is a modified version of the [Notificator by Vítor
+  Galvão](https://github.com/vitorgalvao/notificator).
 
-__About Me__  
+<!-- vale Google.FirstPerson = NO -->
+## About the developer
 In my day job, I am a sociologist studying the social mechanisms underlying the
 digital economy. For my PhD project, I investigate the governance of the app
 economy and how software ecosystems manage the tension between innovation and
@@ -174,10 +166,6 @@ compatibility. If you are interested in this subject, feel free to get in touch.
 - [LinkedIn](https://www.linkedin.com/in/christopher-grieser-ba693b17a/)
 
 <a href='https://ko-fi.com/Y8Y86SQ91' target='_blank'>
-<img
-	height='36'
-	style='border:0px;height:36px;'
-	src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3'
-	border='0'
-	alt='Buy Me a Coffee at ko-fi.com'
-/></a>
+<img height='36' style='border:0px;height:36px;'
+src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at
+ko-fi.com' /></a>
