@@ -52,6 +52,10 @@ ranger.
   but worth mentioning since barely anyone knows about it.)
 - __Copy/Paste file content:__ `Y` copies the content of the selected file, while
   `P` pastes text from the clipboard into the selected file (appending).
+- __Copy path components__:
+  + `Ctrl+p`: Absolute path
+  + `Ctrl+n`: File name
+  + `Ctrl+t` (if in git repo): Path relative to the repo root
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at
   GitHub and also copies the URL to the clipboard.
 
@@ -94,6 +98,9 @@ ranger.
     # install Spotlight addon
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/addons/finder-vim-spotlight-addon.json"
     ```
+
+6. The first time you receive a notification, you are asked whether notifications
+   should be allowed or not.
 
 <!-- vale Google.FirstPerson = NO -->
 > [!NOTE]  
