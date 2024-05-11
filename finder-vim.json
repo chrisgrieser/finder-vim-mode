@@ -5602,7 +5602,7 @@
               ]
             },
             {
-              "shell_command": "sleep 0.1 # wait for clipboard\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Absolute path copid\" --message \"$(pbpaste)\"\n"
+              "shell_command": "sleep 0.1 # wait for clipboard\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Absolute path copied\" --message \"$(pbpaste)\"\n"
             }
           ],
           "conditions": [
