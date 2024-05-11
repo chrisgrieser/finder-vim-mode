@@ -5636,7 +5636,7 @@
           },
           "to": [
             {
-              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nfilename=$(basename \"$SEL\")\necho \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
+              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nfilename=$(basename \"$SEL\")\necho -n \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
             }
           ],
           "conditions": [
@@ -5670,7 +5670,7 @@
           },
           "to": [
             {
-              "shell_command": "GIT_OPTIONAL_LOCKS=0\nSEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\ncd \"$(dirname \"$SEL\")\" || exit 1\nif ! git rev-parse --is-inside-work-tree; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ Not in a git repo.\"\n  exit 1\nfi\nroot=$(git rev-parse --show-toplevel)\nroot_length=${#root}\nrel_path=$(echo \"$SEL\" | cut -c$((root_length + 2))-)\n\necho \"$rel_path\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"✅ git-relative path copied\" --message \"$rel_path\"\n"
+              "shell_command": "GIT_OPTIONAL_LOCKS=0\nSEL=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\ncd \"$(dirname \"$SEL\")\" || exit 1\nif ! git rev-parse --is-inside-work-tree; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ Not in a git repo.\"\n  exit 1\nfi\nroot=$(git rev-parse --show-toplevel)\nroot_length=${#root}\nrel_path=$(echo \"$SEL\" | cut -c$((root_length + 2))-)\n\necho -n \"$rel_path\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"✅ git-relative path copied\" --message \"$rel_path\"\n"
             }
           ],
           "conditions": [
