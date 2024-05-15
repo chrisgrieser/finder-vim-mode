@@ -112,7 +112,7 @@
         {
           "set_notification_message": {
             "id": "find-notice",
-            "text": "🔍 FIND"
+            "text": "🔎 FIND"
           }
         },
         {
@@ -1293,7 +1293,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if ((count Finder windows) is 0) then return\n    return POSIX path of (insertion location as alias)\n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\n[[ -n \"$current_win\" ]] && echo -n \"$current_win\" >/tmp/finder-vim-mode-last-closed-window\n"
             },
             {
               "set_notification_message": {
@@ -1348,7 +1348,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    if ((count Finder windows) is 0) then return\n    return POSIX path of (insertion location as alias)\n  end tell' > /tmp/finder-vim-mode-last-closed-window\nosascript -e 'tell application \"Finder\" to close window 1'\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\n[[ -n \"$current_win\" ]] && echo -n \"$current_win\" >/tmp/finder-vim-mode-last-closed-window\n"
             }
           ],
           "conditions": [
@@ -1387,7 +1387,7 @@
           },
           "to": [
             {
-              "shell_command": "open \"$(cat \"/tmp/finder-vim-mode-last-closed-window\")\""
+              "shell_command": "open \"$(cat \"/tmp/finder-vim-mode-last-closed-window\")\"\n"
             }
           ],
           "conditions": [
@@ -1421,7 +1421,7 @@
           },
           "to": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias)\n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell' > /tmp/finder-vim-mode-last-closed-window\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias)\n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell')\n[[ -n \"$current_win\" ]] && echo -n \"$current_win\" >/tmp/finder-vim-mode-last-closed-window\n"
             }
           ],
           "conditions": [
@@ -2422,7 +2422,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "# alternative: tell application \"Finder\" to return name of (first disk whose ejectable is true)\nfirst_volume=$(df | grep --max-count=1 \" /Volumes/\" | awk -F '   ' '{print $NF}')\nif [[ -n $first_volume ]] ; then\n  open \"$first_volume\"\nelse\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\nfi\n"
+              "shell_command": "error=$(osascript -e '\n  tell application \"Finder\"\n    try\n      set firstVol to (first disk whose ejectable is true)\n    on error\n      return \"No ejectable disk found.\"\n    end try\n    if (count Finder windows) is 0 then\n      open firstVol\n    else\n      set target of front Finder window to firstVol\n    end if\n    return \"\"\n  end tell\n')\n[[ -n \"$error\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\n"
             }
           ],
           "conditions": [
@@ -3184,7 +3184,7 @@
             {
               "set_notification_message": {
                 "id": "find-notice",
-                "text": "🔍 FIND"
+                "text": "🔎 FIND"
               }
             }
           ],
