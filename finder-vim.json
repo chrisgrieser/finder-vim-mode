@@ -130,7 +130,7 @@
         {
           "set_notification_message": {
             "id": "move-notice",
-            "text": "✂️  Move active"
+            "text": "✂️ Move active"
           }
         },
         {
@@ -1293,7 +1293,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\n[[ -n \"$current_win\" ]] && echo -n \"$current_win\" >/tmp/finder-vim-mode-last-closed-window\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\n[[ -n \"$current_win\" ]] && echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\n"
             },
             {
               "set_notification_message": {
@@ -1348,7 +1348,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\n[[ -n \"$current_win\" ]] && echo -n \"$current_win\" >/tmp/finder-vim-mode-last-closed-window\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\n[[ -n \"$current_win\" ]] && echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\n"
             }
           ],
           "conditions": [
@@ -1387,7 +1387,7 @@
           },
           "to": [
             {
-              "shell_command": "open \"$(cat \"/tmp/finder-vim-mode-last-closed-window\")\"\n"
+              "shell_command": "open \"$(cat \"$HOME/.cache/finder-vim-mode/last-closed-window\")\"\n"
             }
           ],
           "conditions": [
@@ -1421,7 +1421,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias)\n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell')\n[[ -n \"$current_win\" ]] && echo -n \"$current_win\" >/tmp/finder-vim-mode-last-closed-window\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias)\n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell')\n[[ -n \"$current_win\" ]] && echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\n"
             }
           ],
           "conditions": [
@@ -3109,10 +3109,10 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Back\" of menu \"Go\" of menu bar 1\n  end tell'\n"
-            },
-            {
-              "key_code": "escape"
+              "key_code": "semicolon",
+              "modifiers": [
+                "command"
+              ]
             },
             {
               "set_variable": {
@@ -3132,6 +3132,60 @@
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "^de$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "open_bracket",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "input_source_unless",
+              "input_sources": [
+                {
+                  "language": "^de$"
+                }
+              ]
             }
           ]
         },
@@ -3145,9 +3199,18 @@
               ]
             }
           },
-          "to": [
+          "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Forward\" of menu \"Go\" of menu bar 1\n  end tell'\n"
+              "key_code": "quote",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
             }
           ],
           "conditions": [
@@ -3159,13 +3222,62 @@
             },
             {
               "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
+              "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "^de$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "close_bracket",
+              "modifiers": [
+                "command"
+              ]
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": false
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
             },
             {
               "type": "variable_unless",
               "name": "FINDER_FIND_MODE",
               "value": true
+            },
+            {
+              "type": "input_source_unless",
+              "input_sources": [
+                {
+                  "language": "^de$"
+                }
+              ]
             }
           ]
         },
@@ -4690,7 +4802,7 @@
             {
               "set_notification_message": {
                 "id": "move-notice",
-                "text": "✂️  Move active"
+                "text": "✂️ Move active"
               }
             }
           ],

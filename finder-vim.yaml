@@ -86,7 +86,7 @@ anchors:
       - &move-notice
         set_notification_message:
           id: move-notice
-          text: "✂️  Move active"
+          text: "✂️ Move active"
       - &start-move
         set_variable:
           name: FINDER_MOVE_ACTIVE
@@ -349,7 +349,6 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       #─────────────────────────────────────────────────────────────────────────
       # WINDOWS
-      # closing win should end insert, menu, and find mode, but not cancel move
       - type: basic
         from: { key_code: w, modifiers: { mandatory: [command] } }
         to:
@@ -361,7 +360,10 @@ rules:
                   close window 1
                   return pathToBeClosed
                 end tell')
-              [[ -n "$current_win" ]] && echo -n "$current_win" >/tmp/finder-vim-mode-last-closed-window
+              [[ -n "$current_win" ]] && echo "$current_win" >"$HOME/.cache/finder-vim-mode/last-closed-window"
+          # closing win should end insert, menu, and find mode, but not cancel move
+          # since cmd+w can be called from various modes, it should thus also
+          # end all those modes 
           - *remove-insert-notice
           - *leave-insert-mode
           - *remove-menu-notice
@@ -369,7 +371,7 @@ rules:
           - *remove-find-notice
           - *leave-find-mode
         conditions: [*finder-app]
-      # w (or cmd+w) = close window/tab
+      # w = close window/tab
       - type: basic
         from: { key_code: w }
         to:
@@ -381,14 +383,14 @@ rules:
                   close window 1
                   return pathToBeClosed
                 end tell')
-              [[ -n "$current_win" ]] && echo -n "$current_win" >/tmp/finder-vim-mode-last-closed-window
+              [[ -n "$current_win" ]] && echo "$current_win" >"$HOME/.cache/finder-vim-mode/last-closed-window"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       # W = re-open window
       - type: basic
         from: { key_code: w, modifiers: { mandatory: [shift] } }
         to:
           - shell_command: |
-              open "$(cat "/tmp/finder-vim-mode-last-closed-window")"
+              open "$(cat "$HOME/.cache/finder-vim-mode/last-closed-window")"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       # e = close all other windows (:only)
       - type: basic
@@ -405,7 +407,7 @@ rules:
                   end repeat
                   return winPath
                 end tell')
-              [[ -n "$current_win" ]] && echo -n "$current_win" >/tmp/finder-vim-mode-last-closed-window
+              [[ -n "$current_win" ]] && echo "$current_win" >"$HOME/.cache/finder-vim-mode/last-closed-window"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       # <BS> = cycle windows (:bnext)
       - type: basic
@@ -896,29 +898,31 @@ rules:
           - shell_command: |
               afplay "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf" &
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
-      # <C-h> = History Back
+      # <C-h>/<C-l> = History back/forward
       - type: basic
         from: { key_code: h, modifiers: { mandatory: [control] } }
         to_if_alone:
-          - shell_command: |
-              osascript -e '
-                tell application "System Events" to tell process "Finder"
-                  click menu item "Back" of menu "Go" of menu bar 1
-                end tell'
-          # going back aborts searching / renames
-          - key_code: escape
+          - { key_code: semicolon, modifiers: [command] }
+          - *leave-insert-mode # going back aborts searching / renames
+        conditions: [*finder-app, *not-find-mode, *is-German-keyboard]
+      - type: basic
+        from: { key_code: h, modifiers: { mandatory: [control] } }
+        to_if_alone:
+          - { key_code: open_bracket, modifiers: [command] }
           - *leave-insert-mode
-        conditions: [*finder-app, *not-find-mode]
-      # <C-l> = History Forward
+        conditions: [*finder-app, *not-find-mode, *not-German-keyboard]
       - type: basic
         from: { key_code: l, modifiers: { mandatory: [control] } }
-        to:
-          - shell_command: |
-              osascript -e '
-                tell application "System Events" to tell process "Finder"
-                  click menu item "Forward" of menu "Go" of menu bar 1
-                end tell'
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode]
+        to_if_alone:
+          - { key_code: quote, modifiers: [command] }
+          - *leave-insert-mode
+        conditions: [*finder-app, *not-find-mode, *is-German-keyboard]
+      - type: basic
+        from: { key_code: l, modifiers: { mandatory: [control] } }
+        to_if_alone:
+          - { key_code: close_bracket, modifiers: [command] }
+          - *leave-insert-mode
+        conditions: [*finder-app, *not-find-mode, *not-German-keyboard]
       #─────────────────────────────────────────────────────────────────────────
       # FIND MODE
       # Enter/Exit
