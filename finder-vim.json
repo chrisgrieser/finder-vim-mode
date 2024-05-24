@@ -1293,7 +1293,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    if (count Finder windows) is 0 then return \"\"\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\nmkdir -p \"$HOME/.cache/finder-vim-mode\"\n[[ -n \"$current_win\" ]] && echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\" \n  \tactivate \n  \tif (count Finder windows) is 0 then return \"\" \n  \ttry \n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias)) \n  \t\tclose window 1 \n  \t\treturn pathToBeClosed \n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1 \n  \t\treturn \"\" \n  \tend try \n  end tell \n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
             },
             {
               "set_notification_message": {
@@ -1348,7 +1348,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    activate\n    if (count Finder windows) is 0 then return \"\"\n    set pathToBeClosed to (POSIX path of (insertion location as alias))\n    close window 1\n    return pathToBeClosed\n  end tell')\nmkdir -p \"$HOME/.cache/finder-vim-mode\"\n[[ -n \"$current_win\" ]] && echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\" \n  \tactivate \n  \tif (count Finder windows) is 0 then return \"\" \n  \ttry \n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias)) \n  \t\tclose window 1 \n  \t\treturn pathToBeClosed \n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1 \n  \t\treturn \"\" \n  \tend try \n  end tell \n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
             }
           ],
           "conditions": [
