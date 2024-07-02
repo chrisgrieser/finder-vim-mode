@@ -2447,6 +2447,40 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "v",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "shell_command": "first_volume=$(df | grep --max-count=1 \" /Volumes/\" | awk -F '   ' '{print $NF}')\n[[ -z \"$first_volume\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\nerror=$(osascript -e \"\n  set the_volume to (\\\"$first_volume\\\" as POSIX file)\n  tell application \\\"Finder\\\" to open the_volume \n\")\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "u"
           },
           "to_if_alone": [
