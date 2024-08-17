@@ -1293,7 +1293,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\" \n  \tactivate \n  \tif (count Finder windows) is 0 then return \"\" \n  \ttry \n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias)) \n  \t\tclose window 1 \n  \t\treturn pathToBeClosed \n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1 \n  \t\treturn \"\" \n  \tend try \n  end tell \n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n  \tactivate\n  \tif (count Finder windows) is 0 then return \"\"\n  \ttry\n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias))\n  \t\tclose window 1\n  \t\treturn pathToBeClosed\n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1\n  \t\treturn \"\"\n  \tend try\n  end tell\n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
             },
             {
               "set_notification_message": {
@@ -1348,7 +1348,7 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\" \n  \tactivate \n  \tif (count Finder windows) is 0 then return \"\" \n  \ttry \n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias)) \n  \t\tclose window 1 \n  \t\treturn pathToBeClosed \n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1 \n  \t\treturn \"\" \n  \tend try \n  end tell \n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
+              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n  \tactivate\n  \tif (count Finder windows) is 0 then return \"\"\n  \ttry\n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias))\n  \t\tclose window 1\n  \t\treturn pathToBeClosed\n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1\n  \t\treturn \"\"\n  \tend try\n  end tell\n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
             }
           ],
           "conditions": [
@@ -2288,7 +2288,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "error=$(osascript -e'\n  tell application \"Finder\"\n    activate\n    if (number of Finder windows is not 2) then\n      beep\n      return \"⚠️ Not exactly two windows\"\n    else if (the selection is {}) then\n      beep\n      return \"⚠️ No selection\"\n    else\n      set otherWin to (target of Finder window 2 as alias)\n      repeat with f in (selection as list)\n        move f to otherWin\n      end repeat\n      return \"\"\n    end if\n  end tell')\n  [[ -z $error ]] && exit 0\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"$error\"\n"
+              "shell_command": "error=$(osascript -e'\n  tell application \"Finder\"\n  \tactivate\n  \tif (number of Finder windows is not 2) then\n  \t\tbeep\n  \t\treturn \"⚠️ Not exactly two windows\"\n  \telse if (the selection is {}) then\n  \t\tbeep\n  \t\treturn \"⚠️ No selection\"\n  \telse\n  \t\tset otherWin to (target of Finder window 2 as alias)\n  \t\trepeat with aFile in (selection as list)\n        # AppleScript does not allow the \"ask for confirmation\" prompt if replacing,\n        # thus implementing it manually https://www.macscripter.net/t/mac-finder-native-copy-dialog/54200/13\n  \t\t\ttry\n  \t\t\t\tmove aFile to otherWin without replacing\n  \t\t\ton error\n  \t\t\t\tset promptText to \"An item named \" & quoted form of (name of aFile as string) & \" already exists in this location.\"\n  \t\t\t\tset response to button returned of (display dialog promptText buttons {\"Skip\", \"Replace\"} default button \"Replace\" cancel button \"Skip\" with icon caution)\n  \t\t\t\tif response is \"Replace\" then move aFile to otherWin with replacing\n  \t\t\tend try\n  \t\tend repeat\n  \t\treturn \"\"\n  \tend if\n  end tell\n')\n[[ -n \"$error\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"$error\"\n"
             }
           ],
           "conditions": [
@@ -2322,7 +2322,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "error=$(osascript -e'\n  tell application \"Finder\"\n    activate\n    if (number of Finder windows is not 2) then\n      beep\n      return \"⚠️ Not exactly two windows\"\n    else if (the selection is {}) then\n      beep\n      return \"⚠️ No selection\"\n    else\n      set otherWin to (target of Finder window 2 as alias)\n      repeat with f in (selection as list)\n        duplicate f to otherWin\n      end repeat\n      return \"\"\n    end if\n  end tell')\n  [[ -z $error ]] && exit 0\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"$error\"\n"
+              "shell_command": "error=$(osascript -e'\n  tell application \"Finder\"\n  \tactivate\n  \tif (number of Finder windows is not 2) then\n  \t\tbeep\n  \t\treturn \"⚠️ Not exactly two windows\"\n  \telse if (the selection is {}) then\n  \t\tbeep\n  \t\treturn \"⚠️ No selection\"\n  \telse\n  \t\tset otherWin to (target of Finder window 2 as alias)\n  \t\trepeat with aFile in (selection as list)\n        # AppleScript does not allow the \"ask for confirmation\" prompt if replacing,\n        # thus implementing it manually https://www.macscripter.net/t/mac-finder-native-copy-dialog/54200/13\n  \t\t\ttry\n  \t\t\t\tcopy aFile to otherWin without replacing\n  \t\t\ton error\n  \t\t\t\tset promptText to \"An item named \" & quoted form of (name of aFile as string) & \" already exists in this location.\"\n  \t\t\t\tset response to button returned of (display dialog promptText buttons {\"Skip\", \"Replace\"} default button \"Replace\" cancel button \"Skip\" with icon caution)\n  \t\t\t\tif response is \"Replace\" then copy aFile to otherWin with replacing\n  \t\t\tend try\n  \t\tend repeat\n  \t\treturn \"\"\n  \tend if\n  end tell\n')\n[[ -n \"$error\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"$error\"\n"
             }
           ],
           "conditions": [
@@ -2456,7 +2456,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "first_volume=$(df | grep --max-count=1 \" /Volumes/\" | awk -F '   ' '{print $NF}')\n[[ -z \"$first_volume\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\nerror=$(osascript -e \"\n  set the_volume to (\\\"$first_volume\\\" as POSIX file)\n  tell application \\\"Finder\\\" to open the_volume \n\")\n"
+              "shell_command": "first_volume=$(df | grep --max-count=1 \" /Volumes/\" | awk -F '   ' '{print $NF}')\n[[ -z \"$first_volume\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\nerror=$(osascript -e \"\n  set the_volume to (\\\"$first_volume\\\" as POSIX file)\n  tell application \\\"Finder\\\" to open the_volume\n\")\n"
             }
           ],
           "conditions": [

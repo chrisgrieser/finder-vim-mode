@@ -205,13 +205,15 @@ rules:
       - type: basic
         from: { key_code: hyphen, modifiers: { mandatory: [shift] } }
         to:
-          - shell_command: qlmanage -p "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+          - shell_command:
+              qlmanage -p "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
       # "?" on American keyboard
       - type: basic
         from: { key_code: slash, modifiers: { mandatory: [shift] } }
         to:
-          - shell_command: qlmanage -p "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+          - shell_command:
+              qlmanage -p "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       #─────────────────────────────────────────────────────────────────────────
       # INSERT MODE
@@ -354,18 +356,18 @@ rules:
         to:
           - shell_command: |
               current_win=$(osascript -e '
-                tell application "Finder" 
-                	activate 
-                	if (count Finder windows) is 0 then return "" 
-                	try 
-                		set pathToBeClosed to (POSIX path of (insertion location as alias)) 
-                		close window 1 
-                		return pathToBeClosed 
+                tell application "Finder"
+                	activate
+                	if (count Finder windows) is 0 then return ""
+                	try
+                		set pathToBeClosed to (POSIX path of (insertion location as alias))
+                		close window 1
+                		return pathToBeClosed
                 	on error # special folders without insertion location, like Smart Folders
-                		close window 1 
-                		return "" 
-                	end try 
-                end tell 
+                		close window 1
+                		return ""
+                	end try
+                end tell
               ')
               if [[ -n "$current_win" ]] ; then
                 mkdir -p "$HOME/.cache/finder-vim-mode"
@@ -387,18 +389,18 @@ rules:
         to:
           - shell_command: |
               current_win=$(osascript -e '
-                tell application "Finder" 
-                	activate 
-                	if (count Finder windows) is 0 then return "" 
-                	try 
-                		set pathToBeClosed to (POSIX path of (insertion location as alias)) 
-                		close window 1 
-                		return pathToBeClosed 
+                tell application "Finder"
+                	activate
+                	if (count Finder windows) is 0 then return ""
+                	try
+                		set pathToBeClosed to (POSIX path of (insertion location as alias))
+                		close window 1
+                		return pathToBeClosed
                 	on error # special folders without insertion location, like Smart Folders
-                		close window 1 
-                		return "" 
-                	end try 
-                end tell 
+                		close window 1
+                		return ""
+                	end try
+                end tell
               ')
               if [[ -n "$current_win" ]] ; then
                 mkdir -p "$HOME/.cache/finder-vim-mode"
@@ -573,7 +575,8 @@ rules:
           - shell_command: |
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                 --title "Finder Vim Mode" --message "✅ File(s) copied"
-        conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *is-German-keyboard]
+        conditions:
+          [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *is-German-keyboard]
       - type: basic
         from: { key_code: "y" }
         to:
@@ -581,7 +584,8 @@ rules:
           - shell_command: |
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                 --title "Finder Vim Mode" --message "✅ File(s) copied"
-        conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *not-German-keyboard]
+        conditions:
+          [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *not-German-keyboard]
       # Y = yank (copy) file *content*
       - type: basic
         from: { key_code: z, modifiers: { mandatory: [shift] } } # y = z in German Keyboard
@@ -592,7 +596,8 @@ rules:
               cat "$selection" | pbcopy
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                 --title "Finder Vim Mode" --message "✅ File content copied"
-        conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *is-German-keyboard]
+        conditions:
+          [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *is-German-keyboard]
       - type: basic
         from: { key_code: y, modifiers: { mandatory: [shift] } }
         to:
@@ -602,7 +607,8 @@ rules:
               cat "$selection" | pbcopy
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                 --title "Finder Vim Mode" --message "✅ File content copied"
-        conditions: [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *not-German-keyboard]
+        conditions:
+          [*finder-app, *not-insert-mode, *move-inactive, *not-find-mode, *not-German-keyboard]
       # p = paste file
       - type: basic
         from: { key_code: p }
@@ -633,24 +639,32 @@ rules:
           - shell_command: |
               error=$(osascript -e'
                 tell application "Finder"
-                  activate
-                  if (number of Finder windows is not 2) then
-                    beep
-                    return "⚠️ Not exactly two windows"
-                  else if (the selection is {}) then
-                    beep
-                    return "⚠️ No selection"
-                  else
-                    set otherWin to (target of Finder window 2 as alias)
-                    repeat with f in (selection as list)
-                      move f to otherWin
-                    end repeat
-                    return ""
-                  end if
-                end tell')
-                [[ -z $error ]] && exit 0
-                "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
-                  --title "Finder Vim Mode" --message "$error"
+                	activate
+                	if (number of Finder windows is not 2) then
+                		beep
+                		return "⚠️ Not exactly two windows"
+                	else if (the selection is {}) then
+                		beep
+                		return "⚠️ No selection"
+                	else
+                		set otherWin to (target of Finder window 2 as alias)
+                		repeat with aFile in (selection as list)
+                      # AppleScript does not allow the "ask for confirmation" prompt if replacing,
+                      # thus implementing it manually https://www.macscripter.net/t/mac-finder-native-copy-dialog/54200/13
+                			try
+                				move aFile to otherWin without replacing
+                			on error
+                				set promptText to "An item named " & quoted form of (name of aFile as string) & " already exists in this location."
+                				set response to button returned of (display dialog promptText buttons {"Skip", "Replace"} default button "Replace" cancel button "Skip" with icon caution)
+                				if response is "Replace" then move aFile to otherWin with replacing
+                			end try
+                		end repeat
+                		return ""
+                	end if
+                end tell
+              ')
+              [[ -n "$error" ]] && "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
+                --title "Finder Vim Mode" --message "$error"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # X = cross-copy (duplicate)
       - type: basic
@@ -659,24 +673,32 @@ rules:
           - shell_command: |
               error=$(osascript -e'
                 tell application "Finder"
-                  activate
-                  if (number of Finder windows is not 2) then
-                    beep
-                    return "⚠️ Not exactly two windows"
-                  else if (the selection is {}) then
-                    beep
-                    return "⚠️ No selection"
-                  else
-                    set otherWin to (target of Finder window 2 as alias)
-                    repeat with f in (selection as list)
-                      duplicate f to otherWin
-                    end repeat
-                    return ""
-                  end if
-                end tell')
-                [[ -z $error ]] && exit 0
-                "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
-                  --title "Finder Vim Mode" --message "$error"
+                	activate
+                	if (number of Finder windows is not 2) then
+                		beep
+                		return "⚠️ Not exactly two windows"
+                	else if (the selection is {}) then
+                		beep
+                		return "⚠️ No selection"
+                	else
+                		set otherWin to (target of Finder window 2 as alias)
+                		repeat with aFile in (selection as list)
+                      # AppleScript does not allow the "ask for confirmation" prompt if replacing,
+                      # thus implementing it manually https://www.macscripter.net/t/mac-finder-native-copy-dialog/54200/13
+                			try
+                				copy aFile to otherWin without replacing
+                			on error
+                				set promptText to "An item named " & quoted form of (name of aFile as string) & " already exists in this location."
+                				set response to button returned of (display dialog promptText buttons {"Skip", "Replace"} default button "Replace" cancel button "Skip" with icon caution)
+                				if response is "Replace" then copy aFile to otherWin with replacing
+                			end try
+                		end repeat
+                		return ""
+                	end if
+                end tell
+              ')
+              [[ -n "$error" ]] && "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
+                --title "Finder Vim Mode" --message "$error"
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # i = Preview (information sidebar)
       - type: basic
@@ -721,7 +743,7 @@ rules:
                 --title "Finder Vim Mode" --message "No ejectable volume found."
               error=$(osascript -e "
                 set the_volume to (\"$first_volume\" as POSIX file)
-                tell application \"Finder\" to open the_volume 
+                tell application \"Finder\" to open the_volume
               ")
         conditions: [*finder-app, *not-insert-mode, *not-find-mode]
       # u = undo
@@ -1163,7 +1185,8 @@ rules:
           - shell_command: |
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                 --title "Finder Vim Mode" --message "✅ File(s) copied"
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *move-active, *not-German-keyboard]
+        conditions:
+          [*finder-app, *not-insert-mode, *not-find-mode, *move-active, *not-German-keyboard]
       - type: basic
         from: { key_code: z } # y and z switched on German keyboard
         to:
@@ -1171,7 +1194,8 @@ rules:
             modifiers: [command]
           - *end-move
           - *remove-move-notice
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *move-active, *is-German-keyboard]
+        conditions:
+          [*finder-app, *not-insert-mode, *not-find-mode, *move-active, *is-German-keyboard]
       - type: basic
         from:
           key_code: c
