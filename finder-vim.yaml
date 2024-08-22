@@ -238,30 +238,6 @@ rules:
           - *insert-notice
           - *enter-insert-mode
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
-        # Switch Directory (for people using regular shortcuts)
-      - type: basic
-        from: { key_code: g, modifiers: { mandatory: [command, shift] } }
-        to:
-          - { key_code: g, modifiers: [command, shift] }
-          - *insert-notice
-          - *enter-insert-mode
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
-        # Search
-      - type: basic
-        from: { key_code: slash }
-        to:
-          - { key_code: f, modifiers: [command] }
-          - *insert-notice
-          - *enter-insert-mode
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
-        # Search (for people using regular shortcuts)
-      - type: basic
-        from: { key_code: f, modifiers: { mandatory: [command] } }
-        to:
-          - { key_code: f, modifiers: [command] }
-          - *insert-notice
-          - *enter-insert-mode
-        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       # LEAVE INSERT MODE
       # Confirm Insert Mode
       - type: basic
