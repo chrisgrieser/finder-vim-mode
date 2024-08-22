@@ -8,7 +8,7 @@ ranger.
 
 ## Usage Examples
 - `rl`: Duplicate selected file and open the copy.
-- `axw`: Select all files, move them to the other window, close current window.
+- `axq`: Select all files, move them to the other window, close current window.
 - `.f.d.`: Show hidden files, select first hidden file, delete it, hide dotfiles
   again.
 - `AM`: Select files (but not folders), create a new directory, move selected
@@ -40,8 +40,8 @@ ranger.
 - __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the
   selection to the other window, and `X` copies the selection to the other
   window.
-- __Context-menu__: Can be opened with `q` and navigated via `hjkl`. Use `esc`
-  or press `q` again to close the context-menu.
+- __Context-menu__: Can be opened with `c` and navigated via `hjkl`. Use `esc`
+  or press `q` to close the context-menu.
 - __Find mode__ is triggered via `f`, works similar to `f` in vim, expecting
   another character afterward. For example, `fh` jumps to the next file that
   starts with the letter `h`.
@@ -77,8 +77,11 @@ ranger.
     curl -sL "$worktree/extras/cheatsheet.png" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
     curl -sL "$worktree/extras/notificator" --create-dirs --output "$HOME/.config/karabiner/assets/finder-vim-mode/notificator"
 
-    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" # set default view to "List"
-    defaults write com.apple.finder CreateDesktop false # disable desktop icons & make desktop unfocussable
+    # set default view to "List"
+    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+    # optional: disable desktop icons & make desktop unfocussable
+    defaults write com.apple.finder CreateDesktop false
+    # restart Finder for changes to take effect
     killall Finder
     ```
 
@@ -86,11 +89,13 @@ ranger.
 3. *Karabiner users:* If you already use Karabiner and have another modification
    affecting the `Capslock` key, the other modification must come __below__ the
    *Finder Vim Mode* in the list of modifications. (Karabiner prioritizes
-   modifications further on top of the list.) <!-- LTeX: enabled=false -->
-4. *Alfred users:* <!-- LTeX: enabled=true -->In [the Appearance
+   modifications further on top of the list.)
+   <!-- LTeX: enabled=false -->
+4. *Alfred users:* In [the Appearance
    Options](https://www.alfredapp.com/help/appearance/#options), you need to set
    the `Focusing` behavior to `Compatibility Mode` for Karabiner to detect
    Alfred being active.
+   <!-- LTeX: enabled=true -->
 5. *Spotlight users:* You need to install the Spotlight addon. The addon has to
    be __above__ the Finder Vim Mode in the list of modifications.
 
@@ -101,13 +106,6 @@ ranger.
 
 6. The first time you receive a notification, you are asked whether notifications
    should be allowed or not.
-
-<!-- vale Google.FirstPerson = NO -->
-> [!NOTE]  
-> I do not use __Raycast__, but Raycast can be supported with either the
-> Spotlight addon or by enabling some sort of compatibility mode. For proper
-> Raycast support, please open an issue.
-<!-- vale Google.FirstPerson = YES -->
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore,
@@ -123,7 +121,7 @@ mechanisms, this plugin has some limitations:
 - If you __use the mouse to click buttons__, you can end up in the wrong mode.
   In that case, you can press `esc` to get back to Normal Mode. (Or, you know,
   just do not use the mouse. You're a vim user, after all.)
-- File selection dialogues from other apps (for example, to upload a file in the
+- File selection dialogues from other apps (for example to upload a file in the
   browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user
   configure the keybindings__ themselves in any way, at least not with a
