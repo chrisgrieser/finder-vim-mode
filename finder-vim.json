@@ -88,7 +88,7 @@
         {
           "set_notification_message": {
             "id": "insert-notice",
-            "text": "✏️  INSERT"
+            "text": "Finder Vim Mode\n\n✏️  INSERT"
           }
         },
         {
@@ -112,7 +112,7 @@
         {
           "set_notification_message": {
             "id": "find-notice",
-            "text": "🔎 FIND"
+            "text": "Finder Vim Mode\n\n🔎 FIND"
           }
         },
         {
@@ -130,7 +130,7 @@
         {
           "set_notification_message": {
             "id": "move-notice",
-            "text": "✂️ Move active"
+            "text": "Finder Vim Mode\n\n✂️ Move active"
           }
         },
         {
@@ -166,7 +166,7 @@
         {
           "set_notification_message": {
             "id": "menu-notice",
-            "text": "➡️ Menu Mode"
+            "text": "Finder Vim Mode\n\n➡️ Menu Mode"
           }
         }
       ]
@@ -653,7 +653,7 @@
             {
               "set_notification_message": {
                 "id": "insert-notice",
-                "text": "✏️  INSERT"
+                "text": "Finder Vim Mode\n\n✏️  INSERT"
               }
             },
             {
@@ -704,7 +704,7 @@
             {
               "set_notification_message": {
                 "id": "insert-notice",
-                "text": "✏️  INSERT"
+                "text": "Finder Vim Mode\n\n✏️  INSERT"
               }
             },
             {
@@ -1306,7 +1306,7 @@
             {
               "set_notification_message": {
                 "id": "menu-notice",
-                "text": "➡️ Menu Mode"
+                "text": "Finder Vim Mode\n\n➡️ Menu Mode"
               }
             }
           ],
@@ -1455,7 +1455,7 @@
             {
               "set_notification_message": {
                 "id": "menu-notice",
-                "text": "➡️ Menu Mode"
+                "text": "Finder Vim Mode\n\n➡️ Menu Mode"
               }
             }
           ],
@@ -2321,7 +2321,7 @@
             {
               "set_notification_message": {
                 "id": "insert-notice",
-                "text": "✏️  INSERT"
+                "text": "Finder Vim Mode\n\n✏️  INSERT"
               }
             },
             {
@@ -2374,7 +2374,7 @@
             {
               "set_notification_message": {
                 "id": "insert-notice",
-                "text": "✏️  INSERT"
+                "text": "Finder Vim Mode\n\n✏️  INSERT"
               }
             }
           ],
@@ -2974,7 +2974,7 @@
             {
               "set_notification_message": {
                 "id": "find-notice",
-                "text": "🔎 FIND"
+                "text": "Finder Vim Mode\n\n🔎 FIND"
               }
             }
           ],
@@ -4480,7 +4480,7 @@
             {
               "set_notification_message": {
                 "id": "move-notice",
-                "text": "✂️ Move active"
+                "text": "Finder Vim Mode\n\n✂️ Move active"
               }
             }
           ],

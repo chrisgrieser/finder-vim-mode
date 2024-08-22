@@ -58,7 +58,7 @@ anchors:
       - &insert-notice
         set_notification_message:
           id: insert-notice
-          text: "✏️  INSERT"
+          text: "Finder Vim Mode\n\n✏️  INSERT"
       - &remove-insert-notice
         set_notification_message:
           id: insert-notice
@@ -74,7 +74,7 @@ anchors:
       - &find-notice
         set_notification_message:
           id: find-notice
-          text: "🔎 FIND"
+          text: "Finder Vim Mode\n\n🔎 FIND"
       - &remove-find-notice
         set_notification_message:
           id: find-notice
@@ -86,7 +86,7 @@ anchors:
       - &move-notice
         set_notification_message:
           id: move-notice
-          text: "✂️ Move active"
+          text: "Finder Vim Mode\n\n✂️ Move active"
       - &start-move
         set_variable:
           name: FINDER_MOVE_ACTIVE
@@ -110,7 +110,7 @@ anchors:
       - &menu-notice
         set_notification_message:
           id: menu-notice
-          text: "➡️ Menu Mode"
+          text: "Finder Vim Mode\n\n➡️ Menu Mode"
 #───────────────────────────────────────────────────────────────────────────────
 #───────────────────────────────────────────────────────────────────────────────
 #───────────────────────────────────────────────────────────────────────────────
