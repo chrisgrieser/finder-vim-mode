@@ -7,7 +7,7 @@ ranger.
 ![Finder Vim Cheatsheet](./extras/cheatsheet.png)
 
 ## Usage Examples
-- `rl`: Duplicate selected file and open the copy.
+- `wl`: Duplicate selected file and open the copy.
 - `axq`: Select all files, move them to the other window, close current window.
 - `.f.d.`: Show hidden files, select first hidden file, delete it, hide dotfiles
   again.
@@ -40,8 +40,8 @@ ranger.
 - __Cross-move__: If you have *exactly* two Finder windows open, `x` moves the
   selection to the other window, and `X` copies the selection to the other
   window.
-- __Context-menu__: Can be opened with `c` and navigated via `hjkl`. Use `esc`
-  or press `q` to close the context-menu.
+- __Context-menu__: Can be opened with `c` and navigated via `hjkl`. Press
+  `esc`, `q`, or `c` to close the context-menu.
 - __Find mode__ is triggered via `f`, works similar to `f` in vim, expecting
   another character afterward. For example, `fh` jumps to the next file that
   starts with the letter `h`.
