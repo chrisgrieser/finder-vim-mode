@@ -67,6 +67,10 @@ ranger.
 > and then `space` to select the correct action in the prompt window.
 
 ## Installation
+This plugin requires you to have __English as your System UI language__. (You
+can set the language via: `System Settings → General → Language & Region →
+Preferred Languages`)
+
 1. Run this in your terminal:
 
     ```bash
@@ -97,15 +101,15 @@ ranger.
    Alfred being active.
    <!-- LTeX: enabled=true -->
 5. *Spotlight users:* You need to install the Spotlight addon. The addon has to
-   be __above__ the Finder Vim Mode in the list of modifications.
+   be __above__ the Finder Vim Mode in Karabiner's list of modifications.
 
     ```bash
     # install Spotlight addon
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/addons/finder-vim-spotlight-addon.json"
     ```
 
-6. The first time you receive a notification, you are asked whether notifications
-   should be allowed or not.
+6. The first time you receive a notification, you are asked whether
+   notifications should be allowed or not.
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore,
@@ -131,17 +135,14 @@ mechanisms, this plugin has some limitations:
   interfere. It is therefore recommended to unset them.
 - The plugin has been tested with the __U.S. and German keyboard layout__. It
   should mostly also work for other layouts.
-- In some edge cases, not using of __English as System UI language__ can create an
-  issue. (You can fix this by changing to English: `System Settings → General →
-  Language & Region → Preferred Languages`)
 
 ## Build
 Karabiner plugins are essentially hotkey configurations in form of a JSON file.
 Since the amount of configurations for this plugin is rather large, the
-resulting JSON file ~6000 lines. To make that manageable, this plugin is written
+resulting JSON file ~8000 lines. To make that manageable, this plugin is written
 in YAML, where features such as [anchors and
 aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/)
-reduce the lines of code to only ~1000 lines.
+reduce the lines of code to only ~1300 lines.
 
 If you want to fork this plugin, it is recommended to work with the YAML file
 and "compile" it to the [JSON required by
