@@ -2341,7 +2341,7 @@
               }
             },
             {
-              "shell_command": "current_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf\" & # codespell-ignore\n"
+              "shell_command": "# play sound at current volume\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf\" & # codespell-ignore\n"
             }
           ],
           "conditions": [
@@ -2420,7 +2420,19 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell'\n\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell\n'\n\n# play sound at current volume\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n\n# rename\nsleep 0.1 # ensure file is created & selected\nosascript -e 'tell application \"System Events\" to key code 36' # 36 = `enter`\n"
+            },
+            {
+              "set_variable": {
+                "name": "FINDER_INSERT_MODE",
+                "value": true
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "insert-notice",
+                "text": "Finder Vim Mode\n\n✏️  INSERT"
+              }
             }
           ],
           "conditions": [
@@ -2544,7 +2556,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$SEL\" && $selection_count -eq 1 ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$SEL\" && $selection_count -eq 1 ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  # play sound at current volume\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  [[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
@@ -2581,7 +2593,7 @@
           },
           "to": [
             {
-              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$SEL\" && $selection_count -eq 1 ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "SEL=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$SEL\" && $selection_count -eq 1 ]] ; then\n  cd \"$SEL\"\n  foldername=$(basename \"$SEL\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  # play sound at current volume\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  [[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
