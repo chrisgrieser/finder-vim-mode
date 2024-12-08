@@ -1941,6 +1941,76 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "comma"
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": [
+                "option",
+                "command"
+              ]
+            },
+            {
+              "shell_command": "sleep 0.1 # wait for clipboard\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filepath copied\" --message \"$(pbpaste)\"\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nfilename=$(basename \"$sel\")\nprintf \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "p"
           },
           "to_if_alone": [
@@ -5351,178 +5421,6 @@
             },
             {
               "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "comma"
-          },
-          "to": [
-            {
-              "shell_command": "\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"☁️ Restarting iCloud…\"\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/screen_sharing_started.caf\" &\nkillall bird\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "p",
-            "modifiers": {
-              "mandatory": [
-                "control"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "c",
-              "modifiers": [
-                "option",
-                "command"
-              ]
-            },
-            {
-              "shell_command": "sleep 0.1 # wait for clipboard\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Absolute path copied\" --message \"$(pbpaste)\"\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "n",
-            "modifiers": {
-              "mandatory": [
-                "control"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nfilename=$(basename \"$sel\")\nprintf \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "t",
-            "modifiers": {
-              "mandatory": [
-                "control"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "export GIT_OPTIONAL_LOCKS=0\nsel=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\ncd \"$(dirname \"$sel\")\" || exit 1\nif ! git rev-parse --is-inside-work-tree; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ Not in a git repo.\"\n  exit 1\nfi\nroot_length=$(git rev-parse --show-toplevel | wc -c)\nrel_path=$(echo \"$sel\" | cut -c$((root_length + 1))-)\n\nprintf \"$rel_path\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"✅ git-relative path copied\" --message \"$rel_path\"\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "g",
-            "modifiers": {
-              "mandatory": [
-                "control"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "export GIT_OPTIONAL_LOCKS=0\nsel=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nif [[ ! -f \"$sel\" ]] ; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ Selection not a file.\"\n  exit 1\nfi\ncd \"$(dirname \"$sel\")\" || exit 1\nif ! git rev-parse --is-inside-work-tree ; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ File not in a git repo.\"\n  exit 1\nfi\n\nbranch=$(git branch --show-current)\nroot_length=$(git rev-parse --show-toplevel | wc -c)\nremote_url=\"$(git remote -v | head -n1 | cut -f2 | cut -d' ' -f1 | sed -e 's|:|/|' -e 's|git@|https://|' -e 's|\\.git$||')\"\npath_in_repo=${sel:$root_length}\npath_in_repo=$(osascript -l JavaScript -e \"encodeURIComponent('$path_in_repo')\")\n\nurl=\"$remote_url/blob/$branch/$path_in_repo\"\nprintf \"$url\" | pbcopy\nopen \"$url\"\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ GitHub URL copied\" --message \"$url\"\n"
             }
           ],
           "conditions": [
