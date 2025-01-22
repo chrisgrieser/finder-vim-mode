@@ -4,9 +4,9 @@ ranger.
 
 ![Last commit shield](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
 
-![Finder Vim Cheatsheet](./extras/cheatsheet.png)
+![Finder vim cheatsheet](./extras/cheatsheet.png)
 
-## Usage Examples
+## Usage examples
 - `wl`: Duplicate selected file and open the copy.
 - `axq`: Select all files, move them to the other window, close current window.
 - `.f.d.`: Show hidden files, select first hidden file, delete it, hide dotfiles
@@ -14,10 +14,10 @@ ranger.
 - `AM`: Select files (but not folders), create a new directory, move selected
   files into that directory, and start renaming the directory (enters insert
   mode).
-- `azmhp`: Select all files and folders, zip them, (wait for zipping to finish),
-  and move the archive one directory up
+- `azmhp`: Select all files and folders, zip them (and wait for zipping to
+  finish), and move the archive one directory up
 
-## Table of Contents
+## Table of contents
 
 <!-- toc -->
 
@@ -100,7 +100,7 @@ Preferred Languages`)
    the `Focusing` behavior to `Compatibility Mode` for Karabiner to detect
    Alfred being active.
    <!-- LTeX: enabled=true -->
-5. *Spotlight users:* You need to install the Spotlight addon. The addon has to
+5. *Spotlight users:* You need to install the Spotlight add-on. The add-on has to
    be __above__ the Finder Vim Mode in Karabiner's list of modifications.
 
     ```bash
@@ -171,7 +171,6 @@ compatibility. If you are interested in this subject, feel free to get in touch.
 - [Mastodon](https://pkm.social/@pseudometa)
 - [LinkedIn](https://www.linkedin.com/in/christopher-grieser-ba693b17a/)
 
-<a href='https://ko-fi.com/Y8Y86SQ91' target='_blank'>
-<img height='36' style='border:0px;height:36px;'
-src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at
-ko-fi.com' /></a>
+<a href='https://ko-fi.com/Y8Y86SQ91' target='_blank'> <img height='36'
+style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3'
+border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
