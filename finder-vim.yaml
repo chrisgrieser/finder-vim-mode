@@ -836,7 +836,8 @@ rules:
               fi
 
               echo "$selectedFiles" | while read -r file; do
-                # bash expansion does not work in karabiner
+                # bash expansion does not work in karabiner, thus using `rev`
+                # and `cut` instead
                 lastFourChars=$(echo "$file" | rev | cut -c-4 | rev)
                 if [[ "$lastFourChars" == "-bkp" ]]; then
                   newName=$(echo "$file" | rev | cut -c5- | rev)
