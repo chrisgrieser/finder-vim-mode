@@ -2055,7 +2055,7 @@
           },
           "to": [
             {
-              "shell_command": "# not using `cmd+opt+c`, since it adds quotes\nfilepath=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nprintf \"$filepath\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filepath\"\n"
+              "shell_command": "# not using `cmd+opt+c`, since it adds quotes\nfilepath=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nprintf \"$filepath\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filepath copied\" --message \"$filepath\"\n"
             }
           ],
           "conditions": [
