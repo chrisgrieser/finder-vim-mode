@@ -52,12 +52,6 @@ ranger.
   but worth mentioning since barely anyone knows about it.)
 - __Copy/Paste file content:__ `Y` copies the content of the selected file, while
   `P` pastes text from the clipboard into the selected file (appending).
-- __Copy path components__:
-  + `Ctrl+p`: Absolute path
-  + `Ctrl+n`: File name
-  + `Ctrl+t` (if in git repo): Path relative to the repo root
-- __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at
-  GitHub and copies the URL to the clipboard.
 
 > [!NOTE]
 > __Pressing `return` in a prompt window__, for example when replacing a file,
