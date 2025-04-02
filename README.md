@@ -57,7 +57,7 @@ ranger.
   + `Ctrl+n`: File name
   + `Ctrl+t` (if in git repo): Path relative to the repo root
 - __Open in GitHub__: If the file is in a git repo, `Ctrl+g` opens the file at
-  GitHub and also copies the URL to the clipboard.
+  GitHub and copies the URL to the clipboard.
 
 > [!NOTE]
 > __Pressing `return` in a prompt window__, for example when replacing a file,
@@ -123,8 +123,7 @@ Since Karabiner plugins are only hotkey re-mappings without proper scripting
 mechanisms, this plugin has some limitations:
 - Only __List view__ is supported.
 - If you __use the mouse to click buttons__, you can end up in the wrong mode.
-  In that case, you can press `esc` to get back to Normal Mode. (Or, you know,
-  just do not use the mouse. You're a vim user, after all.)
+  In that case, you can press `esc` to get back to Normal Mode.
 - File selection dialogues from other apps (for example to upload a file in the
   browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user
@@ -133,7 +132,7 @@ mechanisms, this plugin has some limitations:
   respective key manually in the JSON file.
 - If you have set __custom keybindings for Finder__, they can potentially
   interfere. It is therefore recommended to unset them.
-- The plugin has been tested with the __U.S. and German keyboard layout__. It
+- The plugin has been tested with the __US and German keyboard layout__. It
   should mostly also work for other layouts.
 
 ## Build
@@ -166,7 +165,7 @@ digital economy. For my PhD project, I investigate the governance of the app
 economy and how software ecosystems manage the tension between innovation and
 compatibility. If you are interested in this subject, feel free to get in touch.
 
-- [Academic Website](https://chris-grieser.de/)
+- [Academic website](https://chris-grieser.de/)
 - [ResearchGate](https://www.researchgate.net/profile/Christopher-Grieser)
 - [Mastodon](https://pkm.social/@pseudometa)
 - [LinkedIn](https://www.linkedin.com/in/christopher-grieser-ba693b17a/)
