@@ -21,4 +21,4 @@ build:
 
 cheatsheet:
     open 'http://www.keyboard-layout-editor.com/'
-    open -R "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+    open -R "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.json"
