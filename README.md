@@ -102,13 +102,10 @@ Preferred Languages`)
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/addons/finder-vim-spotlight-addon.json"
     ```
 
-6. The first time you receive a notification, you are asked whether
-   notifications should be allowed or not.
-
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore,
 you have to install updates manually by re-running the code above. You can check
-for the last commit date to see whether there has been an update:
+the last commit date to see whether there has been an update:
 
 ![Last commit shield](https://img.shields.io/github/last-commit/chrisgrieser/finder-vim-mode?style=plastic)
 
@@ -131,11 +128,11 @@ mechanisms, this plugin has some limitations:
 
 ## Build
 Karabiner plugins are essentially hotkey configurations in form of a JSON file.
-Since the amount of configurations for this plugin is rather large, the
-resulting JSON file ~8000 lines. To make that manageable, this plugin is written
-in YAML, where features such as [anchors and
+The amount of configurations for this plugin is rather large; the
+resulting JSON file is ~8000 lines of code. To make that ankommt manageable,
+this plugin is written in YAML where features such as [anchors and
 aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/)
-reduce the lines of code to only ~1300 lines.
+reduce the lines of code to ~1300.
 
 If you want to fork this plugin, it is recommended to work with the YAML file
 and "compile" it to the [JSON required by
@@ -143,7 +140,7 @@ Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-m
 You can do so with [yq](https://github.com/mikefarah/yq):
 
 ```bash
-# `explode()` required to resolve the anchors and aliases
+# `explode()` is required to resolve the anchors and aliases
 yq --output-format=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
@@ -152,14 +149,13 @@ yq --output-format=json 'explode(.)' finder-vim.yaml > finder-vim.json
 - The notification script is a modified version of the [Notificator by Vítor
   Galvão](https://github.com/vitorgalvao/notificator).
 
-<!-- vale Google.FirstPerson = NO -->
 ## About the developer
 In my day job, I am a sociologist studying the social mechanisms underlying the
 digital economy. For my PhD project, I investigate the governance of the app
 economy and how software ecosystems manage the tension between innovation and
 compatibility. If you are interested in this subject, feel free to get in touch.
 
-- [Academic website](https://chris-grieser.de/)
+- [Website](https://chris-grieser.de/)
 - [ResearchGate](https://www.researchgate.net/profile/Christopher-Grieser)
 - [Mastodon](https://pkm.social/@pseudometa)
 - [LinkedIn](https://www.linkedin.com/in/christopher-grieser-ba693b17a/)
