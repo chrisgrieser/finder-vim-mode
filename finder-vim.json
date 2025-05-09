@@ -1314,10 +1314,7 @@
           },
           "to_if_alone": [
             {
-              "key_code": "non_us_backslash",
-              "modifiers": [
-                "command"
-              ]
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Cycle Through Windows\" of menu \"Window\" of menu bar 1\n  end tell'\n"
             },
             {
               "set_variable": {
@@ -2289,7 +2286,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "first_volume=$(df | grep --max-count=1 \" /Volumes/\" | awk -F '   ' '{print $NF}')\n[[ -z \"$first_volume\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\nerror=$(osascript -e \"\n  set the_volume to (\\\"$first_volume\\\" as POSIX file)\n  tell application \\\"Finder\\\" to open the_volume\n\")\n"
+              "shell_command": "first_volume=$(\n  df | \n  grep \" /Volumes/\" | \n  grep --invert-match --max-count=1 \"/Volumes/Recovery\" | \n  awk -F '   ' '{print $NF}'\n)\n[[ -z \"$first_volume\" ]] && \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"No ejectable volume found.\"\nerror=$(osascript -e \"\n  set the_volume to (\\\"$first_volume\\\" as POSIX file)\n  tell application \\\"Finder\\\" to open the_volume\n\")\n"
             }
           ],
           "conditions": [
