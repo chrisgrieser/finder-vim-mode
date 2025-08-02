@@ -1963,7 +1963,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when copying\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\nif file \"$selection\" | grep --quiet \"text\"; then\n  cat \"$selection\" | pbcopy\n  msg=\"✅ File content copied\"\nelif file \"$selection\" | grep --quiet \"empty\"; then\n  msg=\"⚠️ File is empty\"\nelse\n  msg=\"⚠️ File is not text\"\nfi\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"$msg\"\n"
+              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when copying\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\nif file \"$selection\" | grep --quiet \"binary\"; then\n  msg=\"⚠️ File is not text\"\nelif file \"$selection\" | grep --quiet \"empty\"; then\n  msg=\"⚠️ File is empty\"\nelse\n  cat \"$selection\" | pbcopy\n  msg=\"✅ File content copied\"\nfi\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"$msg\"\n"
             }
           ],
           "conditions": [
@@ -2157,7 +2157,7 @@
           },
           "to": [
             {
-              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when pasting\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\nif file \"$selection\" | grep --extended-regexp --quiet \"text|empty\"; then\n  pbpaste >> \"$selection\"\n  msg=\"✅ Text appended to file\"\nelse\n  msg=\"⚠️ File is not text\"\nfi\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"$msg\"\n"
+              "shell_command": "export LC_CTYPE=\"en_US.UTF-8\" # fixes encoding issue when pasting\nselection=$(osascript -e 'tell application \"Finder\" to return POSIX path of (selection as text)')\nif file \"$selection\" | grep --quiet \"binary\"; then\n  msg=\"⚠️ File is not text\"\nelse\n  pbpaste >> \"$selection\"\n  msg=\"✅ Text appended to file\"\nfi\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"$msg\"\n"
             }
           ],
           "conditions": [
