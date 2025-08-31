@@ -1160,7 +1160,10 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n  \tactivate\n  \tif (count windows) is 0 then return \"\"\n  \ttry\n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias))\n  \t\tclose window 1\n  \t\treturn pathToBeClosed\n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1\n  \t\treturn \"\"\n  \tend try\n  end tell\n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
+              "key_code": "w",
+              "modifiers": [
+                "command"
+              ]
             },
             {
               "set_notification_message": {
@@ -1215,75 +1218,10 @@
           },
           "to": [
             {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n  \tactivate\n  \tif (count windows) is 0 then return \"\"\n  \ttry\n  \t\tset pathToBeClosed to (POSIX path of (insertion location as alias))\n  \t\tclose window 1\n  \t\treturn pathToBeClosed\n  \ton error # special folders without insertion location, like Smart Folders\n  \t\tclose window 1\n  \t\treturn \"\"\n  \tend try\n  end tell\n')\nif [[ -n \"$current_win\" ]] ; then\n  mkdir -p \"$HOME/.cache/finder-vim-mode\"\n  echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\nfi\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
+              "key_code": "w",
+              "modifiers": [
+                "command"
               ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_MENU_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "r"
-          },
-          "to": [
-            {
-              "shell_command": "open \"$(cat \"$HOME/.cache/finder-vim-mode/last-closed-window\")\"\n"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.finder$"
-              ]
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_INSERT_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_FIND_MODE",
-              "value": true
-            },
-            {
-              "type": "variable_unless",
-              "name": "FINDER_MENU_ACTIVE",
-              "value": true
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "e"
-          },
-          "to": [
-            {
-              "shell_command": "current_win=$(osascript -e '\n  tell application \"Finder\"\n    set winPath to \"\"\n    repeat while Finder window 2 exists\n      if ((count Finder windows) is 2) then\n        set winPath to POSIX path of (target of window 2 as alias)\n      end if\n      close Finder window 2\n    end repeat\n    return winPath\n  end tell')\nmkdir -p \"$HOME/.cache/finder-vim-mode\"\n[[ -n \"$current_win\" ]] && echo \"$current_win\" >\"$HOME/.cache/finder-vim-mode/last-closed-window\"\n"
             }
           ],
           "conditions": [
@@ -1371,11 +1309,11 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "t"
+            "key_code": "r"
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n    set frontmost to true\n  \tclick menu item \"Recent Folders\" of menu \"Go\" of menu bar 1\n    key code 125 using {option down} # opt+down\n    key code 126 # up\n    key code 126 # up\n    key code 124 # right\n  end tell\n'\n"
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\" \n  \tset frontmost to true \n  \tclick menu item \"Recent Folders\" of menu \"Go\" of menu bar 1 # actually only selects `Go` \n  \tdelay 0.1 \n  \tkey code 125 # down, cycles to last item\n  \tkey code 126 # up \n  \tkey code 126 # up \n  \tkey code 126 # up \n  \tkey code 124 # right \n  end tell \n'\n"
             },
             {
               "set_variable": {
