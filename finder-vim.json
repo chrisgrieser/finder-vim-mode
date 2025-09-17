@@ -1251,6 +1251,40 @@
         {
           "type": "basic",
           "from": {
+            "key_code": "e"
+          },
+          "to": [
+            {
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    repeat while Finder window 2 exists\n      close Finder window 2\n    end repeat\n  end tell'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
             "key_code": "delete_or_backspace"
           },
           "to_if_alone": [
@@ -1313,7 +1347,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\" \n  \tset frontmost to true \n  \tclick menu item \"Recent Folders\" of menu \"Go\" of menu bar 1 # actually only selects `Go` \n  \tdelay 0.1 \n  \tkey code 125 # down, cycles to last item\n  \tkey code 126 # up \n  \tkey code 126 # up \n  \tkey code 126 # up \n  \tkey code 124 # right \n  end tell \n'\n"
+              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n  \tset frontmost to true\n  \tclick menu item \"Recent Folders\" of menu \"Go\" of menu bar 1 # actually only selects `Go`\n  \tdelay 0.1\n  \tkey code 125 # down, cycles to last item\n  \tkey code 126 # up\n  \tkey code 126 # up\n  \tkey code 126 # up\n  \tkey code 124 # right\n  end tell\n'\n"
             },
             {
               "set_variable": {
@@ -2531,7 +2565,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    -- create new file\n    activate\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    select newFile\n  end tell\n  delay 0.1 # ensure file is selected\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Rename\" of menu \"File\" of menu bar 1\n  end tell\n'\n\n# play sound at current volume\ncurrent_vol=$(osascript -e 'output volume of (get volume settings)')\n[[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\nvol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\nafplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    activate\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    delay 0.1 # wait for creation\n    select newFile\n  end tell\n  delay 0.1 # ensure file is selected\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Rename\" of menu \"File\" of menu bar 1\n  end tell\n'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
             },
             {
               "set_variable": {
@@ -2667,7 +2701,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  # play sound at current volume\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  [[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
@@ -2704,7 +2738,7 @@
           },
           "to": [
             {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n\n  # play sound at current volume\n  current_vol=$(osascript -e 'output volume of (get volume settings)')\n  [[ \"$current_vol\" == \"missing value\" ]] && current_vol=50\n  vol_percent=$(echo \"scale=2 ; $current_vol / 100\" | bc) # afplay play with 100% volume by default\n  (afplay --volume \"$vol_percent\" \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &)\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
