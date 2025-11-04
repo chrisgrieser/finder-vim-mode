@@ -487,10 +487,16 @@ rules:
         to:
           - shell_command: |
               # not using `cmd+opt+c`, since it adds quotes
-              filepath=$(osascript -e 'tell application "Finder"
-                set sel to (item 1 of (get selection) as text)
-                return POSIX path of sel
-              end tell')
+              filepath=$(osascript -e '
+                tell application "Finder" 
+                  if (count of (selection as list)) > 0 then 
+                    set thePath to (item 1 of (get selection) as text) 
+                  else 
+                    set thePath to (target of window 1 as alias) 
+                  end if 
+                end tell 
+                return POSIX path of thePath
+              ')
               export LC_CTYPE="en_US.UTF-8" ; printf "$filepath" | pbcopy
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                   --title "✅ Filepath copied" --message "$filepath"
@@ -500,11 +506,17 @@ rules:
         from: { key_code: comma, modifiers: { mandatory: [shift] } }
         to:
           - shell_command: |
-              sel=$(osascript -e 'tell application "Finder"
-                set sel to (item 1 of (get selection) as text)
-                return POSIX path of sel
-              end tell')
-              filename=$(basename "$sel")
+              filepath=$(osascript -e '
+                tell application "Finder" 
+                  if (count of (selection as list)) > 0 then 
+                    set thePath to (item 1 of (get selection) as text) 
+                  else 
+                    set thePath to (target of window 1 as alias) 
+                  end if 
+                end tell 
+                return POSIX path of thePath
+              ')
+              filename=$(basename "$filepath")
               export LC_CTYPE="en_US.UTF-8" ; printf "$filename" | pbcopy
               "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" \
                   --title "✅ Filename copied" --message "$filename"

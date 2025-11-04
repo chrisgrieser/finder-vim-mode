@@ -2027,7 +2027,7 @@
           },
           "to": [
             {
-              "shell_command": "# not using `cmd+opt+c`, since it adds quotes\nfilepath=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filepath\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filepath copied\" --message \"$filepath\"\n"
+              "shell_command": "# not using `cmd+opt+c`, since it adds quotes\nfilepath=$(osascript -e '\n  tell application \"Finder\" \n    if (count of (selection as list)) > 0 then \n      set thePath to (item 1 of (get selection) as text) \n    else \n      set thePath to (target of window 1 as alias) \n    end if \n  end tell \n  return POSIX path of thePath\n')\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filepath\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filepath copied\" --message \"$filepath\"\n"
             }
           ],
           "conditions": [
@@ -2061,7 +2061,7 @@
           },
           "to": [
             {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\"\n  set sel to (item 1 of (get selection) as text)\n  return POSIX path of sel\nend tell')\nfilename=$(basename \"$sel\")\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
+              "shell_command": "filepath=$(osascript -e '\n  tell application \"Finder\" \n    if (count of (selection as list)) > 0 then \n      set thePath to (item 1 of (get selection) as text) \n    else \n      set thePath to (target of window 1 as alias) \n    end if \n  end tell \n  return POSIX path of thePath\n')\nfilename=$(basename \"$filepath\")\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
             }
           ],
           "conditions": [
