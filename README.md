@@ -94,11 +94,11 @@ Preferred Languages`)
    the `Focusing` behavior to `Compatibility Mode` for Karabiner to detect
    Alfred being active.
    <!-- LTeX: enabled=true -->
-5. *Spotlight users:* You need to install the Spotlight add-on. The add-on has to
-   be __above__ the Finder Vim Mode in Karabiner's list of modifications.
+5. *Spotlight/Raycast users:* You need to install the Spotlight add-on. The add-on 
+   has to be __above__ the Finder Vim Mode in Karabiner's list of modifications.
 
     ```bash
-    # install Spotlight addon
+    # install Spotlight/Raycast addon
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/addons/finder-vim-spotlight-addon.json"
     ```
 
