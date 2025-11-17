@@ -94,8 +94,9 @@ Preferred Languages`)
    the `Focusing` behavior to `Compatibility Mode` for Karabiner to detect
    Alfred being active.
    <!-- LTeX: enabled=true -->
-5. *Spotlight/Raycast users:* You need to install the Spotlight add-on. The add-on 
-   has to be __above__ the Finder Vim Mode in Karabiner's list of modifications.
+5. *Spotlight/Raycast users:* You need to install the Spotlight add-on. The
+   add-on has to be __above__ the Finder Vim Mode in Karabiner's list of
+   modifications.
 
     ```bash
     # install Spotlight/Raycast addon
@@ -119,7 +120,7 @@ mechanisms, this plugin has some limitations:
   browser) are not supported.
 - Unfortunately, it is __not possible to have a `vimrc` or to let the user
   configure the keybindings__ themselves in any way, at least not with a
-  Karabiner plugin. If you want to rebind keys, you have to change the
+  Karabiner-plugin. If you want to rebind keys, you have to change the
   respective key manually in the JSON file.
 - If you have set __custom keybindings for Finder__, they can potentially
   interfere. It is therefore recommended to unset them.
@@ -129,10 +130,10 @@ mechanisms, this plugin has some limitations:
 ## Build
 Karabiner plugins are essentially hotkey configurations in form of a JSON file.
 The amount of configurations for this plugin is rather large; the
-resulting JSON file is ~8000 lines of code. To make that ankommt manageable,
+resulting JSON file is \~8000 lines of code. To make that ankommt manageable,
 this plugin is written in YAML where features such as [anchors and
 aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/)
-reduce the lines of code to ~1300.
+reduce the lines of code to \~1300.
 
 If you want to fork this plugin, it is recommended to work with the YAML file
 and "compile" it to the [JSON required by
