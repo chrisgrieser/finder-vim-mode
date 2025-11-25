@@ -23,6 +23,7 @@ ranger.
 
 - [Usage](#usage)
 - [Installation](#installation)
+- [Configuration](#configuration)
 - [Updates](#updates)
 - [Caveats](#caveats)
 - [Build](#build)
@@ -102,6 +103,36 @@ Preferred Languages`)
     # install Spotlight/Raycast addon
     open "karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/chrisgrieser/finder-vim-mode/main/addons/finder-vim-spotlight-addon.json"
     ```
+
+## Configuration
+Due to being a Karabiner modification, the configuration possibilities are
+limited, and not very user-friendly. Thus, the only configuration currently
+available is to disable the sound added to various file operations. (Regular
+Finder sounds like for trashing a file are not affected and must be disabled in
+the System Settings.)
+
+To do so, you need to set the [Karabiner environment
+variable](https://karabiner-elements.pqrs.org/docs/help/advanced-topics/set-environment-variables/)
+`FINDER_VIM_MODE_NO_SOUND=true`.
+
+```bash
+# Following the Karabiner docs for environment variables
+# https://karabiner-elements.pqrs.org/docs/help/advanced-topics/set-environment-variables/
+
+# 1. edit file, will ask for admin password.
+sudo mkdir -p "/Library/Application Support/org.pqrs/config"
+sudo nano "/Library/Application Support/org.pqrs/config/karabiner_environment"
+
+# 2. in `nano`, insert "FINDER_VIM_MODE_NO_SOUND=true"
+# 3. press `ctrl-o` and confirm with `enter` to save
+# 4. exit with `ctrl-x`
+
+# 5. restart karabiner service
+launchctl kickstart -k gui/$(id -u)/org.pqrs.service.agent.karabiner_console_user_server
+```
+
+To re-enable sound, delete the file `/Library/Application
+Support/org.pqrs/config/karabiner_environment`.
 
 ## Updates
 Unfortunately, Karabiner has no mechanism for auto-updating plugins. Therefore,

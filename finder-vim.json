@@ -170,7 +170,7 @@
           }
         },
         {
-          "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+          "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
         }
       ]
     }
@@ -2027,7 +2027,7 @@
           },
           "to": [
             {
-              "shell_command": "# not using `cmd+opt+c`, since it adds quotes\nfilepath=$(osascript -e '\n  tell application \"Finder\" \n    if (count of (selection as list)) > 0 then \n      set thePath to (item 1 of (get selection) as text) \n    else \n      set thePath to (target of window 1 as alias) \n    end if \n  end tell \n  return POSIX path of thePath\n')\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filepath\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filepath copied\" --message \"$filepath\"\n"
+              "shell_command": "# not using `cmd+opt+c`, since it adds quotes\nfilepath=$(osascript -e '\n  tell application \"Finder\"\n    if (count of (selection as list)) > 0 then\n      set thePath to (item 1 of (get selection) as text)\n    else\n      set thePath to (target of window 1 as alias)\n    end if\n  end tell\n  return POSIX path of thePath\n')\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filepath\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filepath copied\" --message \"$filepath\"\n"
             }
           ],
           "conditions": [
@@ -2061,7 +2061,7 @@
           },
           "to": [
             {
-              "shell_command": "filepath=$(osascript -e '\n  tell application \"Finder\" \n    if (count of (selection as list)) > 0 then \n      set thePath to (item 1 of (get selection) as text) \n    else \n      set thePath to (target of window 1 as alias) \n    end if \n  end tell \n  return POSIX path of thePath\n')\nfilename=$(basename \"$filepath\")\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
+              "shell_command": "filepath=$(osascript -e '\n  tell application \"Finder\"\n    if (count of (selection as list)) > 0 then\n      set thePath to (item 1 of (get selection) as text)\n    else\n      set thePath to (target of window 1 as alias)\n    end if\n  end tell\n  return POSIX path of thePath\n')\nfilename=$(basename \"$filepath\")\nexport LC_CTYPE=\"en_US.UTF-8\" ; printf \"$filename\" | pbcopy\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"✅ Filename copied\" --message \"$filename\"\n"
             }
           ],
           "conditions": [
@@ -2486,7 +2486,7 @@
               }
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf\" &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_join.caf\" &\n"
             }
           ],
           "conditions": [
@@ -2565,7 +2565,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    activate\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    delay 0.1 # wait for creation\n    select newFile\n  end tell\n  delay 0.1 # ensure file is selected\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Rename\" of menu \"File\" of menu bar 1\n  end tell\n'\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "osascript -e '\n  tell application \"Finder\"\n    activate\n    set thisFolder to the target of the Finder window 1 as alias\n    set newFile to (make new file at thisFolder)\n    delay 0.1 # wait for creation\n    select newFile\n  end tell\n  delay 0.1 # ensure file is selected\n  tell application \"System Events\" to tell process \"Finder\"\n    click menu item \"Rename\" of menu \"File\" of menu bar 1\n  end tell\n'\n[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
             },
             {
               "set_variable": {
@@ -2606,7 +2606,7 @@
           },
           "to": [
             {
-              "shell_command": "# if the selection is a symlink, \"selection as alias\" returns the\n# path of the target, while \"selection as text\" returns the path of\n# the symlink (which is desired here)\nselectedFiles=$(osascript -e '\n  set out to \"\"\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n' | sed -e 's|/$||')\nif [[ -z \"$selectedFiles\" ]] ; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ No selection.\"\n  exit 1\nfi\n\necho \"$selectedFiles\" | while read -r file; do\n  # bash expansion does not work in karabiner, thus using `rev`\n  # and `cut` instead\n  lastFourChars=$(echo \"$file\" | rev | cut -c-4 | rev)\n  if [[ \"$lastFourChars\" == \"-bkp\" ]]; then\n    newName=$(echo \"$file\" | rev | cut -c5- | rev)\n  else\n    newName=\"${file}-bkp\"\n  fi\n  mv -n \"$file\" \"$newName\"\ndone\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "# if the selection is a symlink, \"selection as alias\" returns the\n# path of the target, while \"selection as text\" returns the path of\n# the symlink (which is desired here)\nselectedFiles=$(osascript -e '\n  set out to \"\"\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n' | sed -e 's|/$||')\nif [[ -z \"$selectedFiles\" ]] ; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ No selection.\"\n  exit 1\nfi\n\necho \"$selectedFiles\" | while read -r file; do\n  # bash expansion does not work in karabiner, thus using `rev`\n  # and `cut` instead\n  lastFourChars=$(echo \"$file\" | rev | cut -c-4 | rev)\n  if [[ \"$lastFourChars\" == \"-bkp\" ]]; then\n    newName=$(echo \"$file\" | rev | cut -c5- | rev)\n  else\n    newName=\"${file}-bkp\"\n  fi\n  mv -n \"$file\" \"$newName\"\ndone\n[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
             }
           ],
           "conditions": [
@@ -2635,7 +2635,7 @@
           },
           "to": [
             {
-              "shell_command": "selectedFiles=$(osascript -e '\n  set out to \"\"\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n' | sed -e 's|/$||')\nif [[ -z \"$selectedFiles\" ]] ; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ No selection.\"\n  exit 1\nfi\necho \"$selectedFiles\" | while read -r file; do\n  ln -sf \"$file\" \"${file}-symlink\"\ndone\nfirst_symlink=\"$(echo \"$selectedFiles\" | head -n1)-symlink\"\nopen -R \"$first_symlink\"\nafplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
+              "shell_command": "selectedFiles=$(osascript -e '\n  set out to \"\"\n  tell application \"Finder\" to set selectedFiles to (every item of (get selection))\n  repeat with theFile in selectedFiles\n    set out to out & (POSIX path of (theFile as text)) & linefeed\n  end repeat\n  return out\n' | sed -e 's|/$||')\nif [[ -z \"$selectedFiles\" ]] ; then\n  \"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n    --title \"Finder Vim Mode\" --message \"⚠️ No selection.\"\n  exit 1\nfi\necho \"$selectedFiles\" | while read -r file; do\n  ln -sf \"$file\" \"${file}-symlink\"\ndone\nfirst_symlink=\"$(echo \"$selectedFiles\" | head -n1)-symlink\"\nopen -R \"$first_symlink\"\n[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/begin_record.caf\" &\n"
             }
           ],
           "conditions": [
@@ -2701,7 +2701,7 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n  [[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n    afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
@@ -2738,7 +2738,7 @@
           },
           "to": [
             {
-              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
+              "shell_command": "sel=$(osascript -e 'tell application \"Finder\" to POSIX path of (item 1 of (get selection) as text)')\nselection_count=$(osascript -e 'tell application \"Finder\" to count (selection as list)')\n\nif [[ -d \"$sel\" && $selection_count -eq 1 ]] ; then\n  cd \"$sel\"\n  foldername=$(basename \"$sel\")\n  zip --recurse-paths --symlinks \"../$foldername.zip\" .\n  open -R \"../$foldername.zip\"\n  [[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n    afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Volume Mount.aif\" &\nelse\n  osascript -e '\n    tell application \"System Events\" to tell process \"Finder\"\n      click menu item \"Compress\" of menu \"File\" of menu bar 1\n    end tell'\nfi\n"
             }
           ],
           "conditions": [
@@ -2782,7 +2782,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_leave.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/facetime/multiway_leave.caf' &\n"
             }
           ],
           "conditions": [
@@ -2814,7 +2814,7 @@
               "key_code": "right_arrow"
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &\n"
             }
           ],
           "conditions": [
@@ -2854,7 +2854,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_unmute.caf\" &\n"
             }
           ],
           "conditions": [
@@ -2886,7 +2886,7 @@
               "key_code": "left_arrow"
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &\n"
             }
           ],
           "conditions": [
@@ -2926,7 +2926,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/mic_mute.caf\" &\n"
             }
           ],
           "conditions": [
@@ -4973,7 +4973,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"⬇️ Sort by name\"\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"⬇️ Sort by name\"\n"
             }
           ],
           "conditions": [
@@ -5016,7 +5016,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"⬅️ Sort by modification date\"\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"⬅️ Sort by modification date\"\n"
             }
           ],
           "conditions": [
@@ -5059,7 +5059,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"⬆️ Sort by size\"\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"⬆️ Sort by size\"\n"
             }
           ],
           "conditions": [
@@ -5102,7 +5102,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"➡️ Sort by kind\"\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"➡️ Sort by kind\"\n"
             }
           ],
           "conditions": [
@@ -5145,7 +5145,7 @@
               ]
             },
             {
-              "shell_command": "afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"🔚 Sort by tags\"\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/end_record.caf\" &\n\"$HOME/.config/karabiner/assets/finder-vim-mode/notificator\" \\\n  --title \"Finder Vim Mode\" --message \"🔚 Sort by tags\"\n"
             }
           ],
           "conditions": [
@@ -5180,7 +5180,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5215,7 +5215,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5250,7 +5250,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5285,7 +5285,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5320,7 +5320,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5355,7 +5355,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5390,7 +5390,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5425,7 +5425,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5460,7 +5460,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
@@ -5495,7 +5495,7 @@
               ]
             },
             {
-              "shell_command": "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
+              "shell_command": "[[ -z \"$FINDER_VIM_MODE_NO_SOUND\" ]] && \n  afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/acknowledgment_sent.caf' &\n"
             }
           ],
           "conditions": [
