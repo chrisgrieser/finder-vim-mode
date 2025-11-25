@@ -161,13 +161,13 @@ mechanisms, this plugin has some limitations:
 ## Build
 Karabiner plugins are essentially hotkey configurations in form of a JSON file.
 The amount of configurations for this plugin is rather large; the
-resulting JSON file is \~8000 lines of code. To make that ankommt manageable,
+resulting JSON file is \~8000 lines of code. To make that amount manageable,
 this plugin is written in YAML where features such as [anchors and
 aliases](https://www.linode.com/docs/guides/yaml-anchors-aliases-overrides-extensions/)
 reduce the lines of code to \~1300.
 
-If you want to fork this plugin, it is recommended to work with the YAML file
-and "compile" it to the [JSON required by
+If you want to fork/customize this plugin, it is recommended to work with the
+YAML file and "compile" it to the [JSON required by
 Karabiner](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/).
 You can do so with [yq](https://github.com/mikefarah/yq):
 
