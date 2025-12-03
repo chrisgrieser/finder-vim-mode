@@ -592,7 +592,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\""
+              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\" open -a \"qlmanage\""
             }
           ],
           "conditions": [
@@ -634,7 +634,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\""
+              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\" open -a \"qlmanage\""
             }
           ],
           "conditions": [
@@ -1367,19 +1367,11 @@
           },
           "to_if_alone": [
             {
-              "shell_command": "osascript -e '\n  tell application \"System Events\" to tell process \"Finder\"\n  \tset frontmost to true\n  \tclick menu item \"Recent Folders\" of menu \"Go\" of menu bar 1 # actually only selects `Go`\n  \tdelay 0.1\n  \tkey code 125 # down, cycles to last item\n  \tkey code 126 # up\n  \tkey code 126 # up\n  \tkey code 126 # up\n  \tkey code 124 # right\n  end tell\n'\n"
-            },
-            {
-              "set_variable": {
-                "name": "FINDER_MENU_ACTIVE",
-                "value": true
-              }
-            },
-            {
-              "set_notification_message": {
-                "id": "menu-notice",
-                "text": "Finder Vim Mode\n\n➡️ Menu Mode"
-              }
+              "key_code": "f",
+              "modifiers": [
+                "command",
+                "shift"
+              ]
             }
           ],
           "conditions": [

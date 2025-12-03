@@ -1,5 +1,6 @@
 # vim: foldlevel=5
 # yaml-language-server: $schema=./schema/karabiner-mod-schema.json
+#───────────────────────────────────────────────────────────────────────────────
 title: "Finder Vim Controls"
 homepage: https://github.com/chrisgrieser/finder-vim-mode
 maintainers: [pseudometa (chrisgrieser)]
@@ -134,6 +135,7 @@ rules:
         to:
           - shell_command:
               qlmanage -p "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+              open -a "qlmanage" # to focus it
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *is-German-keyboard]
       # "?" on American keyboard
       - type: basic
@@ -141,6 +143,7 @@ rules:
         to:
           - shell_command:
               qlmanage -p "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png"
+              open -a "qlmanage" # to focus it
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       #─────────────────────────────────────────────────────────────────────────
       # INSERT MODE
@@ -298,25 +301,12 @@ rules:
           - *leave-find-mode
           - *remove-find-notice
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
-      # r = recent folders
+      #─────────────────────────────────────────────────────────────────────────
+      # r = recent
       - type: basic
         from: { key_code: r }
         to_if_alone:
-          - shell_command: |
-              osascript -e '
-                tell application "System Events" to tell process "Finder"
-                	set frontmost to true
-                	click menu item "Recent Folders" of menu "Go" of menu bar 1 # actually only selects `Go`
-                	delay 0.1
-                	key code 125 # down, cycles to last item
-                	key code 126 # up
-                	key code 126 # up
-                	key code 126 # up
-                	key code 124 # right
-                end tell
-              '
-          - *start-menu
-          - *menu-notice
+          - { key_code: f, modifiers: [command, shift] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       #─────────────────────────────────────────────────────────────────────────
       # Selections
@@ -449,7 +439,7 @@ rules:
           - *no-menu-open
           - *is-German-keyboard
       - type: basic
-        from: { key_code: "y" }
+        from: { key_code: y }
         to:
           - { key_code: c, modifiers: [command] }
           - shell_command: |
@@ -1084,7 +1074,7 @@ rules:
           - *remove-move-notice
       # y / cmd+c = yank, which also aborts move
       - type: basic
-        from: { key_code: "y" }
+        from: { key_code: y }
         to:
           - { key_code: c, modifiers: [command] }
           - *end-move
