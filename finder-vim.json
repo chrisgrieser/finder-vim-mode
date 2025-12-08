@@ -592,7 +592,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\" open -a \"qlmanage\""
+              "shell_command": "open \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\""
             }
           ],
           "conditions": [
@@ -634,7 +634,7 @@
           },
           "to": [
             {
-              "shell_command": "qlmanage -p \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\" open -a \"qlmanage\""
+              "shell_command": "open \"$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png\""
             }
           ],
           "conditions": [
