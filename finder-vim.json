@@ -1367,6 +1367,57 @@
           },
           "to_if_alone": [
             {
+              "set_variable": {
+                "name": "FINDER_MENU_ACTIVE",
+                "value": true
+              }
+            },
+            {
+              "set_notification_message": {
+                "id": "menu-notice",
+                "text": "Finder Vim Mode\n\n➡️ Menu Mode"
+              }
+            },
+            {
+              "shell_command": "osascript -e '\n  tell application \"System Events\"\n    tell process \"Dock\" to perform action \"AXShowMenu\" of UI element \"Finder\" of list 1\n    delay 0.1\n    # key code 125 = arrow down\n    key code 125 using {option down} # down the list\n    key code 126 using {command down} # up one section\n  end tell'\n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_INSERT_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_FIND_MODE",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "FINDER_MENU_ACTIVE",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
               "key_code": "f",
               "modifiers": [
                 "command",

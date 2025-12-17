@@ -143,8 +143,7 @@ rules:
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *not-German-keyboard]
       #─────────────────────────────────────────────────────────────────────────
       # INSERT MODE
-      # ENTER
-      # Rename
+      # Enter: Rename
       - type: basic
         from: { key_code: return_or_enter }
         to:
@@ -181,7 +180,7 @@ rules:
           - *enter-insert-mode
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       # LEAVE INSERT MODE
-      # Confirm Insert Mode
+      # Enter: Confirm Insert Mode
       - type: basic
         from: { key_code: return_or_enter }
         to:
@@ -200,7 +199,6 @@ rules:
           - *leave-insert-mode
           - *remove-menu-notice
           - *end-menu
-
       #─────────────────────────────────────────────────────────────────────────
       #─────────────────────────────────────────────────────────────────────────
       # ABORT VARIOUS MODES
@@ -298,9 +296,27 @@ rules:
           - *remove-find-notice
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
       #─────────────────────────────────────────────────────────────────────────
-      # r = recent
+      # r = recent folders
+      # HACK right-click dock icon. hacky, but the only good way to do it 
+      # (and less buggy than navigating to the recent folders in the menubar) 
       - type: basic
         from: { key_code: r }
+        to_if_alone:
+          - *start-menu
+          - *menu-notice
+          - shell_command: |
+              osascript -e '
+                tell application "System Events"
+                  tell process "Dock" to perform action "AXShowMenu" of UI element "Finder" of list 1
+                  delay 0.1
+                  # key code 125 = arrow down
+                  key code 125 using {option down} # down the list
+                  key code 126 using {command down} # up one section
+                end tell'
+        conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
+      # R = recent files
+      - type: basic
+        from: { key_code: r, modifiers: { mandatory: [shift] } }
         to_if_alone:
           - { key_code: f, modifiers: [command, shift] }
         conditions: [*finder-app, *not-insert-mode, *not-find-mode, *no-menu-open]
