@@ -1,14 +1,20 @@
 set quiet := true
 
+local_file_name := "3 finder-vim-mode.yaml"
+
+#-------------------------------------------------------------------------------
+
 update: transfer build
 
 # transfer stuff from local device
 transfer:
-    local_mode_name="4 finder-vim-mode.yaml" ; \
-    cp -v "$HOME/.config/karabiner/assets/complex_modifications/$local_mode_name" ./finder-vim.yaml
-    cp -v "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.json" ./extras
-    cp -v "$HOME/.config/karabiner/assets/finder-vim-mode/cheatsheet.png" ./extras
-    cp -v "$HOME/.config/karabiner/assets/finder-vim-mode/notificator" ./extras
+    #!/usr/bin/env zsh
+    set -e # exit if any of those files do not exist
+    asset_folder="$HOME/.config/karabiner/assets"
+    cp "$asset_folder/complex_modifications/{{ local_file_name }}" ./finder-vim.yaml
+    cp "$asset_folder/finder-vim-mode/cheatsheet.json" ./extras
+    cp "$asset_folder/finder-vim-mode/cheatsheet.png" ./extras
+    cp "$asset_folder/finder-vim-mode/notificator" ./extras
 
 # Build Karabiner modification, requires `yq`
 build:
