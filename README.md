@@ -1,4 +1,4 @@
-# Vim Mode for Finder
+# Vim mode for finder
 Feature-rich control of macOS Finder without the mouse, inspired by vim and
 ranger.
 
