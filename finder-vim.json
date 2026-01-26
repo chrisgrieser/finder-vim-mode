@@ -122,9 +122,15 @@
           }
         },
         {
-          "set_notification_message": {
-            "id": "move-notice",
-            "text": ""
+          "set_variable": {
+            "name": "FINDER_MOVE_ACTIVE",
+            "value": true
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_MOVE_ACTIVE",
+            "value": false
           }
         },
         {
@@ -134,39 +140,33 @@
           }
         },
         {
-          "set_variable": {
-            "name": "FINDER_MOVE_ACTIVE",
-            "value": true
-          }
-        },
-        {
-          "set_variable": {
-            "name": "FINDER_MOVE_ACTIVE",
-            "value": false
-          }
-        },
-        {
-          "set_variable": {
-            "name": "FINDER_MENU_ACTIVE",
-            "value": true
-          }
-        },
-        {
-          "set_variable": {
-            "name": "FINDER_MENU_ACTIVE",
-            "value": false
-          }
-        },
-        {
           "set_notification_message": {
-            "id": "menu-notice",
+            "id": "move-notice",
             "text": ""
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_MENU_ACTIVE",
+            "value": true
+          }
+        },
+        {
+          "set_variable": {
+            "name": "FINDER_MENU_ACTIVE",
+            "value": false
           }
         },
         {
           "set_notification_message": {
             "id": "menu-notice",
             "text": "Finder Vim Mode\n\n➡️ Menu Mode"
+          }
+        },
+        {
+          "set_notification_message": {
+            "id": "menu-notice",
+            "text": ""
           }
         },
         {
@@ -947,6 +947,14 @@
                 "name": "FINDER_MENU_ACTIVE",
                 "value": false
               }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.finder$"
+              ]
             }
           ]
         },
