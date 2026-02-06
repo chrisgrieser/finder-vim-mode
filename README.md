@@ -177,7 +177,7 @@ yq --output-format=json 'explode(.)' finder-vim.yaml > finder-vim.json
 ```
 
 ## Credits
-- The cheatsheet has been created with <http://www.keyboard-layout-editor.com/>.
+- The cheat sheet has been created with <http://www.keyboard-layout-editor.com/>.
 - The notification script is a modified version of the [Notificator by Vítor
   Galvão](https://github.com/vitorgalvao/notificator).
 

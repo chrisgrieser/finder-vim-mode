@@ -1,3 +1,4 @@
 Karabiner
 Karabiner's
+Raycast
 keybindings
