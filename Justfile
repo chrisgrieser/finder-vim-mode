@@ -14,7 +14,6 @@ transfer:
     cp -v "$asset_folder/complex_modifications/{{ local_file_name }}" ./finder-vim.yaml
     cp -v "$asset_folder/finder-vim-mode/cheatsheet.json" ./extras
     cp -v "$asset_folder/finder-vim-mode/cheatsheet.png" ./extras
-    cp -v "$asset_folder/finder-vim-mode/notificator" ./extras
 
 # Build Karabiner modification, requires `yq`
 build:
